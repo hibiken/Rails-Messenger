@@ -16,6 +16,7 @@ gem 'webpacker'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'devise', '~> 4.3'
+gem 'omniauth-facebook', '~> 4.0'
 
 gem 'turbolinks', '~> 5'
 # gem 'jbuilder', '~> 2.5'
@@ -29,6 +30,7 @@ gem 'turbolinks', '~> 5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails', '~> 0.3.6'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
