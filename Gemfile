@@ -18,6 +18,8 @@ gem 'webpacker'
 gem 'devise', '~> 4.3'
 gem 'omniauth-facebook', '~> 4.0'
 
+gem 'active_model_serializers', '~> 0.10.6'
+
 gem 'turbolinks', '~> 5'
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
