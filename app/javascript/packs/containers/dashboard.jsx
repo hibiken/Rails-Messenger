@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MainSidebar from './dashboard/main_sidebar';
+import MainSidebar from '../components/main_sidebar';
 
 class Dashboard extends Component {
   render() {
@@ -14,9 +13,4 @@ class Dashboard extends Component {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Dashboard name="Ken" />,
-    document.body.appendChild(document.createElement('div')),
-  );
-});
+export default Dashboard;

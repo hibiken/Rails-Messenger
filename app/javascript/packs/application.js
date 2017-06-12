@@ -6,5 +6,17 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import React from 'react';
+import ReactDOM from 'react-dom';
+import configureStore from './store/configure-store';
+import Root from './containers/root';
 
-console.log('Hello World from Webpacker')
+const store = configureStore();
+
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <Root store={store} />,
+    document.getElementById('app'),
+  );
+});
+
