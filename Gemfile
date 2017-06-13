@@ -17,6 +17,7 @@ gem 'webpacker'
 
 gem 'devise', '~> 4.3'
 gem 'omniauth-facebook', '~> 4.0'
+gem 'jwt', '~> 1.5'
 
 gem 'active_model_serializers', '~> 0.10.6'
 
