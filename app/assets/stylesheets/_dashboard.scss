@@ -1,0 +1,65 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/** Layout **/
+.dashboard__root {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.main-sidebar__root {
+  width: 25%;
+  background-color: white;
+}
+
+.message-detail-view__root {
+  width: 75%;
+  background-color: lightblue;
+}
+
+/** MainSidebar **/
+.main-sidebar__header {
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-threadlist__rows-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-threadlist-row__root {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+.message-threadlist-row__avatar-container {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.message-threadlist-row__avatar-image {
+  display: block;
+  border-radius: 50%;
+}
+
+.message-threadlist-row__username {
+  color: rgba(0, 0, 0, 1);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.message-threadlist-row__message {
+  color: rgba(153, 153, 153, 1);
+  font-size: 13px;
+  font-weight: 400;
+}

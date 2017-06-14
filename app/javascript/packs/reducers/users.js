@@ -48,4 +48,12 @@ export default combineReducers({
   allIds,
   byId,
   isFetching,
-})
+});
+
+/*** Selectors ***/
+
+export const getAllUsers = (state) => {
+  const { allIds, byId } = state;
+  return allIds.map(id => ({ ...byId[id], id }));
+};
+

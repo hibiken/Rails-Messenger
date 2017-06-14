@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainSidebar from '../components/main_sidebar';
 import { fetchUsers } from '../actions/users';
+import * as Selectors from '../reducers';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -13,11 +14,20 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard__root">
-        Messenger Dashboard!
-        <MainSidebar />
+        <MainSidebar users={this.props.users} />
+        <div className="message-detail-view__root">
+        </div>
       </div>
     );
   }
 }
 
-export default connect(null, { fetchUsers })(Dashboard);
+Dashboard.propTypes = {
+  users: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  users: Selectors.getAllUsers(state),
+});
+
+export default connect(mapStateToProps, { fetchUsers })(Dashboard);
