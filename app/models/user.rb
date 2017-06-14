@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :message_threads_users, dependent: :destroy
+  has_many :message_threads, through: :message_threads_users
+  has_many :messages, dependent: :destroy
+
   def self.find_or_create_from_facebook(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_create
     user.update(

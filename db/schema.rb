@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611181656) do
+ActiveRecord::Schema.define(version: 20170614052311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "message_threads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "message_threads_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "message_thread_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_thread_id"], name: "index_message_threads_users_on_message_thread_id"
+    t.index ["user_id"], name: "index_message_threads_users_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "message_thread_id"
+    t.bigint "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_thread_id"], name: "index_messages_on_message_thread_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,4 +60,8 @@ ActiveRecord::Schema.define(version: 20170611181656) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "message_threads_users", "message_threads"
+  add_foreign_key "message_threads_users", "users"
+  add_foreign_key "messages", "message_threads"
+  add_foreign_key "messages", "users"
 end
