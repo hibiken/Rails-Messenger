@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainSidebar from '../components/main_sidebar';
+import MessageDetailView from '../components/message_detail_view';
 import { fetchUsers } from '../actions/users';
 import * as Selectors from '../reducers';
 
@@ -15,8 +16,7 @@ class Dashboard extends Component {
     return (
       <div className="dashboard__root">
         <MainSidebar users={this.props.users} />
-        <div className="message-detail-view__root">
-        </div>
+        <MessageDetailView />
       </div>
     );
   }
