@@ -2,11 +2,20 @@ class MessageThreadsController < ApplicationController
   before_action :authenticate_user_from_token!
 
   def create
-    user_ids = params[:user_ids] << current_user.id
     if message_thread = MessageThreads::FindOrCreate.call(user_ids)
       render json: message_thread, status: :ok
     else
       # TODO: Render error json
     end
+  end
+
+  private
+
+  def message_thread_params
+    params.require(:message_threads).permit(user_ids: [])
+  end
+
+  def user_ids
+    message_thread_params[:user_ids] << current_user.id.to_s
   end
 end
