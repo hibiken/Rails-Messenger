@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
   render() {
     return (
       <div className="message-detail-view__root">
-        <header className="message-detail-view__header">
-          <label>To:</label>
-          <input type="text" />
-        </header>
+        <SearchHeader />
         <h1>Hi</h1>
       </div>
     );
