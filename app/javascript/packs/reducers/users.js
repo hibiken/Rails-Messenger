@@ -9,6 +9,10 @@ const initialState = {
 
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
+    case types.FETCH_MESSAGE_THREADS_RESULT:
+      const users = action.payload.included.filter(data => data.type === 'users');
+      return users.map(u => u.id);
+
     case types.FETCH_USERS_RESULT:
       return action.payload.data.map(u => u.id);
 
@@ -19,6 +23,13 @@ const allIds = (state = initialState.allIds, action) => {
 
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
+    case types.FETCH_MESSAGE_THREADS_RESULT:
+      const users = action.payload.included.filter(data => data.type === 'users');
+      return users.reduce((nextState, u) => {
+        nextState[u.id] = u.attributes;
+        return nextState;
+      }, { ...state });
+
     case types.FETCH_USERS_RESULT:
       return action.payload.data.reduce((nextState, u) => {
         console.log('u', u);
