@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const MessageThreadlistRow = (props) => (
-  <li className="message-threadlist-row__root">
+  <li className="message-threadlist-row__root" onClick={props.onClick}>
     <div className="message-threadlist-row__avatar-container">
       <img src={props.avatarUrl} className="message-threadlist-row__avatar-image" width="50" />
     </div>
@@ -20,6 +20,7 @@ const MessageThreadlistRow = (props) => (
 MessageThreadlistRow.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default MessageThreadlistRow;

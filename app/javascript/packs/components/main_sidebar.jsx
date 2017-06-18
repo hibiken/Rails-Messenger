@@ -27,6 +27,7 @@ class MainSidebar extends Component {
                 key={user.id}
                 username={user.username}
                 avatarUrl={user.avatarUrl}
+                onClick={() => this.props.fetchOrCreateMessageThreadByUserIds([user.id])}
               />
             ))}
           </ul>

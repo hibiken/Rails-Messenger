@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import users, * as fromUsers from './users';
+import messageThreads from './message_threads';
 
 export default combineReducers({
   users,
+  messageThreads,
 });
 
 /*** Selectors ***/
