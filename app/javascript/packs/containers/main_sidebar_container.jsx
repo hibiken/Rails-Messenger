@@ -19,7 +19,6 @@ class MainSidebarContainer extends Component {
   render() {
     return (
       <MainSidebar
-        users={this.props.users}
         messageThreads={this.props.messageThreads}
         fetchOrCreateMessageThreadByUserIds={this.props.fetchOrCreateMessageThreadByUserIds}
       />

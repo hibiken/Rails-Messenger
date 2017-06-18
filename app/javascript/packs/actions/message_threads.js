@@ -6,12 +6,24 @@ export const fetchMessageThreads = () => (dispatch) => {
 
   return axios.get('/message_threads')
     .then(({ data }) => {
-      console.log('data', data);
       dispatch({
         type: types.FETCH_MESSAGE_THREADS_RESULT,
         payload: data,
       });
     })
+};
+
+export const fetchMessageThread = (id) => (dispatch) => {
+  dispatch({ type: types.FETCH_MESSAGE_THREAD_START });
+
+  return axios.get(`/message_threads/${id}`)
+    .then(({ data }) => {
+      console.log('success', data);
+      dispatch({
+        type: types.FETCH_MESSAGE_THREAD_RESULT,
+        payload: data,
+      });
+    });
 };
 
 export const fetchOrCreateMessageThreadByUserIds = (userIds) => (dispatch) => {
@@ -32,3 +44,8 @@ export const fetchOrCreateMessageThreadByUserIds = (userIds) => (dispatch) => {
     });
   });
 };
+
+export const setActiveThread = (id) => ({
+  type: types.SET_ACTIVE_MESSAGE_THREAD,
+  id,
+});

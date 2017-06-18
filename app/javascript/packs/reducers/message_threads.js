@@ -5,6 +5,7 @@ const initialState = {
   allIds: [],
   byId: {},
   usersById: {},
+  activeThreadId: null,
   isFetching: false,
 };
 
@@ -14,7 +15,9 @@ const allIds = (state= initialState.allIds, action) => {
       return action.payload.data.map(m => m.id);
 
     case types.FETCH_MESSAGE_THREAD_RESULT:
-      return [...state, action.payload.data.id];
+      return state.indexOf(action.payload.data.id) === -1 ?
+        [...state, action.payload.data.id] :
+        state;
 
     default:
       return state;
@@ -53,6 +56,15 @@ const usersById = (state = initialState.usersById, action) => {
   }
 };
 
+const activeThreadId = (state = initialState.activeThreadId, action) => {
+  switch (action.type) {
+    case types.SET_ACTIVE_MESSAGE_THREAD:
+      return action.id;
+    default:
+      return state;
+  }
+};
+
 const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_START:
@@ -72,14 +84,22 @@ export default combineReducers({
   allIds,
   byId,
   usersById,
+  activeThreadId,
   isFetching,
 });
 
 /*** Selectors ***/
 export const getAllMessageThreads = (state) => {
-  const { allIds, byId, usersById } = state;
+  const { allIds, byId } = state;
   return allIds.map(id => ({
     ...byId[id],
     id
   }));
 };
+
+export const getActiveMessageThread = (state) => {
+  const { activeThreadId, byId } = state;
+  return { ...byId[activeThreadId], id: activeThreadId };
+};
+
+export const getActiveThreadId = (state) => state.activeThreadId;

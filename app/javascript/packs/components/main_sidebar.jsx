@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SignoutLink from './signout_link';
-import MessageThreadlistRow from './message_threadlist_row';
+import MessageThreadlistRowContainer from '../containers/message_threadlist_row_container';
 
 class MainSidebar extends Component {
   render() {
@@ -23,11 +23,11 @@ class MainSidebar extends Component {
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
             {messageThreads.map(messageThread => (
-              <MessageThreadlistRow
+              <MessageThreadlistRowContainer
                 key={messageThread.id}
+                messageThreadId={messageThread.id}
                 usernames={messageThread.receivers.map(r => r.username)}
                 avatarUrl={messageThread.receivers[0].avatarUrl}
-                onClick={() => this.props.fetchOrCreateMessageThreadByUserIds([user.id])}
               />
             ))}
           </ul>
