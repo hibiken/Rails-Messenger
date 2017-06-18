@@ -74,3 +74,12 @@ export default combineReducers({
   usersById,
   isFetching,
 });
+
+/*** Selectors ***/
+export const getAllMessageThreads = (state) => {
+  const { allIds, byId, usersById } = state;
+  return allIds.map(id => ({
+    ...byId[id],
+    id
+  }));
+};

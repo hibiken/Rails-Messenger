@@ -8,7 +8,7 @@ const MessageThreadlistRow = (props) => (
     </div>
     <div>
       <div>
-        <span className="message-threadlist-row__username">{props.username}</span>
+        <span className="message-threadlist-row__username">{props.usernames.join(', ')}</span>
       </div>
       <div>
         <span className="message-threadlist-row__message">You are now connected on Messenger</span>
@@ -19,7 +19,7 @@ const MessageThreadlistRow = (props) => (
 
 MessageThreadlistRow.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  usernames: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

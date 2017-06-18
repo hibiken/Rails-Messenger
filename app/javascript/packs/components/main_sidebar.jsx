@@ -5,12 +5,12 @@ import MessageThreadlistRow from './message_threadlist_row';
 
 class MainSidebar extends Component {
   render() {
-    const { users } = this.props;
+    const { messageThreads } = this.props;
 
     return (
       <div className="main-sidebar__root">
         <header className="main-sidebar__header">
-          <button onClick={this.handleSignOutClick}>
+          <button>
             <SignoutLink />
           </button>
           <div>
@@ -22,11 +22,11 @@ class MainSidebar extends Component {
         </header>
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
-            {users.map(user => (
+            {messageThreads.map(messageThread => (
               <MessageThreadlistRow
-                key={user.id}
-                username={user.username}
-                avatarUrl={user.avatarUrl}
+                key={messageThread.id}
+                usernames={messageThread.receivers.map(r => r.username)}
+                avatarUrl={messageThread.receivers[0].avatarUrl}
                 onClick={() => this.props.fetchOrCreateMessageThreadByUserIds([user.id])}
               />
             ))}
@@ -38,7 +38,7 @@ class MainSidebar extends Component {
 }
 
 MainSidebar.propTypes = {
-  users: PropTypes.array.isRequired,
+  messageThreads: PropTypes.array.isRequired,
 };
 
 export default MainSidebar;
