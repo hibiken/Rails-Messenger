@@ -23,8 +23,6 @@ class MessageDetailView extends Component {
 
 
   render() {
-    console.log('messageBody', this.state.messageBody);
-
     return (
       <div className="message-detail-view__root">
         <header className="message-detail-view__header">

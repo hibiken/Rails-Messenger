@@ -6,8 +6,20 @@ class MessagesController < ApiController
     message.message_thread_id = @message_thread.id
 
     if message.save
-      # TODO:  use websocket to broadcast
-      render json: message, status: :ok
+      # render json: message, status: :ok
+      @message_thread.u_ids.each do |id|
+        ActionCable.server.broadcast(
+          "message_threads_#{id}",
+          message_thread_id: @message_thread.id,
+          message: {
+            id: message.id.to_s,
+            body: message.body,
+            createdAt: message.created_at,
+            userId: message.user_id.to_s
+          }
+        )
+      end
+      head :no_content
     else
       # Handle error case
     end

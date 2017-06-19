@@ -17,6 +17,12 @@ const allIds = (state = initialState.allIds, action) => {
         return nextState;
       }, [...state]);
 
+    case types.RECEIVED_MESSAGE:
+      if (state.indexOf(action.payload.id) === -1) {
+        return [...state, action.payload.id];
+      }
+      return state;
+
     default:
       return state;
   }
@@ -30,6 +36,14 @@ const byId = (state = initialState.byId, action) => {
         nextState[m.id] = m.attributes;
         return nextState;
       }, { ...state });
+
+    case types.RECEIVED_MESSAGE:
+      const { id, ...attributes } = action.payload;
+      return {
+        ...state,
+        [id]: attributes
+      };
+
     default:
       return state;
   }

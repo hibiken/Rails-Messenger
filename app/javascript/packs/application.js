@@ -10,8 +10,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/configure-store';
 import Root from './containers/root';
+import configureChannels from './channels/configure_channels';
 
 const store = configureStore();
+
+/** Set up Action Cable channel subscriptions */
+configureChannels(store.dispatch);
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

@@ -65,6 +65,19 @@ const messagesById = (state = initialState.messagesById, action) => {
         [action.payload.data.id]: action.payload.data.relationships.messages.data.map(m => m.id),
       };
 
+    case types.RECEIVED_MESSAGE:
+      if (state[action.messageThreadId]) {
+        return {
+          ...state,
+          [action.messageThreadId]: [ ...state[action.messageThreadId], action.payload.id ],
+        };
+      } else {
+        return {
+          ...state,
+          [action.messageThreadId]: [action.payload.id ],
+        };
+      }
+
     default:
       return state;
   }
@@ -113,8 +126,13 @@ export const getAllMessageThreads = (state) => {
 };
 
 export const getActiveMessageThread = (state) => {
-  const { activeThreadId, byId } = state;
-  return activeThreadId === null ? false : { ...byId[activeThreadId], id: activeThreadId };
+  const { activeThreadId, byId, messagesById } = state;
+  return activeThreadId === null ?
+    false : {
+      ...byId[activeThreadId],
+      id: activeThreadId,
+      messageIds: (messagesById[activeThreadId] || []),
+    };
 };
 
 export const getActiveThreadId = (state) => state.activeThreadId;
