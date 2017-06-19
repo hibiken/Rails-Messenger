@@ -18,8 +18,8 @@ const allIds = (state = initialState.allIds, action) => {
       }, [...state]);
 
     case types.RECEIVED_MESSAGE:
-      if (state.indexOf(action.payload.id) === -1) {
-        return [...state, action.payload.id];
+      if (state.indexOf(action.payload.data.id) === -1) {
+        return [...state, action.payload.data.id];
       }
       return state;
 
@@ -38,7 +38,7 @@ const byId = (state = initialState.byId, action) => {
       }, { ...state });
 
     case types.RECEIVED_MESSAGE:
-      const { id, ...attributes } = action.payload;
+      const { id, attributes } = action.payload.data;
       return {
         ...state,
         [id]: attributes

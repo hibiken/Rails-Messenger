@@ -11,8 +11,7 @@ const configureChannel = (dispatch) => {
         console.log('Action Cable message received!', data);
         dispatch({
           type: types.RECEIVED_MESSAGE,
-          payload: data.message,
-          messageThreadId: data.message_thread_id,
+          payload: data,
         });
       },
     }

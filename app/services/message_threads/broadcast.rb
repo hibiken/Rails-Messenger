@@ -18,14 +18,12 @@ module MessageThreads
     def broadcast_to(user_id)
       ActionCable.server.broadcast(
         "message_threads_#{user_id}",
-        message_thread_id: message_thread.id,
-        message: {
-          id: message.id.to_s,
-          body: message.body,
-          createdAt: message.created_at,
-          userId: message.user_id.to_s
-        }
+        serializable_message
       )
+    end
+
+    def serializable_message
+      ActiveModelSerializers::SerializableResource.new(message)
     end
   end
 end

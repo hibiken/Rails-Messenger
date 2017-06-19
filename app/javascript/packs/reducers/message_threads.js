@@ -66,15 +66,16 @@ const messagesById = (state = initialState.messagesById, action) => {
       };
 
     case types.RECEIVED_MESSAGE:
-      if (state[action.messageThreadId]) {
+      const messageThreadId = action.payload.data.relationships.messageThread.data.id;
+      if (state[messageThreadId]) {
         return {
           ...state,
-          [action.messageThreadId]: [ ...state[action.messageThreadId], action.payload.id ],
+          [messageThreadId]: [ ...state[messageThreadId], action.payload.data.id ],
         };
       } else {
         return {
           ...state,
-          [action.messageThreadId]: [action.payload.id ],
+          [messageThreadId]: [action.payload.data.id ],
         };
       }
 
