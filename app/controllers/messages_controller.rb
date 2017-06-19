@@ -6,19 +6,7 @@ class MessagesController < ApiController
     message.message_thread_id = @message_thread.id
 
     if message.save
-      # render json: message, status: :ok
-      @message_thread.u_ids.each do |id|
-        ActionCable.server.broadcast(
-          "message_threads_#{id}",
-          message_thread_id: @message_thread.id,
-          message: {
-            id: message.id.to_s,
-            body: message.body,
-            createdAt: message.created_at,
-            userId: message.user_id.to_s
-          }
-        )
-      end
+      MessageThreads::Broadcast.new(@message_thread, message).call
       head :no_content
     else
       # Handle error case
