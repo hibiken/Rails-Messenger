@@ -14,9 +14,11 @@
     <div id="app"></div>
     <%= yield %>
 
-    <div class="flash-message">
-     <p class="notice"><%= notice %></p>
-     <p class="alert"><%= alert %></p>
-    </div>
+    <% if notice || alert %>
+      <div class="flash-message">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
   </body>
 </html>

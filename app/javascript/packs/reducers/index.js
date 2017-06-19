@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import users, * as fromUsers from './users';
 import messageThreads, * as fromMessageThreads from './message_threads';
+import messages, * as fromMessages from './messages';
 
 export default combineReducers({
   users,
   messageThreads,
+  messages,
 });
 
 /*** Selectors ***/
@@ -30,7 +32,7 @@ export const getActiveMessageThread = (state) => {
 
   return {
     ...activeThread,
-    messages: [],
+    messages: fromMessages.getMessagesByIds(state.messages, activeThread.messageIds),
     receivers: fromUsers.getUsersByIds(state.users, activeThread.receiverIds),
   };
 };

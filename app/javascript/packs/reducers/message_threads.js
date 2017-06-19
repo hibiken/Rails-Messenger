@@ -5,6 +5,7 @@ const initialState = {
   allIds: [],
   byId: {},
   usersById: {},
+  messagesById: {},
   activeThreadId: null,
   isFetching: false,
 };
@@ -56,6 +57,19 @@ const usersById = (state = initialState.usersById, action) => {
   }
 };
 
+const messagesById = (state = initialState.messagesById, action) => {
+  switch (action.type) {
+    case types.FETCH_MESSAGE_THREAD_RESULT:
+      return {
+        ...state,
+        [action.payload.data.id]: action.payload.data.relationships.messages.data.map(m => m.id),
+      };
+
+    default:
+      return state;
+  }
+};
+
 const activeThreadId = (state = initialState.activeThreadId, action) => {
   switch (action.type) {
     case types.SET_ACTIVE_MESSAGE_THREAD:
@@ -84,6 +98,7 @@ export default combineReducers({
   allIds,
   byId,
   usersById,
+  messagesById,
   activeThreadId,
   isFetching,
 });
