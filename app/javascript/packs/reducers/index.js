@@ -22,3 +22,16 @@ export const getAllMessageThreads = (state) => {
   });
 };
 
+export const getActiveMessageThread = (state) => {
+  const activeThread = fromMessageThreads.getActiveMessageThread(state.messageThreads);
+  if (activeThread === false) {
+    return false;
+  }
+
+  return {
+    ...activeThread,
+    messages: [],
+    receivers: fromUsers.getUsersByIds(state.users, activeThread.receiverIds),
+  };
+};
+

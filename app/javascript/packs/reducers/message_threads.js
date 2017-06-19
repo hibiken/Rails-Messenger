@@ -99,7 +99,7 @@ export const getAllMessageThreads = (state) => {
 
 export const getActiveMessageThread = (state) => {
   const { activeThreadId, byId } = state;
-  return { ...byId[activeThreadId], id: activeThreadId };
+  return activeThreadId === null ? false : { ...byId[activeThreadId], id: activeThreadId };
 };
 
 export const getActiveThreadId = (state) => state.activeThreadId;

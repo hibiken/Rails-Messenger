@@ -17,6 +17,26 @@
 .message-detail-view__root {
   width: 75%;
   background-color: lightblue;
+  border-left: 1px solid rgba(0, 0, 0, .20);
+}
+
+/** MessageDetailView **/
+.message-detail-view__header {
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  background-color: white;
+  text-align: center;
+  box-sizing: border-box;
+  height: 54px;
+}
+
+.message-detail-view__header-title-box {
+  display: inline-block;
+}
+
+.message-detail-view__header-usernames {
+  margin: 0;
+  font-size: 14px;
 }
 
 /** MainSidebar **/
@@ -25,6 +45,8 @@
   border-bottom: 1px solid rgba(0, 0, 0, .10);
   display: flex;
   justify-content: space-between;
+  box-sizing: border-box;
+  height: 54px;
 }
 
 .message-threadlist__rows-container {
