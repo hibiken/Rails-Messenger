@@ -7,5 +7,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: redis://redistogo:5a26fb5ef53a1447d0429865d5940ffe@koi.redistogo.com:10887/
   channel_prefix: messenger_production
