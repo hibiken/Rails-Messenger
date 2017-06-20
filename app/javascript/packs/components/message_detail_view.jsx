@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MessageBubble from './message_bubble';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
@@ -21,42 +22,45 @@ class MessageDetailView extends Component {
     }
   };
 
-
   render() {
+    const { usernames, messages, currentUserId, messageable } = this.props;
+
     return (
       <div className="message-detail-view__root">
         <header className="message-detail-view__header">
           <div className="message-detail-view__header-title-box">
             <h2 className="message-detail-view__header-usernames">
-              {this.props.usernames.join(', ')}
+              {usernames.join(', ')}
             </h2>
           </div>
         </header>
-        <h1>Hi</h1>
-        <div>
-          {this.props.messages.map(message => (
-            <div key={message.id}>
-              {message.body}
-            </div>
-          ))}
-        </div>
-        {this.props.messageable && (
-          <div className="message-input__root">
-            <input
-              type="text"
-              value={this.state.messageBody}
-              placeholder="Type a message"
-              onChange={this.handleMessageChange}
-              onKeyDown={this.handleInputKeyDown}
+        <div className="message-detail-view__main-content">
+          {messages.map(message => (
+            <MessageBubble 
+              key={message.id}
+              isCurrentUser={message.userId === currentUserId}
+              messageBody={message.body}
             />
-          </div>
-        )}
+          ))}
+          {messageable && (
+            <div className="message-input__root">
+              <input
+                type="text"
+                value={this.state.messageBody}
+                placeholder="Type a message"
+                onChange={this.handleMessageChange}
+                onKeyDown={this.handleInputKeyDown}
+              />
+            </div>
+          )}
+        </div>
       </div>
     );
   }
 }
 
 MessageDetailView.propTypes = {
+  currentUserId: PropTypes.number.isRequired,
   usernames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   messageable: PropTypes.bool.isRequired,

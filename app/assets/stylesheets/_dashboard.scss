@@ -16,7 +16,7 @@
 
 .message-detail-view__root {
   width: 75%;
-  background-color: lightblue;
+  background-color: white;
   border-left: 1px solid rgba(0, 0, 0, .20);
 }
 
@@ -37,6 +37,52 @@
 .message-detail-view__header-usernames {
   margin: 0;
   font-size: 14px;
+}
+
+.message-detail-view__main-content {
+  height: 100%;
+  overflow: scroll;
+}
+
+/** MessageBubble **/
+.message-bubble__root {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.message-bubble--right {
+  background-color: rgb(214, 150, 187);
+  border-top-right-radius: 1.3em;
+  border-top-left-radius: 1.3em;
+  border-bottom-left-radius: 1.3em;
+  color: white;
+  padding: 6px 12px;
+  clear: right;
+  float: right;
+}
+
+.message-bubble--left {
+  background-color: #f1f0f0;
+  color: rgba(0, 0, 0, 1);
+  padding: 6px 12px;
+  border-radius: 1.3em;
+  clear: left;
+  float: left;
+}
+
+/** Clearfix **/
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+.group:after {
+  clear: both;
+}
+
+.group {
+  zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
 /** MainSidebar **/

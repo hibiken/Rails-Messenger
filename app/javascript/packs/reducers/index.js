@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import currentUser from './current_user';
+import currentUser, * as fromCurrentUser from './current_user';
 import users, * as fromUsers from './users';
 import messageThreads, * as fromMessageThreads from './message_threads';
 import messages, * as fromMessages from './messages';
@@ -12,6 +12,10 @@ export default combineReducers({
 });
 
 /*** Selectors ***/
+export const getCurrentUserId = (state) => {
+  return fromCurrentUser.getId(state.currentUser);
+};
+
 export const getAllUsers = (state) => {
   return fromUsers.getAllUsers(state.users);
 };

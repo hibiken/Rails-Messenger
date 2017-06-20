@@ -10,3 +10,6 @@ const currentUser = (state = initialState, action) => {
 };
 
 export default currentUser;
+
+/*** Selectors ***/
+export const getId = (state) => state.id;
