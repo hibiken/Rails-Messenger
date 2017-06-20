@@ -4,7 +4,9 @@
     <title>Messenger</title>
     <%= csrf_meta_tags %>
     <meta name="jwt-token" content=<%= @auth_token %>></meta>
-
+    <script>
+      window.__INITIAL_STATE__ = { currentUser: { id: <%= current_user.id %> } };
+    </script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application' %>

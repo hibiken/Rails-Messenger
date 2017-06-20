@@ -12,7 +12,7 @@ import configureStore from './store/configure-store';
 import Root from './containers/root';
 import configureChannels from './channels/configure_channels';
 
-const store = configureStore();
+const store = configureStore(window.__INITIAL_STATE__);
 
 /** Set up Action Cable channel subscriptions */
 configureChannels(store.dispatch);

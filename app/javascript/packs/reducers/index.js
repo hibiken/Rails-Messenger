@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
+import currentUser from './current_user';
 import users, * as fromUsers from './users';
 import messageThreads, * as fromMessageThreads from './message_threads';
 import messages, * as fromMessages from './messages';
 
 export default combineReducers({
+  currentUser,
   users,
   messageThreads,
   messages,
