@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import MessageBubble from './message_bubble';
+import MessageInput from './message_input';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
-  constructor() {
-    super();
-    this.state = { messageBody: '' };
-    this.handleMessageChange = (e) => {
-      this.setState({ messageBody: e.target.value });
-    }
-  }
-
   componentDidMount() {
     this.scrollToBottom();
   }
@@ -26,18 +19,8 @@ class MessageDetailView extends Component {
     node.scrollIntoView({ behavior: "smooth" });
   }
 
-  handleInputKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      this.setState({ messageBody: '' });
-      this.props.createMessage(
-        this.props.messageThreadId,
-        { body: this.state.messageBody }
-      );
-    }
-  };
-
   render() {
-    const { usernames, messages, currentUserId, messageable } = this.props;
+    const { usernames, messages, currentUserId, messageable, messageThreadId } = this.props;
     const mainContentHeight = window.innerHeight - 54;
 
     return (
@@ -60,15 +43,10 @@ class MessageDetailView extends Component {
             />
           ))}
           {messageable && (
-            <div className="message-input__root">
-              <input
-                type="text"
-                value={this.state.messageBody}
-                placeholder="Type a message"
-                onChange={this.handleMessageChange}
-                onKeyDown={this.handleInputKeyDown}
-              />
-            </div>
+            <MessageInput 
+              messageThreadId={messageThreadId}
+              createMessage={this.props.createMessage}
+            />
           )}
           <div
             style={{ float:"left", clear: "both" }}
