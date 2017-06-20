@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 const MessageBubble = (props) => {
   const bubbleClass = classNames({
-    'message-bubble--right': !props.isCurrentUser,
-    'message-bubble--left': props.isCurrentUser,
+    'message-bubble--right': props.isCurrentUser,
+    'message-bubble--left': !props.isCurrentUser,
   });
 
   return (

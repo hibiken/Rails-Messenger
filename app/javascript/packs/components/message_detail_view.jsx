@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import MessageBubble from './message_bubble';
 // import SearchHeader from './search_header';
@@ -10,6 +11,19 @@ class MessageDetailView extends Component {
     this.handleMessageChange = (e) => {
       this.setState({ messageBody: e.target.value });
     }
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({ behavior: "smooth" });
   }
 
   handleInputKeyDown = (event) => {
@@ -24,6 +38,7 @@ class MessageDetailView extends Component {
 
   render() {
     const { usernames, messages, currentUserId, messageable } = this.props;
+    const mainContentHeight = window.innerHeight - 54;
 
     return (
       <div className="message-detail-view__root">
@@ -34,7 +49,9 @@ class MessageDetailView extends Component {
             </h2>
           </div>
         </header>
-        <div className="message-detail-view__main-content">
+        <div
+          className="message-detail-view__main-content"
+          style={{ height: mainContentHeight}}>
           {messages.map(message => (
             <MessageBubble 
               key={message.id}
@@ -53,6 +70,10 @@ class MessageDetailView extends Component {
               />
             </div>
           )}
+          <div
+            style={{ float:"left", clear: "both" }}
+            ref={(elem) => this.messagesEnd = elem}
+          />
         </div>
       </div>
     );
