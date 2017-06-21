@@ -42,12 +42,14 @@
 .message-detail-view__main-content {
   height: 100%;
   overflow: scroll;
+  position: relative;
 }
 
 /** MessageBubble **/
 .message-bubble__root {
   position: relative;
   margin-bottom: 12px;
+  padding-left: 40px;
 }
 
 .message-bubble--right {
@@ -69,6 +71,18 @@
   border-radius: 1.3em;
   clear: left;
   float: left;
+}
+
+.message-bubble__avatar {
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+}
+
+.message-bubble__avatar-image {
+  display: block;
+  width: 30px;
+  border-radius: 50%;
 }
 
 .message-bubble__delivery-status {

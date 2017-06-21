@@ -41,6 +41,7 @@ class MessageDetailView extends Component {
               isCurrentUser={message.userId === currentUserId}
               isDelivered={message.persisted}
               messageBody={message.body}
+              avatarUrl={message.avatarUrl}
             />
           ))}
           {messageable && (

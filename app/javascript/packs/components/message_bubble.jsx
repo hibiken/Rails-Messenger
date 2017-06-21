@@ -15,6 +15,12 @@ const MessageBubble = (props) => {
 
   return (
     <div className="message-bubble__root group">
+      {!props.isCurrentUser && (
+        <div className="message-bubble__avatar">
+          <img src={props.avatarUrl} className="message-bubble__avatar-image" />
+        </div>
+      )}
+
       <div className={bubbleClass}>
         {props.messageBody}
       </div>
@@ -34,6 +40,7 @@ MessageBubble.propTypes = {
   isCurrentUser: PropTypes.bool.isRequired,
   isDelivered: PropTypes.bool.isRequired,
   messageBody: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
 };
 
 export default MessageBubble;
