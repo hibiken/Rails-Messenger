@@ -9,6 +9,10 @@ const initialState = {
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREAD_RESULT:
+      if (!action.payload.included) {
+        return state;
+      }
+
       const messages = action.payload.included.filter(data => data.type === 'messages');
       return messages.reduce((nextState, m) => {
         if (nextState.indexOf(m.id) === -1) {
