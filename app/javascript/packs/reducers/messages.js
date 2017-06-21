@@ -32,6 +32,9 @@ const allIds = (state = initialState.allIds, action) => {
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREAD_RESULT:
+      if (!action.payload.included) {
+        return state;
+      }
       const messages = action.payload.included.filter(data => data.type === 'messages');
       return messages.reduce((nextState, m) => {
         nextState[m.id] = m.attributes;
