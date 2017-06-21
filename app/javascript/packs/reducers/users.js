@@ -10,6 +10,10 @@ const initialState = {
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_RESULT:
+      if (!action.payload.included) {
+        return state;
+      }
+
       const users = action.payload.included.filter(data => data.type === 'users');
       return users.map(u => u.id);
 
@@ -24,6 +28,10 @@ const allIds = (state = initialState.allIds, action) => {
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_RESULT:
+      if (!action.payload.included) {
+        return state;
+      }
+
       const users = action.payload.included.filter(data => data.type === 'users');
       return users.reduce((nextState, u) => {
         nextState[u.id] = u.attributes;
