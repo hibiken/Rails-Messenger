@@ -1,10 +1,15 @@
-import { createStore, applyMiddleware, componse } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import rootReducer from '../reducers';
 
 const configureStore = (initialState = {}) => {
-  const middleware = applyMiddleware(thunk, logger);
+  let middleware = applyMiddleware(thunk, logger);
+
+  if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
+    const devtools = window.devToolsExtension();
+    middleware = compose(middleware, devtools);
+  }
 
   const store = createStore(rootReducer, initialState, middleware);
 

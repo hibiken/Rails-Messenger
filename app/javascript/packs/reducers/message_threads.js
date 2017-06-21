@@ -65,12 +65,19 @@ const messagesById = (state = initialState.messagesById, action) => {
         [action.payload.data.id]: action.payload.data.relationships.messages.data.map(m => m.id),
       };
 
+    case types.MESSAGE_SAVE_START:
+      return {
+        ...state,
+        [action.messageThreadId]: [ ...state[action.messageThreadId], action.tempId ],
+      };
+
     case types.RECEIVED_MESSAGE:
       const messageThreadId = action.payload.data.relationships.messageThread.data.id;
       if (state[messageThreadId]) {
+        const filteredIds = state[messageThreadId].filter(id => id !== action.payload.tempId);
         return {
           ...state,
-          [messageThreadId]: [ ...state[messageThreadId], action.payload.data.id ],
+          [messageThreadId]: [ ...filteredIds, action.payload.data.id ],
         };
       } else {
         return {

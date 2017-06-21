@@ -17,11 +17,12 @@ const allIds = (state = initialState.allIds, action) => {
         return nextState;
       }, [...state]);
 
+    case types.MESSAGE_SAVE_START:
+      return [ ...state, action.tempId ];
+
     case types.RECEIVED_MESSAGE:
-      if (state.indexOf(action.payload.data.id) === -1) {
-        return [...state, action.payload.data.id];
-      }
-      return state;
+      const filteredState = state.filter(id => id !== action.payload.tempId);
+      return [ ...filteredState, action.payload.data.id];
 
     default:
       return state;
@@ -37,8 +38,17 @@ const byId = (state = initialState.byId, action) => {
         return nextState;
       }, { ...state });
 
+    case types.MESSAGE_SAVE_START:
+      return {
+        ...state,
+        [action.tempId]: action.message,
+      };
+
     case types.RECEIVED_MESSAGE:
+      const { tempId } = action.payload;
       const { id, attributes } = action.payload.data;
+      delete state[tempId];
+
       return {
         ...state,
         [id]: attributes
