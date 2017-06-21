@@ -39,6 +39,7 @@ class MessageDetailView extends Component {
             <MessageBubble 
               key={message.id}
               isCurrentUser={message.userId === currentUserId}
+              isDelivered={message.persisted}
               messageBody={message.body}
             />
           ))}

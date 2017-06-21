@@ -59,6 +59,7 @@
   padding: 6px 12px;
   clear: right;
   float: right;
+  margin-right: 28px;
 }
 
 .message-bubble--left {
@@ -68,6 +69,21 @@
   border-radius: 1.3em;
   clear: left;
   float: left;
+}
+
+.message-bubble__delivery-status {
+  position: absolute;
+  right: 5px;
+  font-size: 14px;
+  margin-top: 18px;
+}
+
+.message-bubble__delivery-status--pending {
+  color: #d3d3d3;
+}
+
+.message-bubble__delivery-status--sent {
+  color: rgb(214, 150, 187);
 }
 
 /** MessageInput **/
