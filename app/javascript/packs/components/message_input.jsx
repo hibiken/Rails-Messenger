@@ -12,7 +12,7 @@ class MessageInput extends Component {
   }
 
   handleInputKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && event.target.value.trim().length) {
       this.setState({ messageBody: '' });
       this.props.createMessage(
         this.props.messageThreadId,
