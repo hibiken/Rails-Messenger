@@ -17,7 +17,6 @@ export const createMessage = (messageThreadId, message) => (dispatch, getState) 
     },
   });
 
-  // TODO: Handle error cases
   return axios({
     method: 'post',
     url: `/message_threads/${messageThreadId}/messages`,
@@ -27,7 +26,10 @@ export const createMessage = (messageThreadId, message) => (dispatch, getState) 
         temp_id: tempId,
       },
     },
-  }).then(({ data }) => {
-    console.log('successfully created message', data);
+  }).then(Function.prototype, (errors) => {
+    dispatch({
+      type: types.MESSAGE_SAVE_FAILURE,
+      tempId,
+    });
   });
 };

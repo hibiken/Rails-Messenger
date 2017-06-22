@@ -42,6 +42,7 @@ class MessageDetailView extends Component {
               isDelivered={message.persisted}
               messageBody={message.body}
               avatarUrl={message.avatarUrl}
+              deliveryError={message.error === true}
             />
           ))}
           {messageable && (

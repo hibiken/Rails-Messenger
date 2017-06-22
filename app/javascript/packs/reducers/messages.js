@@ -51,6 +51,15 @@ const byId = (state = initialState.byId, action) => {
         [action.tempId]: action.message,
       };
 
+    case types.MESSAGE_SAVE_FAILURE:
+      return {
+        ...state,
+        [action.tempId]: {
+          ...state[action.tempId],
+          error: true,
+        },
+      };
+
     case types.RECEIVED_MESSAGE:
       const { tempId } = action.payload;
       const { id, attributes } = action.payload.data;

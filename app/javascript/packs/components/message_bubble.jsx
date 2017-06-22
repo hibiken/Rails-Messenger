@@ -9,10 +9,18 @@ const MessageBubble = (props) => {
   });
 
   const deliveryStatusClass = classNames({
-    'message-bubble__delivery-status--pending': !props.isDelivered,
     'message-bubble__delivery-status--sent': props.isDelivered,
+    'message-bubble__delivery-status--pending': !props.isDelivered && !props.deliveryError,
+    'message-bubble__delivery-status--error': props.deliveryError,
   });
 
+  const statusIconClass = classNames({
+    'fa': true,
+    'fa-times-circle': props.deliveryError,
+    'fa-check-circle': !props.deliveryError,
+  });
+
+  // TODO: when deliveryError is true, open "re-send" modal on click
   return (
     <div className="message-bubble__root group">
       {!props.isCurrentUser && (
@@ -28,7 +36,7 @@ const MessageBubble = (props) => {
       {props.isCurrentUser && (
         <div className="message-bubble__delivery-status">
           <span className={deliveryStatusClass}>
-            <i className="fa fa-check-circle" aria-hidden="true"/>
+            <i className={statusIconClass} aria-hidden="true"/>
           </span>
         </div>
       )}
@@ -40,7 +48,8 @@ MessageBubble.propTypes = {
   isCurrentUser: PropTypes.bool.isRequired,
   isDelivered: PropTypes.bool.isRequired,
   messageBody: PropTypes.string.isRequired,
-  avatarUrl: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string,
+  deliveryError: PropTypes.bool.isRequired,
 };
 
 export default MessageBubble;

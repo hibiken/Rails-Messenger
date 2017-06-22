@@ -96,6 +96,10 @@
   color: #d3d3d3;
 }
 
+.message-bubble__delivery-status--error {
+  color: #ff0033;
+}
+
 .message-bubble__delivery-status--sent {
   color: rgb(214, 150, 187);
 }

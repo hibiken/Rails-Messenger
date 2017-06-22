@@ -9,7 +9,7 @@ class MessagesController < ApiController
       MessageThreads::Broadcast.new(@message_thread, message, params[:message][:temp_id]).call
       head :ok
     else
-      # Handle error case
+      head :unprocessable_entity
     end
   end
 
