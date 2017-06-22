@@ -10,6 +10,12 @@ const initialState = {
   isFetching: false,
 };
 
+const messageThreadInitialState = {
+  uIds: [],
+  receiverIds: [],
+  typingUserIds: [],
+};
+
 const allIds = (state= initialState.allIds, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_RESULT:
@@ -29,15 +35,46 @@ const byId = (state = initialState.byId, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_RESULT:
       return action.payload.data.reduce((nextState, m) => {
-        nextState[m.id] = m.attributes;
+        nextState[m.id] = {
+          ...messageThreadInitialState,
+          ...m.attributes,
+        };
         return nextState;
       }, { ...state });
 
     case types.FETCH_MESSAGE_THREAD_RESULT:
       return {
         ...state,
-        [action.payload.data.id]: action.payload.data.attributes,
+        [action.payload.data.id]: {
+          ...messageThreadInitialState,
+          ...action.payload.data.attributes,
+        },
       };
+
+    case types.USER_TYPING_STARTED: {
+      const { typingUserIds } = state[action.messageThreadId];
+      const newTypingUserIds = typingUserIds.indexOf(action.userId) === -1 ?
+        [...typingUserIds, action.userId] : typingUserIds;
+      return {
+        ...state,
+        [action.messageThreadId]: {
+          ...state[action.messageThreadId],
+          typingUserIds: newTypingUserIds,
+        },
+      };
+    }
+
+    case types.USER_TYPING_STOPPED: {
+      const { typingUserIds } = state[action.messageThreadId];
+      const newTypingUserIds = typingUserIds.filter(id => id !== action.userId);
+      return {
+        ...state,
+        [action.messageThreadId]: {
+          ...state[action.messageThreadId],
+          typingUserIds: newTypingUserIds,
+        },
+      };
+    }
 
     default:
       return state;

@@ -33,3 +33,4 @@ export const createMessage = (messageThreadId, message) => (dispatch, getState) 
     });
   });
 };
+

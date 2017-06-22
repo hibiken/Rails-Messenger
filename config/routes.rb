@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :message_threads, only: [:index, :show, :create] do
     resources :messages, only: [:create]
+    resource :user_typings, only: [] do
+      post :stopped
+      post :started
+    end
   end
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

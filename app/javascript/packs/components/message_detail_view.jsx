@@ -20,7 +20,7 @@ class MessageDetailView extends Component {
   }
 
   render() {
-    const { usernames, messages, currentUserId, messageable, messageThreadId } = this.props;
+    const { usernames, messages, currentUserId, messageable, messageThreadId, typingUsers } = this.props;
     const mainContentHeight = window.innerHeight - 54;
 
     return (
@@ -36,7 +36,7 @@ class MessageDetailView extends Component {
           className="message-detail-view__main-content"
           style={{ height: mainContentHeight}}>
           {messages.map(message => (
-            <MessageBubble 
+            <MessageBubble
               key={message.id}
               isCurrentUser={message.userId === currentUserId}
               isDelivered={message.persisted}
@@ -45,10 +45,14 @@ class MessageDetailView extends Component {
               deliveryError={message.error === true}
             />
           ))}
+          {typingUsers.length > 0 && (
+            <strong>{typingUsers[0].username} is typing...</strong>
+          )}
           {messageable && (
-            <MessageInput 
+            <MessageInput
               messageThreadId={messageThreadId}
               createMessage={this.props.createMessage}
+              typingMessage={this.props.typingMessage}
             />
           )}
           <div
@@ -68,6 +72,7 @@ MessageDetailView.propTypes = {
   messageable: PropTypes.bool.isRequired,
   messageThreadId: PropTypes.string,
   createMessage: PropTypes.func.isRequired,
+  typingUsers: PropTypes.array.isRequired,
 };
 
 export default MessageDetailView;

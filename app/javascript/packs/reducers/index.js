@@ -20,6 +20,10 @@ export const getAllUsers = (state) => {
   return fromUsers.getAllUsers(state.users);
 };
 
+export const getUsersByIds = (state, userIds) => {
+  return fromUsers.getUsersByIds(state.users, userIds);
+};
+
 export const getAllMessageThreads = (state) => {
   const messageThreads = fromMessageThreads.getAllMessageThreads(state.messageThreads);
   return messageThreads.map(messageThread => {

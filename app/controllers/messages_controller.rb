@@ -1,5 +1,5 @@
 class MessagesController < ApiController
-  before_action :set_message_thread, only: [:create]
+  before_action :set_message_thread, only: [:create, :typing]
 
   def create
     message = current_user.messages.build(message_params)
