@@ -6,7 +6,7 @@ class MessageThreadsController < ApiController
   end
 
   def show
-    message_thread = current_user.message_threads.find(params[:id])
+    message_thread = current_user.message_threads.includes(messages: [:user]).find(params[:id])
     render json: message_thread, include: ['messages'], status: :ok
   end
 
