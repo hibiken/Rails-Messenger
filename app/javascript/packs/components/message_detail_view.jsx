@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import MessageBubble from './message_bubble';
 import MessageInput from './message_input';
+import TypingIndicator from './typing_indicator';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
@@ -46,7 +47,15 @@ class MessageDetailView extends Component {
             />
           ))}
           {typingUsers.length > 0 && (
-            <strong>{typingUsers[0].username} is typing...</strong>
+            <div className="message-detail-view__typing-indicator-row">
+              <div className="message-bubble__avatar">
+                <img
+                  src={typingUsers[0].avatarUrl}
+                  className="message-bubble__avatar-image"
+                />
+              </div>
+              <TypingIndicator />
+            </div>
           )}
           {messageable && (
             <MessageInput
