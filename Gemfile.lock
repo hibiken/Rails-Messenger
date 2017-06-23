@@ -52,6 +52,9 @@ GEM
     bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     capybara (2.14.0)
       addressable
@@ -251,6 +254,7 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -280,6 +284,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.6)
+  bullet (~> 5.5)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
