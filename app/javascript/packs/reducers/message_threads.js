@@ -76,6 +76,17 @@ const byId = (state = initialState.byId, action) => {
       };
     }
 
+    case types.RECEIVED_MESSAGE: {
+      const messageThreadId = action.payload.data.relationships.messageThread.data.id;
+      return {
+        ...state,
+        [messageThreadId]: {
+          ...state[messageThreadId],
+          typingUserIds: [],
+        },
+      };
+    }
+
     default:
       return state;
   }
