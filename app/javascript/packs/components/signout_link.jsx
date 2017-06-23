@@ -6,7 +6,7 @@ const SignoutLink = (props) => (
     rel="nofollow"
     data-method="delete"
     href="/users/sign_out">
-    Sing Out
+    Sign Out
   </a>
 );
 

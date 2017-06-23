@@ -14,6 +14,7 @@ const messageThreadInitialState = {
   uIds: [],
   receiverIds: [],
   typingUserIds: [],
+  isFetching: false,
 };
 
 const allIds = (state= initialState.allIds, action) => {
@@ -41,6 +42,15 @@ const byId = (state = initialState.byId, action) => {
         };
         return nextState;
       }, { ...state });
+
+    case types.FETCH_MESSAGE_THREAD_START:
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          isFetching: true,
+        },
+      };
 
     case types.FETCH_MESSAGE_THREAD_RESULT:
       return {
@@ -151,11 +161,9 @@ const activeThreadId = (state = initialState.activeThreadId, action) => {
 const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_START:
-    case types.FETCH_MESSAGE_THREAD_START:
       return true;
 
     case types.FETCH_MESSAGE_THREADS_RESULT:
-    case types.FETCH_MESSAGE_THREAD_RESULT:
       return false;
 
     default:

@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
       messageable: false,
       messageThreadId: null,
       typingUsers: [],
+      isFetchingMessageThread: false,
     };
   }
 
@@ -31,6 +32,7 @@ const mapStateToProps = (state) => {
     messageable: true,
     messageThreadId: activeThread.id,
     typingUsers: getUsersByIds(state, activeThread.typingUserIds),
+    isFetchingMessageThread: activeThread.isFetching,
   };
 };
 

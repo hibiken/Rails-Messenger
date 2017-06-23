@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MessageBubble from './message_bubble';
 import MessageInput from './message_input';
 import TypingIndicator from './typing_indicator';
+import Loader from './loader';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
@@ -21,7 +22,8 @@ class MessageDetailView extends Component {
   }
 
   render() {
-    const { usernames, messages, currentUserId, messageable, messageThreadId, typingUsers } = this.props;
+    const { usernames, messages, currentUserId, messageable, messageThreadId,
+            typingUsers, isFetchingMessageThread } = this.props;
     const mainContentHeight = window.innerHeight - (54 + 50); // header height 54px, footer height 50px
 
     return (
@@ -36,6 +38,11 @@ class MessageDetailView extends Component {
         <div
           className="message-detail-view__main-content"
           style={{ height: mainContentHeight}}>
+          {isFetchingMessageThread && (
+            <div className="message-detail-view__message-thread-loading">
+              <Loader />
+            </div>
+          )}
           <div className="message-detail-view__messages-container">
             {messages.map(message => (
               <MessageBubble
@@ -86,6 +93,7 @@ MessageDetailView.propTypes = {
   messageThreadId: PropTypes.string,
   createMessage: PropTypes.func.isRequired,
   typingUsers: PropTypes.array.isRequired,
+  isFetchingMessageThread: PropTypes.bool.isRequired,
 };
 
 export default MessageDetailView;

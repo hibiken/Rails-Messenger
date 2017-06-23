@@ -14,7 +14,7 @@ export const fetchMessageThreads = () => (dispatch) => {
 };
 
 export const fetchMessageThread = (id) => (dispatch) => {
-  dispatch({ type: types.FETCH_MESSAGE_THREAD_START });
+  dispatch({ type: types.FETCH_MESSAGE_THREAD_START, id });
 
   return axios.get(`/message_threads/${id}`)
     .then(({ data }) => {
