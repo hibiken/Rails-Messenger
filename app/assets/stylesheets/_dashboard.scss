@@ -11,11 +11,13 @@
 
 .main-sidebar__root {
   width: 25%;
+  height: 100%;
   background-color: white;
 }
 
 .message-detail-view__root {
   width: 75%;
+  height: 100%;
   background-color: white;
   border-left: 1px solid rgba(0, 0, 0, .20);
 }
@@ -28,6 +30,7 @@
   text-align: center;
   box-sizing: border-box;
   height: 54px;
+  z-index: 10px;
 }
 
 .message-detail-view__header-title-box {
@@ -43,6 +46,18 @@
   height: 100%;
   overflow: scroll;
   position: relative;
+}
+
+.message-detail-view__main-content {
+}
+
+.message-detail-view__input-footer {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  z-index: 10;
 }
 
 .message-detail-view__typing-indicator-row {

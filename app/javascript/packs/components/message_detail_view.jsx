@@ -22,7 +22,7 @@ class MessageDetailView extends Component {
 
   render() {
     const { usernames, messages, currentUserId, messageable, messageThreadId, typingUsers } = this.props;
-    const mainContentHeight = window.innerHeight - 54;
+    const mainContentHeight = window.innerHeight - (54 + 50); // header height 54px, footer height 50px
 
     return (
       <div className="message-detail-view__root">
@@ -36,33 +36,37 @@ class MessageDetailView extends Component {
         <div
           className="message-detail-view__main-content"
           style={{ height: mainContentHeight}}>
-          {messages.map(message => (
-            <MessageBubble
-              key={message.id}
-              isCurrentUser={message.userId === currentUserId}
-              isDelivered={message.persisted}
-              messageBody={message.body}
-              avatarUrl={message.avatarUrl}
-              deliveryError={message.error === true}
-            />
-          ))}
-          {typingUsers.length > 0 && (
-            <div className="message-detail-view__typing-indicator-row">
-              <div className="message-bubble__avatar">
-                <img
-                  src={typingUsers[0].avatarUrl}
-                  className="message-bubble__avatar-image"
-                />
+          <div className="message-detail-view__messages-container">
+            {messages.map(message => (
+              <MessageBubble
+                key={message.id}
+                isCurrentUser={message.userId === currentUserId}
+                isDelivered={message.persisted}
+                messageBody={message.body}
+                avatarUrl={message.avatarUrl}
+                deliveryError={message.error === true}
+              />
+            ))}
+            {typingUsers.length > 0 && (
+              <div className="message-detail-view__typing-indicator-row">
+                <div className="message-bubble__avatar">
+                  <img
+                    src={typingUsers[0].avatarUrl}
+                    className="message-bubble__avatar-image"
+                  />
+                </div>
+                <TypingIndicator />
               </div>
-              <TypingIndicator />
-            </div>
-          )}
+            )}
+          </div>
           {messageable && (
-            <MessageInput
-              messageThreadId={messageThreadId}
-              createMessage={this.props.createMessage}
-              typingMessage={this.props.typingMessage}
-            />
+            <div className="message-detail-view__input-footer">
+              <MessageInput
+                messageThreadId={messageThreadId}
+                createMessage={this.props.createMessage}
+                typingMessage={this.props.typingMessage}
+              />
+            </div>
           )}
           <div
             style={{ float:"left", clear: "both" }}
