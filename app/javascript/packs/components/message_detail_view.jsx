@@ -38,34 +38,35 @@ class MessageDetailView extends Component {
         <div
           className="message-detail-view__main-content"
           style={{ height: mainContentHeight}}>
-          {isFetchingMessageThread && (
+          {isFetchingMessageThread ? (
             <div className="message-detail-view__message-thread-loading">
               <Loader />
             </div>
-          )}
-          <div className="message-detail-view__messages-container">
-            {messages.map(message => (
-              <MessageBubble
-                key={message.id}
-                isCurrentUser={message.userId === currentUserId}
-                isDelivered={message.persisted}
-                messageBody={message.body}
-                avatarUrl={message.avatarUrl}
-                deliveryError={message.error === true}
-              />
-            ))}
-            {typingUsers.length > 0 && (
-              <div className="message-detail-view__typing-indicator-row">
-                <div className="message-bubble__avatar">
-                  <img
-                    src={typingUsers[0].avatarUrl}
-                    className="message-bubble__avatar-image"
-                  />
+          ) : (
+            <div className="message-detail-view__messages-container">
+              {messages.map(message => (
+                <MessageBubble
+                  key={message.id}
+                  isCurrentUser={message.userId === currentUserId}
+                  isDelivered={message.persisted}
+                  messageBody={message.body}
+                  avatarUrl={message.avatarUrl}
+                  deliveryError={message.error === true}
+                />
+              ))}
+              {typingUsers.length > 0 && (
+                <div className="message-detail-view__typing-indicator-row">
+                  <div className="message-bubble__avatar">
+                    <img
+                      src={typingUsers[0].avatarUrl}
+                      className="message-bubble__avatar-image"
+                    />
+                  </div>
+                  <TypingIndicator />
                 </div>
-                <TypingIndicator />
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           {messageable && (
             <div className="message-detail-view__input-footer">
               <MessageInput
