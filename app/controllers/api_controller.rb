@@ -1,5 +1,5 @@
-class ApiController < ActionController::Base
-  protect_from_forgery with: :null_session
+class ApiController < ActionController::API
+  include ActionController::HttpAuthentication::Token::ControllerMethods
 
   before_action :authenticate_user_from_token!
 
