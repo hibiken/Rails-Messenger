@@ -14,10 +14,11 @@ class MessageDetailView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { messages } = this.props;
+    const { messages, typingUsers } = this.props;
     const messagesFirstRender = prevProps.messages.length == 0 && messages.length > 0;
     const newMessageAdded = prevProps.messages.length + 1 === messages.length;
-    if (messagesFirstRender || newMessageAdded) {
+    const typingUsersAdded = prevProps.typingUsers.length < typingUsers.length;
+    if (messagesFirstRender || newMessageAdded || typingUsersAdded) {
       this.scrollToBottom();
     }
   }
