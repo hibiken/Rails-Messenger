@@ -8,12 +8,14 @@ const initialState = {
   messagesById: {},
   activeThreadId: null,
   isFetching: false,
+  linksById: {},
 };
 
 const messageThreadInitialState = {
   uIds: [],
   receiverIds: [],
   typingUserIds: [],
+  allMessagesFetched: false,
   isFetching: false,
 };
 
@@ -47,14 +49,17 @@ const byId = (state = initialState.byId, action) => {
         },
       };
 
-    case types.FETCH_MESSAGES_RESULT:
+    case types.FETCH_MESSAGES_RESULT: {
+      const { links } = action.payload;
       return {
         ...state,
         [action.messageThreadId]: {
           ...state[action.messageThreadId],
+          allMessagesFetched: !links.next,
           isFetching: false,
         },
       };
+    }
 
     case types.USER_TYPING_STARTED: {
       const { typingUserIds } = state[action.messageThreadId];
@@ -112,11 +117,18 @@ const usersById = (state = initialState.usersById, action) => {
 
 const messagesById = (state = initialState.messagesById, action) => {
   switch (action.type) {
-    case types.FETCH_MESSAGES_RESULT:
+    case types.FETCH_MESSAGES_RESULT: {
+      const prevMessageIds = state[action.messageThreadId] || [];
       return {
         ...state,
-        [action.messageThreadId]: action.payload.data.map(m => m.id),
+        [action.messageThreadId]: action.payload.data.reduce((nextState, m) => {
+          if (nextState.indexOf(m.id) === -1) {
+            nextState.push(m.id);
+          }
+          return nextState;
+        }, [...prevMessageIds])
       };
+    }
 
     case types.MESSAGE_SAVE_START:
       return {
@@ -153,6 +165,19 @@ const activeThreadId = (state = initialState.activeThreadId, action) => {
   }
 };
 
+const linksById = (state = initialState.linksById, action) => {
+  switch (action.type) {
+    case types.FETCH_MESSAGES_RESULT:
+      return {
+        ...state,
+        [action.messageThreadId]: action.payload.links,
+      };
+
+    default:
+      return state;
+  }
+};
+
 const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGE_THREADS_START:
@@ -172,6 +197,7 @@ export default combineReducers({
   usersById,
   messagesById,
   activeThreadId,
+  linksById,
   isFetching,
 });
 
@@ -195,3 +221,13 @@ export const getActiveMessageThread = (state) => {
 };
 
 export const getActiveThreadId = (state) => state.activeThreadId;
+
+export const getLinksById = (state, messageThreadId) => {
+  const { linksById } = state;
+  return linksById[messageThreadId] || {};
+};
+
+export const getNextLinkById = (state, messageThreadId) => {
+  const links = getLinksById(state, messageThreadId);
+  return links.next || '';
+};

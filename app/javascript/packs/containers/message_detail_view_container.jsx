@@ -8,6 +8,7 @@ import {
   getActiveMessageThread,
 } from '../reducers';
 import { createMessage } from '../actions/messages';
+import { fetchMessagesFor } from '../actions/message_threads';
 
 const mapStateToProps = (state) => {
   const activeThread = getActiveMessageThread(state);
@@ -21,7 +22,8 @@ const mapStateToProps = (state) => {
       messageable: false,
       messageThreadId: null,
       typingUsers: [],
-      isFetchingMessageThread: false,
+      allMessagesFetched: false,
+      isFetchingMessages: false,
     };
   }
 
@@ -32,11 +34,15 @@ const mapStateToProps = (state) => {
     messageable: true,
     messageThreadId: activeThread.id,
     typingUsers: getUsersByIds(state, activeThread.typingUserIds),
-    isFetchingMessageThread: activeThread.isFetching,
+    allMessagesFetched: activeThread.allMessagesFetched,
+    isFetchingMessages: activeThread.isFetching,
   };
 };
 
-export default connect(mapStateToProps, { createMessage })(MessageDetailView);
+export default connect(mapStateToProps, {
+  fetchMessagesFor,
+  createMessage,
+})(MessageDetailView);
 
 
 

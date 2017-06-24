@@ -20,6 +20,7 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'jwt', '~> 1.5'
 
 gem 'active_model_serializers', '~> 0.10.6'
+gem 'will_paginate', '~> 3.1'
 
 gem 'turbolinks', '~> 5'
 # gem 'jbuilder', '~> 2.5'

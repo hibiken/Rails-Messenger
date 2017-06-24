@@ -1,8 +1,13 @@
 class MessagesController < ApiController
+  PER_PAGE = 30
+
   before_action :set_message_thread, only: [:index, :create]
 
   def index
-    messages = @message_thread.messages.includes(:user)
+    messages = @message_thread.messages
+                 .includes(:user)
+                 .recent
+                 .paginate(page: page_number, per_page: PER_PAGE)
     render json: messages, status: :ok
   end
 
@@ -26,5 +31,9 @@ class MessagesController < ApiController
 
   def message_params
     params.require(:message).permit(:body)
+  end
+
+  def page_number
+    params.dig(:page, :number)
   end
 end
