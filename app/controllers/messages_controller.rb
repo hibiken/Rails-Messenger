@@ -1,5 +1,10 @@
 class MessagesController < ApiController
-  before_action :set_message_thread, only: [:create, :typing]
+  before_action :set_message_thread, only: [:index, :create]
+
+  def index
+    messages = @message_thread.messages.includes(:user)
+    render json: messages, status: :ok
+  end
 
   def create
     message = current_user.messages.build(message_params)

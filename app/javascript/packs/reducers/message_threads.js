@@ -22,11 +22,6 @@ const allIds = (state= initialState.allIds, action) => {
     case types.FETCH_MESSAGE_THREADS_RESULT:
       return action.payload.data.map(m => m.id);
 
-    case types.FETCH_MESSAGE_THREAD_RESULT:
-      return state.indexOf(action.payload.data.id) === -1 ?
-        [...state, action.payload.data.id] :
-        state;
-
     default:
       return state;
   }
@@ -43,21 +38,21 @@ const byId = (state = initialState.byId, action) => {
         return nextState;
       }, { ...state });
 
-    case types.FETCH_MESSAGE_THREAD_START:
+    case types.FETCH_MESSAGES_START:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
+        [action.messageThreadId]: {
+          ...state[action.messageThreadId],
           isFetching: true,
         },
       };
 
-    case types.FETCH_MESSAGE_THREAD_RESULT:
+    case types.FETCH_MESSAGES_RESULT:
       return {
         ...state,
-        [action.payload.data.id]: {
-          ...messageThreadInitialState,
-          ...action.payload.data.attributes,
+        [action.messageThreadId]: {
+          ...state[action.messageThreadId],
+          isFetching: false,
         },
       };
 
@@ -117,10 +112,10 @@ const usersById = (state = initialState.usersById, action) => {
 
 const messagesById = (state = initialState.messagesById, action) => {
   switch (action.type) {
-    case types.FETCH_MESSAGE_THREAD_RESULT:
+    case types.FETCH_MESSAGES_RESULT:
       return {
         ...state,
-        [action.payload.data.id]: action.payload.data.relationships.messages.data.map(m => m.id),
+        [action.messageThreadId]: action.payload.data.map(m => m.id),
       };
 
     case types.MESSAGE_SAVE_START:

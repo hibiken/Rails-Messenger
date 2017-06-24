@@ -13,15 +13,16 @@ export const fetchMessageThreads = () => (dispatch) => {
     })
 };
 
-export const fetchMessageThread = (id) => (dispatch) => {
-  dispatch({ type: types.FETCH_MESSAGE_THREAD_START, id });
+export const fetchMessagesFor = (messageThreadId) => (dispatch) => {
+  dispatch({ type: types.FETCH_MESSAGES_START, messageThreadId });
 
-  return axios.get(`/message_threads/${id}`)
+  return axios.get(`message_threads/${messageThreadId}/messages`)
     .then(({ data }) => {
-      console.log('success', data);
+      console.log('successfully fetched messages', data);
       dispatch({
-        type: types.FETCH_MESSAGE_THREAD_RESULT,
+        type: types.FETCH_MESSAGES_RESULT,
         payload: data,
+        messageThreadId,
       });
     });
 };

@@ -8,13 +8,8 @@ const initialState = {
 
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
-    case types.FETCH_MESSAGE_THREAD_RESULT:
-      if (!action.payload.included) {
-        return state;
-      }
-
-      const messages = action.payload.included.filter(data => data.type === 'messages');
-      return messages.reduce((nextState, m) => {
+    case types.FETCH_MESSAGES_RESULT:
+      return action.payload.data.reduce((nextState, m) => {
         if (nextState.indexOf(m.id) === -1) {
           nextState.push(m.id);
         }
@@ -35,12 +30,8 @@ const allIds = (state = initialState.allIds, action) => {
 
 const byId = (state = initialState.byId, action) => {
   switch (action.type) {
-    case types.FETCH_MESSAGE_THREAD_RESULT:
-      if (!action.payload.included) {
-        return state;
-      }
-      const messages = action.payload.included.filter(data => data.type === 'messages');
-      return messages.reduce((nextState, m) => {
+    case types.FETCH_MESSAGES_RESULT:
+      return action.payload.data.reduce((nextState, m) => {
         nextState[m.id] = m.attributes;
         return nextState;
       }, { ...state });
