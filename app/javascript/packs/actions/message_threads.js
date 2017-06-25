@@ -1,6 +1,6 @@
 import axios from '../initializers/axios';
 import * as types from './types';
-import { getNextMessagesLinkFor } from '../reducers';
+import { getNextMessagesLinkFor, getMessageThreadById } from '../reducers';
 
 export const fetchMessageThreads = () => (dispatch) => {
   dispatch({ type: types.FETCH_MESSAGE_THREADS_START });
@@ -15,6 +15,11 @@ export const fetchMessageThreads = () => (dispatch) => {
 };
 
 export const fetchMessagesFor = (messageThreadId) => (dispatch, getState) => {
+  const messageThread = getMessageThreadById(getState(), messageThreadId);
+  if (messageThread && messageThread.allMessagesFetched) {
+    return;
+  }
+
   dispatch({ type: types.FETCH_MESSAGES_START, messageThreadId });
 
   const nextLink = getNextMessagesLinkFor(getState(), messageThreadId) ||

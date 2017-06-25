@@ -34,6 +34,10 @@ export const getAllMessageThreads = (state) => {
   });
 };
 
+export const getMessageThreadById = (state, messageThreadId) => {
+  return fromMessageThreads.getMessageThreadById(state.messageThreads, messageThreadId);
+};
+
 export const getActiveMessageThread = (state) => {
   const activeThread = fromMessageThreads.getActiveMessageThread(state.messageThreads);
   if (activeThread === false) {
@@ -50,4 +54,5 @@ export const getActiveMessageThread = (state) => {
 export const getNextMessagesLinkFor = (state, messageThreadId) => {
   return fromMessageThreads.getNextLinkById(state.messageThreads, messageThreadId);
 };
+
 

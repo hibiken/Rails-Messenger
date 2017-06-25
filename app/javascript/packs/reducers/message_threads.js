@@ -210,6 +210,10 @@ export const getAllMessageThreads = (state) => {
   }));
 };
 
+export const getMessageThreadById = (state, messageThreadId) => {
+  return state.byId[messageThreadId] || false;
+};
+
 export const getActiveMessageThread = (state) => {
   const { activeThreadId, byId, messagesById } = state;
   return activeThreadId === null ?
@@ -231,3 +235,4 @@ export const getNextLinkById = (state, messageThreadId) => {
   const links = getLinksById(state, messageThreadId);
   return links.next || '';
 };
+
