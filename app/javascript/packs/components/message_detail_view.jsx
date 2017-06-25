@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import MessageBubble from './message_bubble';
 import MessageInput from './message_input';
 import TypingIndicator from './typing_indicator';
 import Loader from './loader';
+import MessageGroup from './message_group';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
@@ -14,9 +14,9 @@ class MessageDetailView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { messages, typingUsers } = this.props;
-    const messagesFirstRender = prevProps.messages.length == 0 && messages.length > 0;
-    const newMessageAdded = prevProps.messages.length + 1 === messages.length;
+    const { messageCount, typingUsers } = this.props;
+    const messagesFirstRender = prevProps.messageCount == 0 && messageCount > 0;
+    const newMessageAdded = prevProps.messageCount + 1 === messageCount;
     const typingUsersAdded = prevProps.typingUsers.length < typingUsers.length;
     if (messagesFirstRender || newMessageAdded || typingUsersAdded) {
       this.scrollToBottom();
@@ -43,15 +43,16 @@ class MessageDetailView extends Component {
   }
 
   render() {
-    const { usernames, messages, messageGroups, currentUserId, messageable, messageThreadId,
-            typingUsers, isFetchingMessages } = this.props;
-    const mainContentHeight = window.innerHeight - (54 + 50); // header height 54px, footer height 50px
+    const { usernames, messageCount, messageGroups, currentUserId, messageable,
+      messageThreadId, typingUsers, isFetchingMessages } = this.props;
+
+    // header height 54px, footer height 50px
+    const mainContentHeight = window.innerHeight - (54 + 50);
+
     const loaderContainerClass = classnames({
       'message-detail-view__message-thread-loading': true,
-      'message-detail-view__message-thread-loading--initial': messages.length === 0,
+      'message-detail-view__message-thread-loading--initial': messageCount === 0,
     });
-
-    console.log('messageGroups', messageGroups);
 
     return (
       <div className="message-detail-view__root">
@@ -73,22 +74,20 @@ class MessageDetailView extends Component {
             </div>
           )}
           <div className="message-detail-view__messages-container">
-            {messages.map(message => (
-              <MessageBubble
-                key={message.id}
-                isCurrentUser={message.userId === currentUserId}
-                isDelivered={message.persisted}
-                messageBody={message.body}
-                avatarUrl={message.avatarUrl}
-                deliveryError={message.error === true}
+            {messageGroups.map((msgGroup, idx) => (
+              <MessageGroup
+                key={idx}
+                isCurrentUser={msgGroup.userId === currentUserId}
+                avatarUrl={msgGroup.avatarUrl}
+                messages={msgGroup.messages}
               />
             ))}
             {typingUsers.length > 0 && (
               <div className="message-detail-view__typing-indicator-row">
-                <div className="message-bubble__avatar">
+                <div className="message-group__avatar">
                   <img
                     src={typingUsers[0].avatarUrl}
-                    className="message-bubble__avatar-image"
+                    className="message-group__avatar-image"
                   />
                 </div>
                 <TypingIndicator />
@@ -117,7 +116,7 @@ class MessageDetailView extends Component {
 MessageDetailView.propTypes = {
   currentUserId: PropTypes.number.isRequired,
   usernames: PropTypes.array.isRequired,
-  messages: PropTypes.array.isRequired,
+  messageCount: PropTypes.number.isRequired,
   messageGroups: PropTypes.array.isRequired,
   messageable: PropTypes.bool.isRequired,
   messageThreadId: PropTypes.string,

@@ -24,6 +24,7 @@ export const createMessage = (messageThreadId, message) => (dispatch, getState) 
       message: {
         body: message.body,
         temp_id: tempId,
+        createdAt: new Date(),
       },
     },
   }).then(Function.prototype, (errors) => {

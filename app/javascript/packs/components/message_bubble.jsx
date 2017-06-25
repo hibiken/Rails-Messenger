@@ -6,6 +6,8 @@ const MessageBubble = (props) => {
   const bubbleClass = classNames({
     'message-bubble--right': props.isCurrentUser,
     'message-bubble--left': !props.isCurrentUser,
+    'message-bubble--first-in-group': props.isFirstInGroup,
+    'message-bubble--last-in-group': props.isLastInGroup,
   });
 
   const deliveryStatusClass = classNames({
@@ -23,12 +25,6 @@ const MessageBubble = (props) => {
   // TODO: when deliveryError is true, open "re-send" modal on click
   return (
     <div className="message-bubble__root group">
-      {!props.isCurrentUser && (
-        <div className="message-bubble__avatar">
-          <img src={props.avatarUrl} className="message-bubble__avatar-image" />
-        </div>
-      )}
-
       <div className={bubbleClass}>
         {props.messageBody}
       </div>
@@ -47,8 +43,9 @@ const MessageBubble = (props) => {
 MessageBubble.propTypes = {
   isCurrentUser: PropTypes.bool.isRequired,
   isDelivered: PropTypes.bool.isRequired,
+  isFirstInGroup: PropTypes.bool.isRequired,
+  isLastInGroup: PropTypes.bool.isRequired,
   messageBody: PropTypes.string.isRequired,
-  avatarUrl: PropTypes.string,
   deliveryError: PropTypes.bool.isRequired,
 };
 

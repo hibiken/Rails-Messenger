@@ -46,12 +46,9 @@ export const getActiveMessageThread = (state) => {
     return false;
   }
 
-  const groupedMessages = getGroupedMessagesByIds(state, activeThread.messageIds);
-  console.log('groupedMessages', groupedMessages);
-
   return {
     ...activeThread,
-    messages: fromMessages.getMessagesByIds(state.messages, activeThread.messageIds),
+    messageCount: activeThread.messageIds.length,
     receivers: fromUsers.getUsersByIds(state.users, activeThread.receiverIds),
     messageGroups: getGroupedMessagesByIds(state, activeThread.messageIds),
   };
@@ -62,16 +59,20 @@ export const getNextMessagesLinkFor = (state, messageThreadId) => {
 };
 
 export const getGroupedMessagesByIds = (state, ids) => {
-  const messages = fromMessages.getMessagesByIds(state.messages, ids);
+  const messages = fromMessages.getSortedMessagesByIds(state.messages, ids);
 
   const newMessageGroup = (message) => ({
     userId: message.userId,
     avatarUrl: message.avatarUrl,
     createdAt: message.createdAt,
-    messages: [{ body: message.body, createdAt: message.createdAt }],
+    messages: [newMessage(message)],
   });
 
-  const messageGroups = messages.reduce((msgGroups, m) => {
+  const newMessage = (message) => {
+    return _.pick(message, ['id', 'body', 'createdAt', 'error', 'persisted']);
+  };
+
+  return messages.reduce((msgGroups, m) => {
     if (msgGroups.length === 0) {
       return msgGroups.concat(newMessageGroup(m));
     }
@@ -83,12 +84,11 @@ export const getGroupedMessagesByIds = (state, ids) => {
 
     const lastMessage = _.last(lastMessageGroup.messages);
     if (moment(m.createdAt).isBefore(moment(lastMessage.createdAt).add(3, 'minutes'))) {
-      lastMessageGroup.messages.push({ body: m.body, createdAt: m.createdAt });
+      lastMessageGroup.messages.push(newMessage(m));
       return msgGroups;
     } else {
       return msgGroups.concat(newMessageGroup(m));
     }
   }, []);
-  return messageGroups;
 };
 

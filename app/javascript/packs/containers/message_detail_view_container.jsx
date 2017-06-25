@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
     return {
       currentUserId,
       usernames: [],
-      messages: [],
+      messageCount: 0,
       messageGroups: [],
       messageable: false,
       messageThreadId: null,
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
   return {
     currentUserId,
     usernames: activeThread.receivers.map(r => r.username),
-    messages: activeThread.messages,
+    messageCount: activeThread.messageCount,
     messageGroups: activeThread.messageGroups,
     messageable: true,
     messageThreadId: activeThread.id,

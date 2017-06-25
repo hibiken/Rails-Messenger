@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import MessageBubble from './message_bubble';
 
 class MessageGroup extends Component {
   render() {
-    const { messages } = this.props;
+    const { avatarUrl, messages, isCurrentUser } = this.props;
 
     return (
-      <div>
-        {messages.map(m => (
-          <MessageBubble
-            key={m.id}
-            messageBody={m.body}
-            isDelivered={m.persisted}
-            deliveryError={m.error === true}
-          />
-        ))}
+      <div className="message-group__root">
+        {!isCurrentUser && (
+          <div className="message-group__avatar">
+            <img src={avatarUrl} className="message-group__avatar-image" />
+          </div>
+        )}
+
+        {messages.map((m, idx) => {
+          const isFirstInGroup = idx === 0;
+          const isLastInGroup  = idx == messages.length - 1;
+          return (
+            <MessageBubble
+              key={m.id}
+              messageBody={m.body}
+              isCurrentUser={isCurrentUser}
+              isDelivered={m.persisted}
+              deliveryError={m.error === true}
+              isFirstInGroup={isFirstInGroup}
+              isLastInGroup={isLastInGroup}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -24,7 +38,6 @@ class MessageGroup extends Component {
 MessageGroup.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
   isCurrentUser: PropTypes.bool.isRequired,
-  messageSentAt: PropTypes.string.isRequired,
   messages: PropTypes.array.isRequired,
 };
 
