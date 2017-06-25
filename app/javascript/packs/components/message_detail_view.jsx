@@ -43,13 +43,15 @@ class MessageDetailView extends Component {
   }
 
   render() {
-    const { usernames, messages, currentUserId, messageable, messageThreadId,
+    const { usernames, messages, messageGroups, currentUserId, messageable, messageThreadId,
             typingUsers, isFetchingMessages } = this.props;
     const mainContentHeight = window.innerHeight - (54 + 50); // header height 54px, footer height 50px
     const loaderContainerClass = classnames({
       'message-detail-view__message-thread-loading': true,
       'message-detail-view__message-thread-loading--initial': messages.length === 0,
     });
+
+    console.log('messageGroups', messageGroups);
 
     return (
       <div className="message-detail-view__root">
@@ -116,6 +118,7 @@ MessageDetailView.propTypes = {
   currentUserId: PropTypes.number.isRequired,
   usernames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
+  messageGroups: PropTypes.array.isRequired,
   messageable: PropTypes.bool.isRequired,
   messageThreadId: PropTypes.string,
   createMessage: PropTypes.func.isRequired,

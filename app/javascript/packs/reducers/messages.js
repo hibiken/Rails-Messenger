@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../actions/types';
+import _ from 'lodash';
 
 const initialState = {
   allIds: [],
@@ -78,7 +79,17 @@ const recentLast = (message1, message2) => {
   return one > two ? 1 : -1;
 }
 
+const _getMessagesByIds = (state, ids) => {
+  const { byId } = state;
+  return ids.map(id => ({ ...byId[id], id }));
+};
+
 export const getMessagesByIds = (state, ids) => {
   const { byId } = state;
   return ids.map(id => ({ ...byId[id], id })).sort(recentLast);
+};
+
+export const getGroupedMessagesByIds = (state, ids) => {
+  const messages = _getMessagesByIds(state, ids);
+  const groupedByUserId = _.groupBy(messages, (m) => m.userId);
 };
