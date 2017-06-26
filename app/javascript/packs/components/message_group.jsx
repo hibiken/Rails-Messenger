@@ -5,10 +5,15 @@ import MessageBubble from './message_bubble';
 
 class MessageGroup extends Component {
   render() {
-    const { avatarUrl, messages, isCurrentUser } = this.props;
+    const { avatarUrl, username, messages, isCurrentUser, threadUserCount } = this.props;
 
     return (
       <div className="message-group__root">
+        {!isCurrentUser && threadUserCount > 2 && (
+          <div className="message-group__username">
+            <strong className="message-group__username-text">{username.split(' ')[0]}</strong>
+          </div>
+        )}
         {!isCurrentUser && (
           <div className="message-group__avatar">
             <img src={avatarUrl} className="message-group__avatar-image" />
@@ -37,8 +42,10 @@ class MessageGroup extends Component {
 
 MessageGroup.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   isCurrentUser: PropTypes.bool.isRequired,
   messages: PropTypes.array.isRequired,
+  threadUserCount: PropTypes.number.isRequired,
 };
 
 export default MessageGroup;

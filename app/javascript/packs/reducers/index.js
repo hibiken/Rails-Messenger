@@ -64,6 +64,7 @@ export const getGroupedMessagesByIds = (state, ids) => {
   const newMessageGroup = (message) => ({
     userId: message.userId,
     avatarUrl: message.avatarUrl,
+    username: message.username,
     createdAt: message.createdAt,
     messages: [newMessage(message)],
   });

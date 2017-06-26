@@ -102,6 +102,17 @@
   position: relative;
 }
 
+.message-group__username {
+  padding-left: 52px;
+}
+
+.message-group__username-text {
+  font-size: 12px;
+  color: rgba(0, 0, 0, .40);
+  line-height: 1.1;
+  font-weight: normal;
+}
+
 .message-group__avatar {
   display: inline-block;
   position: absolute;

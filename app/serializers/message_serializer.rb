@@ -1,5 +1,5 @@
 class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :body, :created_at, :user_id, :persisted, :avatar_url
+  attributes :id, :body, :created_at, :user_id, :persisted, :avatar_url, :username
 
   belongs_to :message_thread
   belongs_to :user
@@ -10,5 +10,9 @@ class MessageSerializer < ActiveModel::Serializer
 
   def avatar_url
     object.user.avatar_url
+  end
+
+  def username
+    object.user.username
   end
 end

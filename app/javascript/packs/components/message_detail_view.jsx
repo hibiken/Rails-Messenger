@@ -115,7 +115,9 @@ class MessageDetailView extends Component {
                   key={idx}
                   isCurrentUser={item.userId === currentUserId}
                   avatarUrl={item.avatarUrl}
+                  username={item.username}
                   messages={item.messages}
+                  threadUserCount={usernames.length + 1}
                 />
               );
             }
