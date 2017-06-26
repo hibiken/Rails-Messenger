@@ -76,7 +76,7 @@ class MessageDetailView extends Component {
     const DateBreak = (props) => (
       <div className="message-detail-view__date-break">
         <h4 className="message-detail-view__date-break-text">
-          {moment(props.timestamp).format('MMM Mo, H:mmA')}
+          {moment(props.timestamp).format('MMM Do, H:mmA')}
         </h4>
       </div>
     );
