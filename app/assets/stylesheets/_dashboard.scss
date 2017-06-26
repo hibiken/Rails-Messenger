@@ -69,6 +69,19 @@
   top: 50%;
 }
 
+.message-detail-view__date-break {
+  text-align: center;
+}
+
+.message-detail-view__date-break-text {
+  display: block;
+  font-weight: 500;
+  margin: 12px 0 12px 20px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, .40);
+  font-size: 12px;
+}
+
 .message-detail-view__input-footer {
   position: fixed;
   bottom: 0;

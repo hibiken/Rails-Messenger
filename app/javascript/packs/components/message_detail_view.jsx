@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import _ from 'lodash';
+import moment from 'moment';
 import MessageInput from './message_input';
 import TypingIndicator from './typing_indicator';
 import Loader from './loader';
@@ -42,12 +44,42 @@ class MessageDetailView extends Component {
     }
   }
 
+  messageGroupsWithTimestamp = (messageGroups) => {
+    return messageGroups.reduce((acc, msgGroup) => {
+      if (acc.length === 0) {
+        acc.push({ type: 'dateBreak', timestamp: msgGroup.createdAt }); 
+        acc.push({ ...msgGroup, type: 'messageGroup' });
+        return acc;
+      }
+
+      const lastMessageGroup = _.last(acc);
+
+      if (moment(msgGroup.createdAt).isBefore(moment(lastMessageGroup.createdAt).add('12', 'hours'))) {
+        acc.push({ type: 'messageGroup', ...msgGroup });
+        return acc;
+      } else {
+        acc.push({ type: 'dateBreak', timestamp: msgGroup.createdAt });
+        acc.push({ ...msgGroup, type: 'messageGroup' });
+        return acc;
+      }
+    }, []);
+  }
+
+
   render() {
     const { usernames, messageCount, messageGroups, currentUserId, messageable,
       messageThreadId, typingUsers, isFetchingMessages } = this.props;
 
     // header height 54px, footer height 50px
     const mainContentHeight = window.innerHeight - (54 + 50);
+
+    const DateBreak = (props) => (
+      <div className="message-detail-view__date-break">
+        <h4 className="message-detail-view__date-break-text">
+          {moment(props.timestamp).format('MMM Mo, H:mmA')}
+        </h4>
+      </div>
+    );
 
     const loaderContainerClass = classnames({
       'message-detail-view__message-thread-loading': true,
@@ -74,14 +106,20 @@ class MessageDetailView extends Component {
             </div>
           )}
           <div className="message-detail-view__messages-container">
-            {messageGroups.map((msgGroup, idx) => (
-              <MessageGroup
-                key={idx}
-                isCurrentUser={msgGroup.userId === currentUserId}
-                avatarUrl={msgGroup.avatarUrl}
-                messages={msgGroup.messages}
-              />
-            ))}
+            {this.messageGroupsWithTimestamp(messageGroups).map((item, idx) => {
+              if (item.type === 'dateBreak') {
+                return <DateBreak key={idx} timestamp={item.timestamp} />;
+              }
+              return (
+                <MessageGroup
+                  key={idx}
+                  isCurrentUser={item.userId === currentUserId}
+                  avatarUrl={item.avatarUrl}
+                  messages={item.messages}
+                />
+              );
+            }
+            )}
             {typingUsers.length > 0 && (
               <div className="message-detail-view__typing-indicator-row">
                 <div className="message-group__avatar">
