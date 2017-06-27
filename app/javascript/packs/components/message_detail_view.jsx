@@ -16,11 +16,12 @@ class MessageDetailView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { messageCount, typingUsers } = this.props;
+    const { messageCount, typingUsers, messageThreadId } = this.props;
     const messagesFirstRender = prevProps.messageCount == 0 && messageCount > 0;
     const newMessageAdded = prevProps.messageCount + 1 === messageCount;
     const typingUsersAdded = prevProps.typingUsers.length < typingUsers.length;
-    if (messagesFirstRender || newMessageAdded || typingUsersAdded) {
+    const activeThreadChanged = prevProps.messageThreadId !== messageThreadId;
+    if (messagesFirstRender || newMessageAdded || typingUsersAdded || activeThreadChanged) {
       this.scrollToBottom();
     }
   }
