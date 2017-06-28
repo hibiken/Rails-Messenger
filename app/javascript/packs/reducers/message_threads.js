@@ -97,6 +97,15 @@ const byId = (state = initialState.byId, action) => {
       };
     }
 
+    case types.MESSAGE_THREAD_SEEN:
+      return {
+        ...state,
+        [action.messageThreadId]: {
+          ...state[action.messageThreadId],
+          lastSeenMessageIdsByUserId: action.lastSeenMessageIdsByUserId,
+        },
+      };
+
     default:
       return state;
   }

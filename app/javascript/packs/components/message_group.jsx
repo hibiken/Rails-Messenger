@@ -5,7 +5,10 @@ import MessageBubble from './message_bubble';
 
 class MessageGroup extends Component {
   render() {
-    const { avatarUrl, username, messages, isCurrentUser, threadUserCount } = this.props;
+    const {
+      avatarUrl, username, messages, isCurrentUser, threadUserCount,
+      lastSeenMessageIdsByUserId, currentUserId,
+    } = this.props;
 
     return (
       <div className="message-group__root">
@@ -23,6 +26,15 @@ class MessageGroup extends Component {
         {messages.map((m, idx) => {
           const isFirstInGroup = idx === 0;
           const isLastInGroup  = idx == messages.length - 1;
+          const seenUserCount = lastSeenMessageIdsByUserId.filter(item => {
+            return item.userId !== currentUserId;
+          }).filter(item => {
+            return (new Date(m.createdAt) < new Date(item.lastSeenAt));
+          }).length;
+          const lastSeenUserIds = lastSeenMessageIdsByUserId.filter(item => {
+            return parseInt(item.lastSeenMessageId) == parseInt(m.id);
+          }).map(item => item.userId).filter(id => id !== currentUserId);
+
           return (
             <MessageBubble
               key={m.id}
@@ -32,6 +44,8 @@ class MessageGroup extends Component {
               deliveryError={m.error === true}
               isFirstInGroup={isFirstInGroup}
               isLastInGroup={isLastInGroup}
+              seenUserCount={seenUserCount}
+              lastSeenUserIds={lastSeenUserIds}
             />
           );
         })}
@@ -44,8 +58,10 @@ MessageGroup.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   isCurrentUser: PropTypes.bool.isRequired,
+  currentUserId: PropTypes.number.isRequired,
   messages: PropTypes.array.isRequired,
   threadUserCount: PropTypes.number.isRequired,
+  lastSeenMessageIdsByUserId: PropTypes.array.isRequired,
 };
 
 export default MessageGroup;

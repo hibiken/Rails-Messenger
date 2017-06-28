@@ -31,6 +31,14 @@ const configureChannel = (dispatch) => {
               userId: data.userId,
             });
             break;
+          case 'message_thread_seen':
+            dispatch({
+              type: types.MESSAGE_THREAD_SEEN,
+              messageThreadId: data.messageThreadId,
+              lastSeenMessageIdsByUserId: data.lastSeenMessageIdsByUserId,
+            });
+          default:
+            break;
         }
       },
     }

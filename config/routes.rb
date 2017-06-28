@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
   resources :message_threads, only: [:index, :create] do
     resources :messages, only: [:index, :create]
+      post :seen, on: :member
     resource :user_typings, only: [] do
       post :stopped
       post :started

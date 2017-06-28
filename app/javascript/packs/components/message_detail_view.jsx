@@ -8,6 +8,7 @@ import MessageInput from './message_input';
 import TypingIndicator from './typing_indicator';
 import Loader from './loader';
 import MessageGroup from './message_group';
+import { markAsSeen } from '../api/message_threads';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
@@ -23,6 +24,10 @@ class MessageDetailView extends Component {
     const activeThreadChanged = prevProps.messageThreadId !== messageThreadId;
     if (messagesFirstRender || newMessageAdded || typingUsersAdded || activeThreadChanged) {
       this.scrollToBottom();
+    }
+
+    if (newMessageAdded) {
+      markAsSeen(this.props.messageThreadId);
     }
   }
 
@@ -68,8 +73,10 @@ class MessageDetailView extends Component {
 
 
   render() {
-    const { usernames, messageCount, messageGroups, currentUserId, messageable,
-      messageThreadId, typingUsers, isFetchingMessages } = this.props;
+    const {
+      usernames, messageCount, messageGroups, currentUserId, messageable,
+      messageThreadId, typingUsers, isFetchingMessages, lastSeenMessageIdsByUserId,
+    } = this.props;
 
     // header height 54px, footer height 50px
     const mainContentHeight = window.innerHeight - (54 + 50);
@@ -115,10 +122,12 @@ class MessageDetailView extends Component {
                 <MessageGroup
                   key={idx}
                   isCurrentUser={item.userId === currentUserId}
+                  currentUserId={currentUserId}
                   avatarUrl={item.avatarUrl}
                   username={item.username}
                   messages={item.messages}
                   threadUserCount={usernames.length + 1}
+                  lastSeenMessageIdsByUserId={lastSeenMessageIdsByUserId}
                 />
               );
             }
@@ -166,6 +175,7 @@ MessageDetailView.propTypes = {
   typingUsers: PropTypes.array.isRequired,
   allMessagesFetched: PropTypes.bool.isRequired,
   isFetchingMessages: PropTypes.bool.isRequired,
+  lastSeenMessageIdsByUserId: PropTypes.array.isRequired,
 };
 
 export default MessageDetailView;

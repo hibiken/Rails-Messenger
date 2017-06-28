@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
       typingUsers: [],
       allMessagesFetched: false,
       isFetchingMessages: false,
+      lastSeenMessageIdsByUserId: [],
     };
   }
 
@@ -38,6 +39,7 @@ const mapStateToProps = (state) => {
     typingUsers: getUsersByIds(state, activeThread.typingUserIds),
     allMessagesFetched: activeThread.allMessagesFetched,
     isFetchingMessages: activeThread.isFetching,
+    lastSeenMessageIdsByUserId: activeThread.lastSeenMessageIdsByUserId,
   };
 };
 

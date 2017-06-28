@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ProfilePicture from '../containers/profile_picture_container';
 
 const MessageBubble = (props) => {
   const bubbleClass = classNames({
@@ -29,11 +30,24 @@ const MessageBubble = (props) => {
         {props.messageBody}
       </div>
 
-      {props.isCurrentUser && (
+      {props.isCurrentUser && props.seenUserCount === 0 && (
         <div className="message-bubble__delivery-status">
           <span className={deliveryStatusClass}>
             <i className={statusIconClass} aria-hidden="true"/>
           </span>
+        </div>
+      )}
+
+      {props.lastSeenUserIds.length > 0 && (
+        <div className="message-bubble__seen-status">
+          {props.lastSeenUserIds.map(userId => (
+            <ProfilePicture
+              key={userId}
+              userId={userId}
+              size={20}
+              className="message-bubble__seen-status-avatar-image"
+            />
+          ))}
         </div>
       )}
     </div>
@@ -47,6 +61,8 @@ MessageBubble.propTypes = {
   isLastInGroup: PropTypes.bool.isRequired,
   messageBody: PropTypes.string.isRequired,
   deliveryError: PropTypes.bool.isRequired,
+  seenUserCount: PropTypes.number.isRequired,
+  lastSeenUserIds: PropTypes.array.isRequired,
 };
 
 export default MessageBubble;

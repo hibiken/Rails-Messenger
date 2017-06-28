@@ -194,6 +194,17 @@
   color: rgb(214, 150, 187);
 }
 
+.message-bubble__seen-status {
+  position: absolute;
+  right: 5px;
+  bottom: -20px;
+}
+
+.message-bubble__seen-status-avatar-image {
+  display: inline-block;
+  border-radius: 50%;
+}
+
 /** TypingIndicator **/
 // Thanks to Joseph Fusco: https://codepen.io/fusco/pen/XbpaYv
 .typing-indicator {
