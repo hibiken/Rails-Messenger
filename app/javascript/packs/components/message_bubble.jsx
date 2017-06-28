@@ -23,6 +23,11 @@ const MessageBubble = (props) => {
     'fa-check-circle': !props.deliveryError,
   });
 
+  const seenStatusClass = classNames({
+    'message-bubble__seen-status': true,
+    'message-bubble__seen-status--multiple-users': props.lastSeenUserIds.length > 1,
+  });
+
   // TODO: when deliveryError is true, open "re-send" modal on click
   return (
     <div className="message-bubble__root group">
@@ -39,12 +44,12 @@ const MessageBubble = (props) => {
       )}
 
       {props.lastSeenUserIds.length > 0 && (
-        <div className="message-bubble__seen-status">
+        <div className={seenStatusClass}>
           {props.lastSeenUserIds.map(userId => (
             <ProfilePicture
               key={userId}
               userId={userId}
-              size={20}
+              size={15}
               className="message-bubble__seen-status-avatar-image"
             />
           ))}

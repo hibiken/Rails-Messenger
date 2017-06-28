@@ -178,8 +178,9 @@
 .message-bubble__delivery-status {
   position: absolute;
   right: 5px;
-  font-size: 14px;
-  margin-top: 18px;
+  bottom: 0;
+  font-size: 13px;
+  height: 13px;
 }
 
 .message-bubble__delivery-status--pending {
@@ -197,12 +198,18 @@
 .message-bubble__seen-status {
   position: absolute;
   right: 5px;
-  bottom: -20px;
+  bottom: 0;
+  height: 15px;
+}
+
+.message-bubble__seen-status--multiple-users {
+  bottom: -18px;
 }
 
 .message-bubble__seen-status-avatar-image {
   display: inline-block;
   border-radius: 50%;
+  margin-left: 2px;
 }
 
 /** TypingIndicator **/
