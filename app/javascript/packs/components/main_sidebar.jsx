@@ -5,7 +5,7 @@ import MessageThreadlistRowContainer from '../containers/message_threadlist_row_
 
 class MainSidebar extends Component {
   render() {
-    const { messageThreads } = this.props;
+    const { messageThreads, activeThreadId } = this.props;
 
     return (
       <div className="main-sidebar__root">
@@ -25,6 +25,7 @@ class MainSidebar extends Component {
             {messageThreads.map(messageThread => (
               <MessageThreadlistRowContainer
                 key={messageThread.id}
+                isActive={messageThread.id === activeThreadId}
                 messageThreadId={messageThread.id}
                 usernames={messageThread.receivers.map(r => r.username)}
                 avatarUrl={messageThread.receivers[0].avatarUrl}
@@ -39,6 +40,7 @@ class MainSidebar extends Component {
 
 MainSidebar.propTypes = {
   messageThreads: PropTypes.array.isRequired,
+  activeThreadId: PropTypes.number
 };
 
 export default MainSidebar;

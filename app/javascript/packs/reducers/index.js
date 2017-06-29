@@ -44,6 +44,10 @@ export const getMessageThreadById = (state, messageThreadId) => {
   return fromMessageThreads.getMessageThreadById(state.messageThreads, messageThreadId);
 };
 
+export const getActiveMessageThreadId = (state) => {
+  return fromMessageThreads.getActiveThreadId(state.messageThreads);
+};
+
 export const getActiveMessageThread = (state) => {
   const activeThread = fromMessageThreads.getActiveMessageThread(state.messageThreads);
   if (activeThread === false) {

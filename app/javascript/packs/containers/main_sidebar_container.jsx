@@ -20,6 +20,7 @@ class MainSidebarContainer extends Component {
     return (
       <MainSidebar
         messageThreads={this.props.messageThreads}
+        activeThreadId={this.props.activeThreadId}
         fetchOrCreateMessageThreadByUserIds={this.props.fetchOrCreateMessageThreadByUserIds}
       />
     );
@@ -28,6 +29,7 @@ class MainSidebarContainer extends Component {
 
 const mapStateToProps = (state) => ({
   messageThreads: Selectors.getAllMessageThreads(state),
+  activeThreadId: Selectors.getActiveMessageThreadId(state),
 });
 
 export default connect(

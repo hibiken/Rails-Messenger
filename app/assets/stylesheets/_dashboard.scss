@@ -325,6 +325,10 @@
   align-items: center;
 }
 
+.message-threadlist-row__root--active {
+  background-color: rgba(0, 0, 0, .05);
+}
+
 .message-threadlist-row__avatar-container {
   width: 50px;
   height: 50px;
