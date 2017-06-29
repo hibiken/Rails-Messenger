@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import MessageThreadlistRow from '../components/message_threadlist_row';
 import { setActiveThread, fetchMessagesFor } from '../actions/message_threads';
 import { markAsSeen } from '../api/message_threads';
+import * as Selectors from '../reducers';
+
+const mapStateToProps = (state) => ({
+  currentUserId: Selectors.getCurrentUserId(state),
+});
 
 const mapDispatchToProps = (dispatch, { messageThreadId }) => ({
   onClick: () => {
@@ -13,4 +18,4 @@ const mapDispatchToProps = (dispatch, { messageThreadId }) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(MessageThreadlistRow);
+export default connect(mapStateToProps, mapDispatchToProps)(MessageThreadlistRow);

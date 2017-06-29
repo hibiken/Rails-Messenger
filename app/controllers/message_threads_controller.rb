@@ -1,7 +1,7 @@
 class MessageThreadsController < ApiController
   def index
     message_threads = current_user.message_threads
-    render json: message_threads, include: ['users'], status: :ok
+    render json: message_threads, include: ['users', 'messages'], status: :ok
   end
 
   def create

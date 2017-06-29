@@ -93,6 +93,7 @@ const byId = (state = initialState.byId, action) => {
         [messageThreadId]: {
           ...state[messageThreadId],
           typingUserIds: [],
+          lastMessage: action.payload.data.attributes,
         },
       };
     }

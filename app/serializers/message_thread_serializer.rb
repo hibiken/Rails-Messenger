@@ -1,5 +1,6 @@
 class MessageThreadSerializer < ActiveModel::Serializer
-  attributes :id, :u_ids, :receiver_ids, :last_seen_message_ids_by_user_id
+  attributes :id, :u_ids, :receiver_ids, :last_seen_message_ids_by_user_id,
+    :last_message
 
   has_many :messages
   has_many :users, serializer: UserSerializer
@@ -16,5 +17,10 @@ class MessageThreadSerializer < ActiveModel::Serializer
         last_seen_at: record.last_seen_at
       })
     end
+  end
+
+  # FIXME: this is not converted to camelCase
+  def last_message
+    object.last_message
   end
 end

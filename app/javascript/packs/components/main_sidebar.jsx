@@ -29,6 +29,7 @@ class MainSidebar extends Component {
                 messageThreadId={messageThread.id}
                 usernames={messageThread.receivers.map(r => r.username)}
                 avatarUrl={messageThread.receivers[0].avatarUrl}
+                lastMessage={messageThread.lastMessage}
               />
             ))}
           </ul>

@@ -10,6 +10,7 @@ export const fetchMessageThreads = () => (dispatch) => {
       dispatch({
         type: types.FETCH_MESSAGE_THREADS_RESULT,
         payload: data,
+        camelCase: true,
       });
     })
 };
