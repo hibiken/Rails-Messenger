@@ -38,6 +38,7 @@ class MessageGroup extends Component {
           return (
             <MessageBubble
               key={m.id}
+              messageId={m.id}
               messageBody={m.body}
               isCurrentUser={isCurrentUser}
               isDelivered={m.persisted}
@@ -46,6 +47,7 @@ class MessageGroup extends Component {
               isLastInGroup={isLastInGroup}
               seenUserCount={seenUserCount}
               lastSeenUserIds={lastSeenUserIds}
+              sentAt={m.createdAt}
             />
           );
         })}

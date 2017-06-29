@@ -9,6 +9,7 @@ import TypingIndicator from './typing_indicator';
 import Loader from './loader';
 import MessageGroup from './message_group';
 import { markAsSeen } from '../api/message_threads';
+import ReactTooltip from 'react-tooltip';
 // import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
