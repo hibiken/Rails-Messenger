@@ -131,6 +131,9 @@
   position: relative;
   padding-left: 40px;
   margin-bottom: 2px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
 }
 
 .message-bubble--right {
@@ -144,6 +147,7 @@
   clear: right;
   float: right;
   margin-right: 28px;
+  max-width: 40%;
 
   &.message-bubble--first-in-group {
     border-top-right-radius: 1.3em;
@@ -164,6 +168,7 @@
   border-bottom-left-radius: 4px;
   clear: left;
   float: left;
+  max-width: 40%;
 
   &.message-bubble--first-in-group {
     border-top-left-radius: 1.3em;
@@ -323,6 +328,7 @@
   display: flex;
   padding: 10px;
   align-items: center;
+  cursor: pointer;
 }
 
 .message-threadlist-row__root--active {
