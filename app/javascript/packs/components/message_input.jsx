@@ -18,7 +18,9 @@ class MessageInput extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({ messageBody: event.target.value });
+    if (event.target.value.length < this.props.maxLength) {
+      this.setState({ messageBody: event.target.value });
+    }
   }
 
   handleInputKeyDown = (event) => {
@@ -54,6 +56,11 @@ class MessageInput extends Component {
 MessageInput.propTypes = {
   messageThreadId: PropTypes.string.isRequired,
   createMessage: PropTypes.func.isRequired,
+  maxLength: PropTypes.number.isRequired,
+};
+
+MessageInput.defaultProps = {
+  maxLength: 2000,
 };
 
 export default MessageInput;
