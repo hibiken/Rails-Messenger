@@ -22,16 +22,23 @@ class MainSidebar extends Component {
         </header>
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
-            {messageThreads.map(messageThread => (
-              <MessageThreadlistRowContainer
-                key={messageThread.id}
-                isActive={messageThread.id === activeThreadId}
-                messageThreadId={messageThread.id}
-                usernames={messageThread.receivers.map(r => r.username)}
-                avatarUrl={messageThread.receivers[0].avatarUrl}
-                lastMessage={messageThread.lastMessage}
-              />
-            ))}
+            {messageThreads.map(mt => {
+              const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
+                console.log('mt.lastMessage.id', mt.lastMessage.id);
+                return item.lastSeenMessageId == mt.lastMessage.id;
+              }).map(item => item.userId);
+              return (
+                <MessageThreadlistRowContainer
+                  key={mt.id}
+                  isActive={mt.id === activeThreadId}
+                  messageThreadId={mt.id}
+                  usernames={mt.receivers.map(r => r.username)}
+                  avatarUrl={mt.receivers[0].avatarUrl}
+                  lastMessage={mt.lastMessage}
+                  lastMessageSeenUserIds={lastMessageSeenUserIds}
+                />
+              );
+            })}
           </ul>
         </div>
       </div>

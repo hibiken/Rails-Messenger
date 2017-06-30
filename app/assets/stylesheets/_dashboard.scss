@@ -335,6 +335,19 @@
   background-color: rgba(0, 0, 0, .05);
 }
 
+.message-threadlist-row__root--unread {
+  .message-threadlist-row__username  {
+    font-weight: 600;
+  }
+  .message-threadlist-row__message  {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1);
+  }
+  .message-threadlist-row__sent-at {
+    color: #0084ff;
+  }
+}
+
 .message-threadlist-row__avatar-container {
   width: 50px;
   height: 50px;
@@ -369,4 +382,16 @@
 .message-threadlist-row__sent-at {
   font-size: 12px;
   color: rgba(0, 0, 0, .40);
+}
+
+.message-threadlist-row__seen-status {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.message-threadlist-row__seen-status-avatar-image {
+  display: inline-block;
+  border-radius: 15px;
+  width: 15px;
+  height: 15px;
 }

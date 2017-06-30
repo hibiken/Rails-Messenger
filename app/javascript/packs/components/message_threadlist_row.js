@@ -3,11 +3,20 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
+import ProfilePicture from '../containers/profile_picture_container';
 
 const MessageThreadlistRow = (props) => {
+  const { lastMessage, lastMessageSeenUserIds, currentUserId } = props;
+  const isLastMessageSentByCurrentUser = lastMessage.userId === currentUserId;
+  const lastMessageSeenOtherUserIds = lastMessageSeenUserIds.filter(id => id !== currentUserId);
+
   const rowClass = classNames({
     'message-threadlist-row__root': true,
     'message-threadlist-row__root--active': props.isActive,
+    "message-threadlist-row__root--unread": (
+      !isLastMessageSentByCurrentUser &&
+      lastMessageSeenUserIds.indexOf(currentUserId) === -1
+    )
   });
 
   const wasSentToday = moment(props.lastMessage.createdAt).isSame(new Date(), 'day');
@@ -41,6 +50,15 @@ const MessageThreadlistRow = (props) => {
               moment(props.lastMessage.createdAt).format('h:mm A') :
               moment(props.lastMessage.createdAt).format('MMM D')
           }
+          {isLastMessageSentByCurrentUser && lastMessageSeenOtherUserIds.length === 1 && (
+            <div className="message-threadlist-row__seen-status">
+              <ProfilePicture
+                userId={lastMessageSeenOtherUserIds[0]}
+                size={15}
+                className="message-threadlist-row__seen-status-avatar-image"
+              />
+            </div>
+          )}
         </div>
       </div>
     </li>
@@ -55,6 +73,7 @@ MessageThreadlistRow.propTypes = {
   onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   lastMessage: PropTypes.object.isRequired,
+  lastMessageSeenUserIds: PropTypes.array.isRequired,
 };
 
 export default MessageThreadlistRow;
