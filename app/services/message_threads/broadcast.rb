@@ -28,7 +28,11 @@ module MessageThreads
     end
 
     def message_json
-      serializable_message.as_json.merge(tempId: temp_id, type: 'message_created')
+      serializable_message.as_json.merge(
+        tempId: temp_id,
+        type: 'message_created',
+        messageThreadUpdatedAt: message_thread.reload.updated_at
+      )
     end
   end
 end

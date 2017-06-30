@@ -1,6 +1,6 @@
 class MessageThreadSerializer < ActiveModel::Serializer
   attributes :id, :u_ids, :receiver_ids, :last_seen_message_ids_by_user_id,
-    :last_message
+    :last_message, :updated_at
 
   has_many :messages
   has_many :users, serializer: UserSerializer

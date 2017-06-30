@@ -94,6 +94,7 @@ const byId = (state = initialState.byId, action) => {
           ...state[messageThreadId],
           typingUserIds: [],
           lastMessage: action.payload.data.attributes,
+          updatedAt: action.payload.messageThreadUpdatedAt,
         },
       };
     }
@@ -212,12 +213,18 @@ export default combineReducers({
 });
 
 /*** Selectors ***/
+const recentFirst = (messageThread1, messageThread2) => {
+  const one = new Date(messageThread1.updatedAt);
+  const two = new Date(messageThread2.updatedAt);
+  return one > two ? -1 : 1;
+}
+
 export const getAllMessageThreads = (state) => {
   const { allIds, byId } = state;
   return allIds.map(id => ({
     ...byId[id],
     id
-  }));
+  })).sort(recentFirst);
 };
 
 export const getMessageThreadById = (state, messageThreadId) => {
