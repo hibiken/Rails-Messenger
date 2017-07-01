@@ -253,3 +253,7 @@ export const getNextLinkById = (state, messageThreadId) => {
   return links.next || '';
 };
 
+export const getMostRecentMessageThreadId = (state) => {
+  const messageThreads = getAllMessageThreads(state);
+  return messageThreads.length > 0 ? messageThreads[0].id : false;
+};

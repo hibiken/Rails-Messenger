@@ -62,6 +62,10 @@ export const getActiveMessageThread = (state) => {
   };
 };
 
+export const getMostRecentMessageThreadId = (state) => {
+  return fromMessageThreads.getMostRecentMessageThreadId(state.messageThreads);
+};
+
 export const getNextMessagesLinkFor = (state, messageThreadId) => {
   return fromMessageThreads.getNextLinkById(state.messageThreads, messageThreadId);
 };

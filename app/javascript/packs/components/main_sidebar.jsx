@@ -24,7 +24,6 @@ class MainSidebar extends Component {
           <ul className="message-threadlist__rows-container">
             {messageThreads.map(mt => {
               const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
-                console.log('mt.lastMessage.id', mt.lastMessage.id);
                 return item.lastSeenMessageId == mt.lastMessage.id;
               }).map(item => item.userId);
               return (
