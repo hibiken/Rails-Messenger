@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainSidebar from '../components/main_sidebar';
-// import { fetchUsers } from '../actions/users';
-import { 
+import {
   fetchMessageThreads,
   fetchOrCreateMessageThreadByUserIds,
   setActiveThread,
@@ -13,12 +12,13 @@ import * as Selectors from '../reducers';
 
 class MainSidebarContainer extends Component {
   componentDidMount() {
-    console.log('fetching message threads...');
     this.props.fetchMessageThreads()
       .then(() => {
         const { mostRecentThreadId } = this.props;
-        this.props.setActiveThread(mostRecentThreadId);
-        this.props.fetchMessagesFor(mostRecentThreadId);
+        if (mostRecentThreadId !== false) {
+          this.props.setActiveThread(mostRecentThreadId);
+          this.props.fetchMessagesFor(mostRecentThreadId);
+        }
       });
   }
 
