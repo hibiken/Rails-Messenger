@@ -74,6 +74,7 @@ MessageThreadlistRow.propTypes = {
   isActive: PropTypes.bool.isRequired,
   lastMessage: PropTypes.object.isRequired,
   lastMessageSeenUserIds: PropTypes.array.isRequired,
+  messageThreadId: PropTypes.string.isRequired,
 };
 
 export default MessageThreadlistRow;

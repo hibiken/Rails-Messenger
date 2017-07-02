@@ -47,7 +47,7 @@ class MainSidebar extends Component {
 
 MainSidebar.propTypes = {
   messageThreads: PropTypes.array.isRequired,
-  activeThreadId: PropTypes.number
+  activeThreadId: PropTypes.string,
 };
 
 export default MainSidebar;

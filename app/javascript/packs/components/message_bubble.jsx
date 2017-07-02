@@ -76,14 +76,14 @@ const MessageBubble = (props) => {
 };
 
 MessageBubble.propTypes = {
-  messageId: PropTypes.number.isRequired,
+  messageId: PropTypes.string.isRequired,
   isCurrentUser: PropTypes.bool.isRequired,
   isDelivered: PropTypes.bool.isRequired,
   isFirstInGroup: PropTypes.bool.isRequired,
   isLastInGroup: PropTypes.bool.isRequired,
   messageBody: PropTypes.string.isRequired,
   deliveryError: PropTypes.bool.isRequired,
-  seenUserCount: PropTypes.number.isRenuired,
+  seenUserCount: PropTypes.number.isRequired,
   lastSeenUserIds: PropTypes.array.isRequired,
   sentAt: PropTypes.string.isRequired,
 };
