@@ -21,8 +21,23 @@
   margin: auto;
 }
 
+.login__heading-text {
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.4em;
+}
+
+.login__sub-text {
+  font-size: 1em;
+  margin-bottom: 35px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, .60);
+  font-weight: 200;
+}
+
 .login__facebook-signin-btn {
   display: block;
+  margin: auto;
   text-decoration: none;
   background: #0084ff;
   color: #fff;
@@ -32,4 +47,12 @@
   font-weight: 200;
   height: 52px;
   line-height: 52px;
+
+  &:hover {
+    background-color: #365899;
+  }
+
+  .login__facebook-icon {
+    font-size: 1.2em;
+  }
 }

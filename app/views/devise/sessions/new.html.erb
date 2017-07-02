@@ -3,10 +3,13 @@
     <div class="login__logo-container">
       <%= image_tag 'ruby.png', class: 'login__ruby-logo' %>
     </div>
-    <h1>Rails Messenger</h1>
+    <div>
+      <h1 class="login__heading-text">Rails Messenger</h1>
+      <p class="login__sub-text">Facebook Messenger clone built with Rails 5 features:<br />ActionCable, Webpacker!</p>
+    </div>
 
-    <%= link_to "Sign in with Facebook",
-      user_facebook_omniauth_authorize_path,
-      class: 'login__facebook-signin-btn' %>
+    <%= link_to user_facebook_omniauth_authorize_path, class: 'login__facebook-signin-btn' do %>
+      <i class="fa fa-facebook-official login__facebook-icon"></i>&nbsp;Sign in with Facebook
+    <% end %>
   </div>
 </div>
