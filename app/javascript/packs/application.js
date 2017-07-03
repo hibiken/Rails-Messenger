@@ -8,18 +8,20 @@
 // layout file, like app/views/layouts/application.html.erb
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createHistory from 'history/createBrowserHistory'
 import configureStore from './store/configure-store';
 import Root from './containers/root';
 import configureChannels from './channels/configure_channels';
 
-const store = configureStore(window.__INITIAL_STATE__);
+const history = createHistory();
+const store = configureStore(window.__INITIAL_STATE__, history);
 
 /** Set up Action Cable channel subscriptions */
 configureChannels(store.dispatch);
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Root store={store} />,
+    <Root store={store} history={history} />,
     document.getElementById('app'),
   );
 });

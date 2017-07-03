@@ -1,10 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import Dashboard from './dashboard';
 
-const Root = ({ store }) => (
+const Root = ({ store, history }) => (
   <Provider store={store}>
-    <Dashboard />
+    <ConnectedRouter history={history}>
+      <Dashboard />
+    </ConnectedRouter>
   </Provider>
 );
 

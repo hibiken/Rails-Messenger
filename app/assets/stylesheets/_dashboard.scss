@@ -324,6 +324,10 @@
   margin: 0;
 }
 
+.message-threadlist-row__link {
+  text-decoration: none;
+}
+
 .message-threadlist-row__root {
   display: flex;
   padding: 10px;

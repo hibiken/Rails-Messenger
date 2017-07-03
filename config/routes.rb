@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  root to: 'dashboard#index'
   resources :users, only: [:index]
   resources :message_threads, only: [:index, :create] do
     resources :messages, only: [:index, :create]
@@ -10,5 +9,11 @@ Rails.application.routes.draw do
       post :started
     end
   end
+
+  # Delegate routing to react-router in the frontend.
+  get '/t/:message_thread_id', to: 'dashboard#index'
+
+  root to: 'dashboard#index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

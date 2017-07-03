@@ -1,4 +1,5 @@
 import axios from '../initializers/axios';
+import { push } from 'react-router-redux';
 import * as types from './types';
 import { getNextMessagesLinkFor, getMessageThreadById } from '../reducers';
 
@@ -55,7 +56,6 @@ export const fetchOrCreateMessageThreadByUserIds = (userIds) => (dispatch) => {
   });
 };
 
-export const setActiveThread = (id) => ({
-  type: types.SET_ACTIVE_MESSAGE_THREAD,
-  id,
-});
+export const setActiveThread = (id) => (dispatch) => {
+  dispatch(push(`/t/${id}`));
+};

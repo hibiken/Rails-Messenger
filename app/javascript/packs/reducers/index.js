@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer as router } from 'react-router-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import currentUser, * as fromCurrentUser from './current_user';
@@ -11,6 +12,7 @@ export default combineReducers({
   users,
   messageThreads,
   messages,
+  router,
 });
 
 /*** Selectors ***/
@@ -45,11 +47,22 @@ export const getMessageThreadById = (state, messageThreadId) => {
 };
 
 export const getActiveMessageThreadId = (state) => {
-  return fromMessageThreads.getActiveThreadId(state.messageThreads);
+  const { router: { location } } = state;
+
+  const found = location.pathname.match(/^\/t\/(\d+)$/);
+  if (found === null) {
+    return null;
+  }
+
+  return found[1];
 };
 
 export const getActiveMessageThread = (state) => {
-  const activeThread = fromMessageThreads.getActiveMessageThread(state.messageThreads);
+  const activeThreadId = getActiveMessageThreadId(state);
+  const activeThread = fromMessageThreads.getMessageThreadById(
+    state.messageThreads, activeThreadId
+  );
+
   if (activeThread === false) {
     return false;
   }

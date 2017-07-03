@@ -6,7 +6,6 @@ const initialState = {
   byId: {},
   usersById: {},
   messagesById: {},
-  activeThreadId: null,
   isFetching: false,
   linksById: {},
 };
@@ -167,14 +166,14 @@ const messagesById = (state = initialState.messagesById, action) => {
   }
 };
 
-const activeThreadId = (state = initialState.activeThreadId, action) => {
-  switch (action.type) {
-    case types.SET_ACTIVE_MESSAGE_THREAD:
-      return action.id;
-    default:
-      return state;
-  }
-};
+// const activeThreadId = (state = initialState.activeThreadId, action) => {
+//   switch (action.type) {
+//     case types.SET_ACTIVE_MESSAGE_THREAD:
+//       return action.id;
+//     default:
+//       return state;
+//   }
+// };
 
 const linksById = (state = initialState.linksById, action) => {
   switch (action.type) {
@@ -207,7 +206,6 @@ export default combineReducers({
   byId,
   usersById,
   messagesById,
-  activeThreadId,
   linksById,
   isFetching,
 });
@@ -228,20 +226,13 @@ export const getAllMessageThreads = (state) => {
 };
 
 export const getMessageThreadById = (state, messageThreadId) => {
-  return state.byId[messageThreadId] || false;
+  const { byId, messagesById } = state;
+  return byId.hasOwnProperty(messageThreadId) ? {
+      ...byId[messageThreadId],
+      id: messageThreadId,
+      messageIds: (messagesById[messageThreadId] || []),
+    } : false;
 };
-
-export const getActiveMessageThread = (state) => {
-  const { activeThreadId, byId, messagesById } = state;
-  return activeThreadId === null ?
-    false : {
-      ...byId[activeThreadId],
-      id: activeThreadId,
-      messageIds: (messagesById[activeThreadId] || []),
-    };
-};
-
-export const getActiveThreadId = (state) => state.activeThreadId;
 
 export const getLinksById = (state, messageThreadId) => {
   const { linksById } = state;
