@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import MainSidebar from '../components/main_sidebar';
 import {
   fetchMessageThreads,
-  fetchOrCreateMessageThreadByUserIds,
   setActiveThread,
   fetchMessagesFor,
 } from '../actions/message_threads';
@@ -28,7 +27,6 @@ class MainSidebarContainer extends Component {
       <MainSidebar
         messageThreads={this.props.messageThreads}
         activeThreadId={this.props.activeThreadId}
-        fetchOrCreateMessageThreadByUserIds={this.props.fetchOrCreateMessageThreadByUserIds}
       />
     );
   }
@@ -44,7 +42,6 @@ export default connect(
   mapStateToProps,
   {
     fetchMessageThreads,
-    fetchOrCreateMessageThreadByUserIds,
     setActiveThread,
     fetchMessagesFor,
   }
