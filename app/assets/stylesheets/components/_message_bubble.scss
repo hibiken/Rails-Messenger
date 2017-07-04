@@ -1,0 +1,91 @@
+/** MessageBubble **/
+.message-bubble__root {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 2px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.message-bubble--right {
+  background-color: rgb(214, 150, 187);
+  border-top-left-radius: 1.3em;
+  border-bottom-left-radius: 1.3em;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  color: white;
+  padding: 6px 12px;
+  clear: right;
+  float: right;
+  margin-right: 28px;
+  max-width: 40%;
+
+  &.message-bubble--first-in-group {
+    border-top-right-radius: 1.3em;
+  }
+
+  &.message-bubble--last-in-group {
+    border-bottom-right-radius: 1.3em;
+  }
+}
+
+.message-bubble--left {
+  background-color: #f1f0f0;
+  color: rgba(0, 0, 0, 1);
+  padding: 6px 12px;
+  border-top-right-radius: 1.3em;
+  border-bottom-right-radius: 1.3em;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  clear: left;
+  float: left;
+  max-width: 40%;
+
+  &.message-bubble--first-in-group {
+    border-top-left-radius: 1.3em;
+  }
+
+  &.message-bubble--last-in-group {
+    border-bottom-left-radius: 1.3em;
+  }
+
+}
+
+.message-bubble__delivery-status {
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  font-size: 13px;
+  height: 13px;
+}
+
+.message-bubble__delivery-status--pending {
+  color: #d3d3d3;
+}
+
+.message-bubble__delivery-status--error {
+  color: #ff0033;
+}
+
+.message-bubble__delivery-status--sent {
+  color: rgb(214, 150, 187);
+}
+
+.message-bubble__seen-status {
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  height: 15px;
+}
+
+.message-bubble__seen-status--multiple-users {
+  bottom: -18px;
+}
+
+.message-bubble__seen-status-avatar-image {
+  display: inline-block;
+  border-radius: 50%;
+  margin-left: 2px;
+}
+

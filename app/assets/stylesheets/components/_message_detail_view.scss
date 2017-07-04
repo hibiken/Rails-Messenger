@@ -1,0 +1,73 @@
+/** MessageDetailView **/
+.message-detail-view__header {
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  background-color: white;
+  text-align: center;
+  box-sizing: border-box;
+  height: 56px;
+  z-index: 10;
+}
+
+.message-detail-view__header-title-box {
+  display: inline-block;
+}
+
+.message-detail-view__header-usernames {
+  margin: 0;
+  font-size: 14px;
+}
+
+.message-detail-view__main-content {
+  height: 100%;
+  position: relative;
+}
+
+.message-detail-view__messages-window {
+  overflow-y: scroll;
+}
+
+.message-detail-view__messages-container {
+  padding-top: 2em;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.message-detail-view__message-thread-loading {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.message-detail-view__message-thread-loading--initial {
+  padding: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transoform: translate(-50%, -50%);
+}
+
+.message-detail-view__date-break {
+  text-align: center;
+}
+
+.message-detail-view__date-break-text {
+  display: block;
+  font-weight: 500;
+  margin: 12px 0 12px 20px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, .40);
+  font-size: 12px;
+}
+
+.message-detail-view__input-footer {
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  z-index: 10;
+}
+
+.message-detail-view__typing-indicator-row {
+  margin-top: 30px;
+  position: relative;
+}
+

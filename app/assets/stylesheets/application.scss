@@ -11,9 +11,25 @@
  * It is generally better to create a new file per style scope.
  *
  */
-@import 'vendor/normalize';
 
-@import 'base';
+// Base
+@import 'base/normalize';
+@import 'base/base';
 
-@import 'login';
-@import 'dashboard';
+// Layout
+@import 'layout/dashboard';
+
+// Components
+@import 'components/loader';
+@import 'components/message_detail_view';
+@import 'components/message_group';
+@import 'components/message_bubble';
+@import 'components/typing_indicator';
+@import 'components/message_input';
+@import 'components/message_threadlist_row';
+
+// Pages
+@import 'pages/login';
+
+// Helpers
+@import 'helpers/clearfix';

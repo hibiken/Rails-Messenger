@@ -1,0 +1,30 @@
+/** MessageGroup **/
+.message-group__root {
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.message-group__username {
+  padding-left: 52px;
+}
+
+.message-group__username-text {
+  font-size: 12px;
+  color: rgba(0, 0, 0, .40);
+  line-height: 1.1;
+  font-weight: normal;
+}
+
+.message-group__avatar {
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  bottom: 0;
+}
+
+.message-group__avatar-image {
+  display: block;
+  width: 30px;
+  border-radius: 50%;
+}
+

@@ -1,0 +1,18 @@
+/** MessageInput **/
+.message-input__root {
+  border-top: 1px solid rgba(0, 0, 0, .10);
+  padding: 5px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.message-input__input-field {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 9px;
+  border: none;
+  outline: none;
+}
+
