@@ -1,8 +1,10 @@
+@import 'helpers/variables';
+
 html, body {
   height: 100%;
   font-family: 'Open Sans', sans-serif;
 }
 
 body {
-  background-color: white;
+  background-color: $white;
 }

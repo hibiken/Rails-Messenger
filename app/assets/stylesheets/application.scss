@@ -18,6 +18,7 @@
 
 // Layout
 @import 'layout/dashboard';
+@import 'layout/clearfix';
 
 // Components
 @import 'components/loader';
@@ -31,5 +32,3 @@
 // Pages
 @import 'pages/login';
 
-// Helpers
-@import 'helpers/clearfix';

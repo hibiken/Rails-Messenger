@@ -1,3 +1,5 @@
+@import 'helpers/variables';
+
 .message-threadlist__rows-container {
   list-style: none;
   padding: 0;
@@ -15,16 +17,16 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, .05);
+    background-color: $hover-gray;
   }
 
   &:active {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: $active-gray;
   }
 }
 
 .message-threadlist-row__root--active {
-  background-color: rgba(0, 0, 0, .05);
+  background-color: $hover-gray;
 }
 
 .message-threadlist-row__root--unread {
@@ -33,10 +35,10 @@
   }
   .message-threadlist-row__message  {
     font-weight: 600;
-    color: rgba(0, 0, 0, 1);
+    color: $black;
   }
   .message-threadlist-row__sent-at {
-    color: #0084ff;
+    color: $blue;
   }
 }
 
@@ -53,14 +55,14 @@
 }
 
 .message-threadlist-row__username {
-  color: rgba(0, 0, 0, 1);
+  color: $black;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.4;
 }
 
 .message-threadlist-row__message {
-  color: rgba(153, 153, 153, 1);
+  color: $font-color-dark-gray;
   font-size: 13px;
   font-weight: 400;
 }
@@ -73,7 +75,7 @@
 
 .message-threadlist-row__sent-at {
   font-size: 12px;
-  color: rgba(0, 0, 0, .40);
+  color: $font-color-gray;
 }
 
 .message-threadlist-row__seen-status {

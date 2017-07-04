@@ -1,0 +1,19 @@
+/* Colors */
+$white: white;
+$black:            rgba(0, 0, 0, 1);
+$extra-light-gray: rgba(0, 0, 0, .05);
+$light-gray:       rgba(0, 0, 0, .10);
+$gray:             rgba(0, 0, 0, .20);
+$blue: #0084ff;
+
+/* Font-color */
+$font-color-dark-gray: #999999;
+$font-color-gray: rgba(0, 0, 0, .40);
+
+/* Border Colors */
+$border-color-gray:      $light-gray;
+$border-color-dark-gray: $gray;
+
+/* State Colors */
+$hover-gray:  $extra-light-gray;
+$active-gray: $light-gray;

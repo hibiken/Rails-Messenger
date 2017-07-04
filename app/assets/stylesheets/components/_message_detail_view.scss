@@ -1,7 +1,9 @@
+@import 'helpers/variables';
+
 /** MessageDetailView **/
 .message-detail-view__header {
   padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  border-bottom: 1px solid $border-color-gray;
   background-color: white;
   text-align: center;
   box-sizing: border-box;
@@ -55,7 +57,7 @@
   font-weight: 500;
   margin: 12px 0 12px 20px;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, .40);
+  color: $font-color-gray;
   font-size: 12px;
 }
 

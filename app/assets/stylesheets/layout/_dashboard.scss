@@ -1,3 +1,5 @@
+@import 'helpers/variables';
+
 /** Dashboard Layout **/
 .dashboard__root {
   display: flex;
@@ -8,14 +10,12 @@
 .main-sidebar__root {
   width: 25%;
   height: 100%;
-  background-color: white;
 }
 
 .message-detail-view__root {
   width: 75%;
   height: 100%;
-  background-color: white;
-  border-left: 1px solid rgba(0, 0, 0, .20);
+  border-left: 1px solid $border-color-dark-gray;
   display: flex;
   flex-direction: column;
 }
@@ -23,7 +23,7 @@
 /** MainSidebar **/
 .main-sidebar__header {
   padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  border-bottom: 1px solid $border-color-gray;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
