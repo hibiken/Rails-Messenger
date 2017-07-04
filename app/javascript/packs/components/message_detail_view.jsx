@@ -117,7 +117,11 @@ class MessageDetailView extends Component {
               </div>
             )}
             <div className="message-detail-view__messages-container">
-              {this.messageGroupsWithTimestamp(messageGroups).map((item, idx) => {
+              <div
+                style={{ float:"left", clear: "both" }}
+                ref={(elem) => this.messagesEnd = elem}
+              />
+              {this.messageGroupsWithTimestamp(messageGroups).reverse().map((item, idx) => {
                 if (item.type === 'dateBreak') {
                   return <DateBreak key={idx} timestamp={item.timestamp} />;
                 }
@@ -146,10 +150,6 @@ class MessageDetailView extends Component {
                   <TypingIndicator />
                 </div>
               )}
-              <div
-                style={{ float:"left", clear: "both" }}
-                ref={(elem) => this.messagesEnd = elem}
-              />
             </div>
           </div>
           {messageable && (

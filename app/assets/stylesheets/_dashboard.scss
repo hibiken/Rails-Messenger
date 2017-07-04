@@ -61,6 +61,8 @@
 
 .message-detail-view__messages-container {
   padding-top: 2em;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .message-detail-view__message-thread-loading {
