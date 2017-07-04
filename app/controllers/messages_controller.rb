@@ -1,5 +1,5 @@
 class MessagesController < ApiController
-  PER_PAGE = 30
+  PER_PAGE = 50
 
   before_action :set_message_thread, only: [:index, :create]
 

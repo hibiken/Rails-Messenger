@@ -19,7 +19,7 @@ class MessageDetailView extends Component {
 
   componentDidUpdate(prevProps) {
     const { messageCount, typingUsers, messageThreadId } = this.props;
-    const messagesFirstRender = prevProps.messageCount == 0 && messageCount > 0;
+    const messagesFirstRender = prevProps.messageCount === 0 && messageCount > 0;
     const newMessageAdded = prevProps.messageCount + 1 === messageCount;
     const typingUsersAdded = prevProps.typingUsers.length < typingUsers.length;
     const activeThreadChanged = prevProps.messageThreadId !== messageThreadId;
@@ -45,7 +45,7 @@ class MessageDetailView extends Component {
 
   handleScroll = (event) => {
     const { scrollTop } = this.refs.messagesContainer;
-    const offset = 50;
+    const offset = 30;
     if (scrollTop < offset && this.shouldFetchMessages()) {
       this.props.fetchMessagesFor(this.props.messageThreadId);
     }
@@ -105,45 +105,52 @@ class MessageDetailView extends Component {
           </div>
         </header>
         <div
-          onScroll={this.handleScroll}
-          ref="messagesContainer"
-          className="message-detail-view__main-content"
-          style={{ height: mainContentHeight}}>
-          {isFetchingMessages && (
-            <div className={loaderContainerClass}>
-              <Loader />
-            </div>
-          )}
-          <div className="message-detail-view__messages-container">
-            {this.messageGroupsWithTimestamp(messageGroups).map((item, idx) => {
-              if (item.type === 'dateBreak') {
-                return <DateBreak key={idx} timestamp={item.timestamp} />;
-              }
-              return (
-                <MessageGroup
-                  key={idx}
-                  isCurrentUser={item.userId === currentUserId}
-                  currentUserId={currentUserId}
-                  avatarUrl={item.avatarUrl}
-                  username={item.username}
-                  messages={item.messages}
-                  threadUserCount={usernames.length + 1}
-                  lastSeenMessageIdsByUserId={lastSeenMessageIdsByUserId}
-                />
-              );
-            }
-            )}
-            {typingUsers.length > 0 && (
-              <div className="message-detail-view__typing-indicator-row">
-                <div className="message-group__avatar">
-                  <img
-                    src={typingUsers[0].avatarUrl}
-                    className="message-group__avatar-image"
-                  />
-                </div>
-                <TypingIndicator />
+          className="message-detail-view__main-content">
+          <div
+            onScroll={this.handleScroll}
+            ref="messagesContainer"
+            className="message-detail-view__messages-window"
+            style={{ height: mainContentHeight}}>
+            {isFetchingMessages && (
+              <div className={loaderContainerClass}>
+                <Loader />
               </div>
             )}
+            <div className="message-detail-view__messages-container">
+              {this.messageGroupsWithTimestamp(messageGroups).map((item, idx) => {
+                if (item.type === 'dateBreak') {
+                  return <DateBreak key={idx} timestamp={item.timestamp} />;
+                }
+                return (
+                  <MessageGroup
+                    key={idx}
+                    isCurrentUser={item.userId === currentUserId}
+                    currentUserId={currentUserId}
+                    avatarUrl={item.avatarUrl}
+                    username={item.username}
+                    messages={item.messages}
+                    threadUserCount={usernames.length + 1}
+                    lastSeenMessageIdsByUserId={lastSeenMessageIdsByUserId}
+                  />
+                );
+              }
+              )}
+              {typingUsers.length > 0 && (
+                <div className="message-detail-view__typing-indicator-row">
+                  <div className="message-group__avatar">
+                    <img
+                      src={typingUsers[0].avatarUrl}
+                      className="message-group__avatar-image"
+                    />
+                  </div>
+                  <TypingIndicator />
+                </div>
+              )}
+              <div
+                style={{ float:"left", clear: "both" }}
+                ref={(elem) => this.messagesEnd = elem}
+              />
+            </div>
           </div>
           {messageable && (
             <div className="message-detail-view__input-footer">
@@ -154,10 +161,6 @@ class MessageDetailView extends Component {
               />
             </div>
           )}
-          <div
-            style={{ float:"left", clear: "both" }}
-            ref={(elem) => this.messagesEnd = elem}
-          />
         </div>
       </div>
     );
