@@ -1,18 +1,22 @@
+import moment from 'moment';
 import axios from '../initializers/axios';
 import * as types from './types';
-import { getCurrentUserId } from '../reducers';
+import { getCurrentUser } from '../reducers';
 import { uniqueId } from '../utils';
 
 export const createMessage = (messageThreadId, message) => (dispatch, getState) => {
-  const currentUserId = getCurrentUserId(getState());
-  const tempId = `temp_${currentUserId}_${uniqueId()}`;
+  const currentUser = getCurrentUser(getState());
+  const tempId = `temp_${currentUser.id}_${uniqueId()}`;
   dispatch({
     type: types.MESSAGE_SAVE_START,
     messageThreadId,
     tempId,
     message: {
       ...message,
-      userId: currentUserId,
+      userId: currentUser.id,
+      avatarUrl: currentUser.avatarUrl,
+      username: currentUser.username,
+      createdAt: moment().format(),
       persisted: false,
     },
   });

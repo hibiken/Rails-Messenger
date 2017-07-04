@@ -20,6 +20,10 @@ export const getCurrentUserId = (state) => {
   return fromCurrentUser.getId(state.currentUser);
 };
 
+export const getCurrentUser = (state) => {
+  return state.currentUser;
+};
+
 export const getAllUsers = (state) => {
   return fromUsers.getAllUsers(state.users);
 };

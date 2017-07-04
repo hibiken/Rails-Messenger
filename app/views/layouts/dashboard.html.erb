@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <meta name="jwt-token" content=<%= @auth_token %>></meta>
     <script>
-      window.__INITIAL_STATE__ = { currentUser: { id: <%= current_user.id %> } };
+      window.__INITIAL_STATE__ = <%= redux_initial_state.to_json.html_safe %>;
     </script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
