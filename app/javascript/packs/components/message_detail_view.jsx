@@ -121,6 +121,17 @@ class MessageDetailView extends Component {
                 style={{ float:"left", clear: "both" }}
                 ref={(elem) => this.messagesEnd = elem}
               />
+              {typingUsers.length > 0 && (
+                <div className="message-detail-view__typing-indicator-row">
+                  <div className="message-group__avatar">
+                    <img
+                      src={typingUsers[0].avatarUrl}
+                      className="message-group__avatar-image"
+                    />
+                  </div>
+                  <TypingIndicator />
+                </div>
+              )}
               {this.messageGroupsWithTimestamp(messageGroups).reverse().map((item, idx) => {
                 if (item.type === 'dateBreak') {
                   return <DateBreak key={idx} timestamp={item.timestamp} />;
@@ -138,17 +149,6 @@ class MessageDetailView extends Component {
                   />
                 );
               }
-              )}
-              {typingUsers.length > 0 && (
-                <div className="message-detail-view__typing-indicator-row">
-                  <div className="message-group__avatar">
-                    <img
-                      src={typingUsers[0].avatarUrl}
-                      className="message-group__avatar-image"
-                    />
-                  </div>
-                  <TypingIndicator />
-                </div>
               )}
             </div>
           </div>
