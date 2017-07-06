@@ -8,6 +8,7 @@ class MessageThread < ApplicationRecord
   end
 
   def seen_by(user)
+    return unless last_message.present?
     join_record = message_threads_users.find_by!(user: user)
     join_record.update(
       last_seen_message_id: last_message.id,
