@@ -8,19 +8,20 @@ import ProfilePicture from '../containers/profile_picture_container';
 
 const MessageThreadlistRow = (props) => {
   const { lastMessage, lastMessageSeenUserIds, currentUserId } = props;
-  const isLastMessageSentByCurrentUser = lastMessage.userId === currentUserId;
+  const isLastMessageSentByCurrentUser = lastMessage && lastMessage.userId === currentUserId;
   const lastMessageSeenOtherUserIds = lastMessageSeenUserIds.filter(id => id !== currentUserId);
 
   const rowClass = classNames({
     'message-threadlist-row__root': true,
     'message-threadlist-row__root--active': props.isActive,
     "message-threadlist-row__root--unread": (
+      _.isObject(lastMessage) &&
       !isLastMessageSentByCurrentUser &&
       lastMessageSeenUserIds.indexOf(currentUserId) === -1
     )
   });
 
-  const wasSentToday = moment(props.lastMessage.createdAt).isSame(new Date(), 'day');
+  const wasSentToday = lastMessage && moment(props.lastMessage.createdAt).isSame(new Date(), 'day');
 
   return  (
     <li>
@@ -39,25 +40,36 @@ const MessageThreadlistRow = (props) => {
               <span className="message-threadlist-row__username">{props.usernames.join(', ')}</span>
             </div>
             <div>
-              <span className="message-threadlist-row__message">
-                {props.currentUserId === props.lastMessage.userId && (<span>You:&nbsp;</span>)}
-                {_.truncate(props.lastMessage.body, { length: 40, 'separator': /,? +/})}
-              </span>
+              {_.isObject(lastMessage) && (
+                <span className="message-threadlist-row__message">
+                  {currentUserId === lastMessage.userId && (<span>You:&nbsp;</span>)}
+                  {_.truncate(props.lastMessage.body, { length: 40, 'separator': /,? +/})}
+                </span>
+              )}
+              {!_.isObject(lastMessage) && (
+                <span className="message-threadlist-row__message">
+                  You are now connected on Messenger
+                </span>
+              )}
             </div>
           </div>
-          <div className="message-threadlist-row__sent-at">
-            {
-              wasSentToday ?
-                moment(props.lastMessage.createdAt).format('h:mm A') :
-                moment(props.lastMessage.createdAt).format('MMM D')
-            }
-            {isLastMessageSentByCurrentUser && lastMessageSeenOtherUserIds.length === 1 && (
-              <div className="message-threadlist-row__seen-status">
-                <ProfilePicture
-                  userId={lastMessageSeenOtherUserIds[0]}
-                  size={15}
-                  className="message-threadlist-row__seen-status-avatar-image"
-                />
+          <div>
+          {_.isObject(lastMessage) && (
+              <div className="message-threadlist-row__sent-at">
+                {
+                  wasSentToday ?
+                    moment(props.lastMessage.createdAt).format('h:mm A') :
+                    moment(props.lastMessage.createdAt).format('MMM D')
+                }
+                {isLastMessageSentByCurrentUser && lastMessageSeenOtherUserIds.length === 1 && (
+                  <div className="message-threadlist-row__seen-status">
+                    <ProfilePicture
+                      userId={lastMessageSeenOtherUserIds[0]}
+                      size={15}
+                      className="message-threadlist-row__seen-status-avatar-image"
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -75,7 +87,7 @@ MessageThreadlistRow.propTypes = {
   usernames: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
-  lastMessage: PropTypes.object.isRequired,
+  lastMessage: PropTypes.object,
   lastMessageSeenUserIds: PropTypes.array.isRequired,
   messageThreadId: PropTypes.string.isRequired,
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import SignoutLink from './signout_link';
 import MessageThreadlistRowContainer from '../containers/message_threadlist_row_container';
 
@@ -24,7 +25,7 @@ class MainSidebar extends Component {
           <ul className="message-threadlist__rows-container">
             {messageThreads.map(mt => {
               const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
-                return item.lastSeenMessageId == mt.lastMessage.id;
+                return _.isObject(mt.lastMessage) && item.lastSeenMessageId == mt.lastMessage.id;
               }).map(item => item.userId);
               return (
                 <MessageThreadlistRowContainer
