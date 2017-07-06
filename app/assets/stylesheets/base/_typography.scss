@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'CircularPro';
+  src: font-url('circular-pro-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CircularPro';
+  src: font-url('circular-pro-medium.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CircularPro';
+  src: font-url('circular-pro-mediumItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CircularPro';
+  src: font-url('circular-pro-book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CircularPro';
+  src: font-url('circular-pro-bookItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+
+body {
+  font-family: 'CircularPro';
+  font-weight: normal;
+}
