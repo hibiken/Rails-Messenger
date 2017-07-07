@@ -9,7 +9,7 @@ export const getCurrentUser = state => state.currentUser;
 export const getCurrentUserId = state => state.currentUser.id;
 
 /* Users */
-export const getAllUsers = state => fromUsers.getAll(state);
+export const getAllUsers = fromUsers.getAll;
 
 /* MessageThreads */
 export const getAllMessageThreads = createSelector(
