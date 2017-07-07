@@ -70,18 +70,6 @@ export default combineReducers({
 });
 
 /*** Selectors ***/
-
-export const getAllUsers = (state) => {
-  const { allIds, byId } = state;
-  return allIds.map(id => ({ ...byId[id], id }));
-};
-
-
-export const getUsersByIds = (state, ids) => {
-  const { byId } = state;
-  return ids.map(id => ({ ...byId[id], id }));
-};
-
 export const getUserById = (state, id) => {
   return { ...state.byId[id], id };
 }

@@ -23,7 +23,7 @@ ProfilePicutre.propTypes = {
 };
 
 const mapStateToProps = (state, { userId }) => {
-  const user = getUserById(state, userId);
+  const user = getUserById(state, userId); // FIXME: reselect selector should take just one argument `state`;
   return { avatarUrl: user.avatarUrl };
 }
 

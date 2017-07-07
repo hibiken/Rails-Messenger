@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MessageDetailView from '../components/message_detail_view';
 import {
-  getCurrentUserId,
-  getUsersByIds,
   getActiveMessageThread,
-} from '../reducers';
+  getCurrentUserId,
+} from '../selectors';
 import { createMessage } from '../actions/messages';
 import { fetchMessagesFor } from '../actions/message_threads';
 
@@ -36,7 +35,7 @@ const mapStateToProps = (state) => {
     messageGroups: activeThread.messageGroups,
     messageable: true,
     messageThreadId: activeThread.id,
-    typingUsers: getUsersByIds(state, activeThread.typingUserIds),
+    typingUsers: activeThread.typingUsers,
     allMessagesFetched: activeThread.allMessagesFetched,
     isFetchingMessages: activeThread.isFetching,
     lastSeenMessageIdsByUserId: activeThread.lastSeenMessageIdsByUserId,

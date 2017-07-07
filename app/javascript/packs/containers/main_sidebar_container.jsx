@@ -8,7 +8,11 @@ import {
   setActiveThread,
   fetchMessagesFor,
 } from '../actions/message_threads';
-import * as Selectors from '../reducers';
+import {
+  getAllMessageThreads,
+  getMostRecentMessageThreadId,
+  getActiveMessageThreadId,
+} from '../selectors';
 
 class MainSidebarContainer extends Component {
   componentWillMount() {
@@ -39,9 +43,9 @@ class MainSidebarContainer extends Component {
 };
 
 const mapStateToProps = (state) => ({
-  messageThreads: Selectors.getAllMessageThreads(state),
-  activeThreadId: Selectors.getActiveMessageThreadId(state),
-  mostRecentThreadId: Selectors.getMostRecentMessageThreadId(state),
+  messageThreads: getAllMessageThreads(state),
+  activeThreadId: getActiveMessageThreadId(state),
+  mostRecentThreadId: getMostRecentMessageThreadId(state),
 });
 
 export default connect(

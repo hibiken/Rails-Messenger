@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MessageThreadlistRow from '../components/message_threadlist_row';
 import { setActiveThread, fetchMessagesFor } from '../actions/message_threads';
 import { markAsSeen } from '../api/message_threads';
-import * as Selectors from '../reducers';
+import * as Selectors from '../selectors';
 
 const mapStateToProps = (state) => ({
   currentUserId: Selectors.getCurrentUserId(state),

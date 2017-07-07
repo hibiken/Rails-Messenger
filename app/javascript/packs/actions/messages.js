@@ -1,7 +1,7 @@
 import moment from 'moment';
 import axios from '../initializers/axios';
 import * as types from './types';
-import { getCurrentUser } from '../reducers';
+import { getCurrentUser } from '../selectors';
 import { uniqueId } from '../utils';
 
 export const createMessage = (messageThreadId, message) => (dispatch, getState) => {

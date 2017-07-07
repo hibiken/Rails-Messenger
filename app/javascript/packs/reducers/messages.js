@@ -72,15 +72,3 @@ export default combineReducers({
   byId,
 });
 
-/*** Selectors ***/
-const recentLast = (message1, message2) => {
-  const one = new Date(message1.createdAt);
-  const two = new Date(message2.createdAt);
-  return one > two ? 1 : -1;
-}
-
-export const getSortedMessagesByIds = (state, ids) => {
-  const { byId } = state;
-  return ids.map(id => ({ ...byId[id], id })).sort(recentLast);
-};
-

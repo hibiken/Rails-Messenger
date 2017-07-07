@@ -210,27 +210,12 @@ export default combineReducers({
   isFetching,
 });
 
-/*** Selectors ***/
-const recentFirst = (messageThread1, messageThread2) => {
-  const one = new Date(messageThread1.updatedAt);
-  const two = new Date(messageThread2.updatedAt);
-  return one > two ? -1 : 1;
-}
-
-export const getAllMessageThreads = (state) => {
-  const { allIds, byId } = state;
-  return allIds.map(id => ({
-    ...byId[id],
-    id
-  })).sort(recentFirst);
-};
-
+/*** Non momoized selectors ***/
 export const getMessageThreadById = (state, messageThreadId) => {
-  const { byId, messagesById } = state;
+  const { byId } = state;
   return byId.hasOwnProperty(messageThreadId) ? {
       ...byId[messageThreadId],
       id: messageThreadId,
-      messageIds: (messagesById[messageThreadId] || []),
     } : false;
 };
 
@@ -242,9 +227,4 @@ export const getLinksById = (state, messageThreadId) => {
 export const getNextLinkById = (state, messageThreadId) => {
   const links = getLinksById(state, messageThreadId);
   return links.next || '';
-};
-
-export const getMostRecentMessageThreadId = (state) => {
-  const messageThreads = getAllMessageThreads(state);
-  return messageThreads.length > 0 ? messageThreads[0].id : false;
 };
