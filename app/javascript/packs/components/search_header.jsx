@@ -105,7 +105,7 @@ class SearchHeader extends Component {
     }
 
     return (
-      <header className="message-detail-view__header">
+      <header className="search-header__root">
         <label>To:</label>
         <TagsInput
           value={this.state.users}

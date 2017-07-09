@@ -12,6 +12,7 @@ import { fetchMessagesFor } from '../actions/message_threads';
 const mapStateToProps = (state) => {
   const activeThread = getActiveMessageThread(state);
   const currentUserId = getCurrentUserId(state);
+  const isAddingNewMessageThread = state.messageThreads.isAddingNew;
 
   if (activeThread === false) {
     return {
@@ -25,6 +26,7 @@ const mapStateToProps = (state) => {
       allMessagesFetched: false,
       isFetchingMessages: false,
       lastSeenMessageIdsByUserId: [],
+      isAddingNewMessageThread,
     };
   }
 
@@ -39,6 +41,7 @@ const mapStateToProps = (state) => {
     allMessagesFetched: activeThread.allMessagesFetched,
     isFetchingMessages: activeThread.isFetching,
     lastSeenMessageIdsByUserId: activeThread.lastSeenMessageIdsByUserId,
+    isAddingNewMessageThread,
   };
 };
 

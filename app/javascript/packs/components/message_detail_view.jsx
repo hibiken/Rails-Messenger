@@ -10,7 +10,7 @@ import Loader from './loader';
 import MessageGroup from './message_group';
 import { markAsSeen } from '../api/message_threads';
 import ReactTooltip from 'react-tooltip';
-// import SearchHeader from './search_header';
+import SearchHeader from './search_header';
 
 class MessageDetailView extends Component {
   componentDidMount() {
@@ -77,6 +77,7 @@ class MessageDetailView extends Component {
     const {
       usernames, messageCount, messageGroups, currentUserId, messageable,
       messageThreadId, typingUsers, isFetchingMessages, lastSeenMessageIdsByUserId,
+      isAddingNewMessageThread,
     } = this.props;
 
     // header height 54px, footer height 50px
@@ -97,13 +98,17 @@ class MessageDetailView extends Component {
 
     return (
       <div className="message-detail-view__root">
-        <header className="message-detail-view__header">
-          <div className="message-detail-view__header-title-box">
-            <h2 className="message-detail-view__header-usernames">
-              {usernames.join(', ')}
-            </h2>
-          </div>
-        </header>
+        {isAddingNewMessageThread ? (
+          <SearchHeader />
+        ) : (
+          <header className="message-detail-view__header">
+            <div className="message-detail-view__header-title-box">
+              <h2 className="message-detail-view__header-usernames">
+                {usernames.join(', ')}
+              </h2>
+            </div>
+          </header>
+        )}
         <div
           className="message-detail-view__main-content">
           <div
@@ -180,6 +185,7 @@ MessageDetailView.propTypes = {
   allMessagesFetched: PropTypes.bool.isRequired,
   isFetchingMessages: PropTypes.bool.isRequired,
   lastSeenMessageIdsByUserId: PropTypes.array.isRequired,
+  isAddingNewMessageThread: PropTypes.bool.isRequired,
 };
 
 export default MessageDetailView;
