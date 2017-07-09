@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -27,55 +27,57 @@ const MessageThreadlistRow = (props) => {
     <li>
       <Link to={`/t/${props.messageThreadId}`} className="message-threadlist-row__link">
         <div className={rowClass} onClick={props.onClick}>
-        <div className="message-threadlist-row__avatar-container">
-          <img
-            src={props.avatarUrl}
-            className="message-threadlist-row__avatar-image"
-            width="50"
-          />
-        </div>
-        <div className="message-threadlist-row__main-content">
-          <div>
-            <div>
-              <span className="message-threadlist-row__username">{props.usernames.join(', ')}</span>
-            </div>
-            <div>
-              {_.isObject(lastMessage) && (
-                <span className="message-threadlist-row__message">
-                  {currentUserId === lastMessage.userId && (<span>You:&nbsp;</span>)}
-                  {_.truncate(props.lastMessage.body, { length: 40, 'separator': /,? +/})}
-                </span>
-              )}
-              {!_.isObject(lastMessage) && (
-                <span className="message-threadlist-row__message">
-                  You are now connected on Messenger
-                </span>
-              )}
-            </div>
+          <div className="message-threadlist-row__avatar-container">
+            <img
+              src={props.avatarUrl}
+              className="message-threadlist-row__avatar-image"
+              width="50"
+            />
           </div>
-          <div>
-          {_.isObject(lastMessage) && (
-              <div className="message-threadlist-row__sent-at">
-                {
-                  wasSentToday ?
-                    moment(props.lastMessage.createdAt).format('h:mm A') :
-                    moment(props.lastMessage.createdAt).format('MMM D')
-                }
-                {isLastMessageSentByCurrentUser && lastMessageSeenOtherUserIds.length === 1 && (
-                  <div className="message-threadlist-row__seen-status">
-                    <ProfilePicture
-                      userId={lastMessageSeenOtherUserIds[0]}
-                      size={15}
-                      className="message-threadlist-row__seen-status-avatar-image"
-                    />
-                  </div>
+          <div className="message-threadlist-row__main-content">
+            <div>
+              <div>
+                <span className="message-threadlist-row__username">
+                  {props.isNewMessageThread ? 'New Message' : props.usernames.join(', ')}
+                </span>
+              </div>
+              <div>
+                {_.isObject(lastMessage) && (
+                  <span className="message-threadlist-row__message">
+                    {currentUserId === lastMessage.userId && (<span>You:&nbsp;</span>)}
+                    {_.truncate(props.lastMessage.body, { length: 40, 'separator': /,? +/})}
+                  </span>
+                )}
+                {!_.isObject(lastMessage) && (
+                  <span className="message-threadlist-row__message">
+                    You are now connected on Messenger
+                  </span>
                 )}
               </div>
-            )}
+            </div>
+            <div>
+            {_.isObject(lastMessage) && (
+                <div className="message-threadlist-row__sent-at">
+                  {
+                    wasSentToday ?
+                      moment(props.lastMessage.createdAt).format('h:mm A') :
+                      moment(props.lastMessage.createdAt).format('MMM D')
+                  }
+                  {isLastMessageSentByCurrentUser && lastMessageSeenOtherUserIds.length === 1 && (
+                    <div className="message-threadlist-row__seen-status">
+                      <ProfilePicture
+                        userId={lastMessageSeenOtherUserIds[0]}
+                        size={15}
+                        className="message-threadlist-row__seen-status-avatar-image"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
     </li>
   );
 

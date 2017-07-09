@@ -35,6 +35,7 @@ class MainSidebarContainer extends Component {
   render() {
     return (
       <MainSidebar
+        isAddingNewThread={this.props.isAddingNewThread}
         messageThreads={this.props.messageThreads}
         activeThreadId={this.props.activeThreadId}
       />
@@ -43,6 +44,7 @@ class MainSidebarContainer extends Component {
 };
 
 const mapStateToProps = (state) => ({
+  isAddingNewThread: state.messageThreads.isAddingNew,
   messageThreads: getAllMessageThreads(state),
   activeThreadId: getActiveMessageThreadId(state),
   mostRecentThreadId: getMostRecentMessageThreadId(state),

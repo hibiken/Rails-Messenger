@@ -4,10 +4,11 @@ import _ from 'lodash';
 import SignoutLink from './signout_link';
 import NewMessageButtonContainer from '../containers/new_message_button_container';
 import MessageThreadlistRowContainer from '../containers/message_threadlist_row_container';
+import NewMessageThreadlistRow from './new_message_threadlist_row';
 
 class MainSidebar extends Component {
   render() {
-    const { messageThreads, activeThreadId } = this.props;
+    const { messageThreads, activeThreadId, isAddingNewThread } = this.props;
 
     return (
       <div className="main-sidebar__root">
@@ -22,6 +23,9 @@ class MainSidebar extends Component {
         </header>
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
+            {isAddingNewThread && (
+              <NewMessageThreadlistRow />
+            )}
             {messageThreads.map(mt => {
               const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
                 return _.isObject(mt.lastMessage) && item.lastSeenMessageId == mt.lastMessage.id;
@@ -46,6 +50,7 @@ class MainSidebar extends Component {
 }
 
 MainSidebar.propTypes = {
+  isAddingNewThread: PropTypes.bool.isRequired,
   messageThreads: PropTypes.array.isRequired,
   activeThreadId: PropTypes.string,
 };
