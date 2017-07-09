@@ -38,8 +38,8 @@ class MessageDetailView extends Component {
   }
 
   shouldFetchMessages = () => {
-    const { allMessagesFetched, isFetchingMessages } = this.props;
-    return !isFetchingMessages && !allMessagesFetched;
+    const { allMessagesFetched, isFetchingMessages, messageThreadId } = this.props;
+    return messageThreadId && !isFetchingMessages && !allMessagesFetched;
   }
 
 

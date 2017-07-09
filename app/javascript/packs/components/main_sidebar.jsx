@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import SignoutLink from './signout_link';
+import NewMessageButtonContainer from '../containers/new_message_button_container';
 import MessageThreadlistRowContainer from '../containers/message_threadlist_row_container';
 
 class MainSidebar extends Component {
@@ -17,9 +18,7 @@ class MainSidebar extends Component {
           <div>
             <strong className="main-sidebar__header-title">Messenger</strong>
           </div>
-          <button>
-            New Message
-          </button>
+          <NewMessageButtonContainer />
         </header>
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">

@@ -59,3 +59,8 @@ export const fetchOrCreateMessageThreadByUserIds = (userIds) => (dispatch) => {
 export const setActiveThread = (id) => (dispatch) => {
   dispatch(push(`/t/${id}`));
 };
+
+export const addNewMessageThread = () => (dispatch) => {
+  dispatch(push('/new'));
+  dispatch({ type: types.START_ADDING_NEW_MESSAGE_THREAD });
+};

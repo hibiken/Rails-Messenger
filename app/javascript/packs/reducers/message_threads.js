@@ -7,6 +7,7 @@ const initialState = {
   usersById: {},
   messagesById: {},
   isFetching: false,
+  isAddingNew: false,
   linksById: {},
 };
 
@@ -166,15 +167,6 @@ const messagesById = (state = initialState.messagesById, action) => {
   }
 };
 
-// const activeThreadId = (state = initialState.activeThreadId, action) => {
-//   switch (action.type) {
-//     case types.SET_ACTIVE_MESSAGE_THREAD:
-//       return action.id;
-//     default:
-//       return state;
-//   }
-// };
-
 const linksById = (state = initialState.linksById, action) => {
   switch (action.type) {
     case types.FETCH_MESSAGES_RESULT:
@@ -201,6 +193,17 @@ const isFetching = (state = initialState.isFetching, action) => {
   }
 };
 
+const isAddingNew = (state = initialState.isAddingNew, action) => {
+  switch (action.type) {
+    case types.START_ADDING_NEW_MESSAGE_THREAD:
+      return true;
+    case types.CANCEL_ADDING_NEW_MESSAGE_THREAD:
+      return false;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   allIds,
   byId,
@@ -208,6 +211,7 @@ export default combineReducers({
   messagesById,
   linksById,
   isFetching,
+  isAddingNew,
 });
 
 /*** Non momoized selectors ***/
