@@ -6,3 +6,28 @@
   box-sizing: border-box;
   min-height: 56px;
 }
+
+.search-header__label {
+  display: inline-block;
+  margin-right: 5px;
+  color: $font-color-gray;
+}
+
+.search-header__root {
+
+  .react-tagsinput {
+    display: inline-block;
+  }
+
+  .react-tagsinput-tag {
+    background-color: #cbe6fe;
+    border-radius: 2px;
+    border: none;
+    color: $blue;
+    display: inline-block;
+    font-size: 13px;
+    padding: 5px 8px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,25 @@
+@import 'helpers/variables';
+
+.user-suggestion-input__root {
+  min-width: 200px;
+}
+
+.user-suggestion-input__input {
+  display: inline-block;
+  width: 100%;
+}
+
+.user-suggestion-input__suggestions-container {
+  border: 1px solid red;
+}
+
+.user-suggestion-input__suggestions-list {
+  border: 1px solid blue;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-suggestion-input__suggestion-highlighted {
+  background-color: $hover-gray;
+}
