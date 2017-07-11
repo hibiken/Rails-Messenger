@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users, only: [:index]
+  resources :users, only: [:index] do
+    get :search, on: :collection
+  end
   resources :message_threads, only: [:index, :create] do
     resources :messages, only: [:index, :create]
       post :seen, on: :member

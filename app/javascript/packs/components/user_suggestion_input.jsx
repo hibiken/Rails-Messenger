@@ -1,23 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggest from 'react-autosuggest';
-
-const users = [
-  {
-    userId: 6,
-    username: 'Peizhi Zheng',
-    email: '460657727@qq.com',
-    avatarUrl: 'http://graph.facebook.com/v2.6/825613910923392/picture',
-  },
-  {
-    userId: 9,
-    username: 'Jay Mo',
-    email: 'jayhxmo@outlook.com',
-    avatarUrl: 'http://graph.facebook.com/v2.6/1876094729378442/picture',
-  }
-];
-
-const getSuggestions = () => users;
+import { searchUsers } from '../api/users_search';
 
 const getSuggestionValue = (suggestion) => suggestion.username;
 
@@ -37,15 +21,16 @@ class UserSuggestionInput extends Component {
   }
 
   onChange = (event, { newValue }) => {
-    console.log('newValue', newValue);
     this.setState({ value: newValue });
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
     console.log('onSuggestionsFetchRequested value', value);
-    this.setState({
-      suggestions: getSuggestions(),
-    })
+    searchUsers(value).then((users) => {
+      this.setState({
+        suggestions: users,
+      });
+    });
   }
 
   onSuggestionsClearRequested = () => {
@@ -66,6 +51,7 @@ class UserSuggestionInput extends Component {
       placeholder: 'Type the name of a person',
       value,
       onChange: this.onChange,
+      onKeyDown: this.props.onKeyDown,
     };
 
     const theme = {

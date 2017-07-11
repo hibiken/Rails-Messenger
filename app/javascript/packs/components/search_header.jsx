@@ -12,14 +12,16 @@ class SearchHeader extends Component {
   }
 
   handleChange = (users) => {
-    console.log('values', users);
     this.setState({ users });
   }
 
   render() {
     const autoSuggestRenderInput = ({ addTag, ...props }) => {
       return (
-        <UserSuggestionInput addTag={addTag} />
+        <UserSuggestionInput
+          addTag={addTag}
+          onKeyDown={props.onKeyDown}
+        />
       );
     };
     return (
