@@ -44,6 +44,13 @@ class UserSuggestionInput extends Component {
     this.setState({ value: '' });
   }
 
+  onKeyDown = (event) => {
+    const { value } = this.state;
+    if (event.key === 'Backspace' && value.length === 0) {
+      this.props.onKeyDown(event);
+    }
+  }
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -51,7 +58,7 @@ class UserSuggestionInput extends Component {
       placeholder: 'Type the name of a person',
       value,
       onChange: this.onChange,
-      onKeyDown: this.props.onKeyDown,
+      onKeyDown: this.onKeyDown,
     };
 
     const theme = {
