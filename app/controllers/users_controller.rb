@@ -5,8 +5,7 @@ class UsersController < ApiController
   end
 
   def search
-    # TODO: replace with search
-    users = User.all
+    users = User.search_by_username(params[:q])
     render json: users, each_serializer: UserSerializer, status: :ok
   end
 end
