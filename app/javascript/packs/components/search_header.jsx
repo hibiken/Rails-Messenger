@@ -7,12 +7,12 @@ class SearchHeader extends Component {
   constructor() {
     super();
     this.state = {
-      users: [],
+      usernames: [],
     };
   }
 
-  handleChange = (users) => {
-    this.setState({ users });
+  handleChange = (usernames) => {
+    this.setState({ usernames });
   }
 
   render() {
@@ -28,7 +28,7 @@ class SearchHeader extends Component {
       <header className="search-header__root">
         <label className="search-header__label">To:</label>
         <TagsInput
-          value={this.state.users}
+          value={this.state.usernames}
           onChange={this.handleChange}
           renderInput={autoSuggestRenderInput}
         />

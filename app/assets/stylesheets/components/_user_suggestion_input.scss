@@ -7,19 +7,44 @@
 .user-suggestion-input__input {
   display: inline-block;
   width: 100%;
+  border: none;
+  outline: none;
 }
 
-.user-suggestion-input__suggestions-container {
-  border: 1px solid red;
+.user-suggestion-input__suggestions-container--open {
+  display: block;
+  background-color: $white;
+  border: 1px solid $gray;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px 0 $gray;
+  width: 320px;
 }
 
 .user-suggestion-input__suggestions-list {
-  border: 1px solid blue;
+  border: none;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 6px 0;
 }
 
 .user-suggestion-input__suggestion-highlighted {
   background-color: $hover-gray;
+}
+
+.user-suggestion-input__suggestion-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.user-suggestion-input__suggestion-item-avatar {
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.user-suggestion-input__suggestion-item-avatar-image {
+  display: block;
+  border-radius: 50%;
 }

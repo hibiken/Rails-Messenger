@@ -7,3 +7,16 @@ html, body {
 body {
   background-color: $white;
 }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $font-color-gray;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: $font-color-gray;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: $font-color-gray;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $font-color-gray;
+}

@@ -6,8 +6,17 @@ import { searchUsers } from '../api/users_search';
 const getSuggestionValue = (suggestion) => suggestion.username;
 
 const renderSuggestion = (suggestion) => (
-  <div>
-    {suggestion.username}
+  <div className="user-suggestion-input__suggestion-item">
+    <div className="user-suggestion-input__suggestion-item-avatar">
+      <img
+        className="user-suggestion-input__suggestion-item-avatar-image"
+        src={suggestion.avatarUrl}
+        width={30}
+      />
+    </div>
+    <div className="user-suggestion-input__suggestion-item-username">
+      {suggestion.username}
+    </div>
   </div>
 );
 
@@ -16,6 +25,7 @@ class UserSuggestionInput extends Component {
     super();
     this.state = {
       value: '',
+      selectedUsers: [],
       suggestions: [],
     };
   }
@@ -25,10 +35,11 @@ class UserSuggestionInput extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    console.log('onSuggestionsFetchRequested value', value);
+    const selectedUserIds = this.state.selectedUsers.map(u => u.id);
     searchUsers(value).then((users) => {
+      const newSuggestions = users.filter(u => selectedUserIds.indexOf(u.id) === -1);
       this.setState({
-        suggestions: users,
+        suggestions: newSuggestions,
       });
     });
   }
@@ -41,21 +52,28 @@ class UserSuggestionInput extends Component {
 
   onSuggestionSelected = (e, { suggestion }) => {
     this.props.addTag(suggestion.username)
-    this.setState({ value: '' });
+    this.setState({
+      value: '',
+      selectedUsers: this.state.selectedUsers.concat(suggestion),
+    });
   }
 
   onKeyDown = (event) => {
-    const { value } = this.state;
+    const { value, selectedUsers } = this.state;
     if (event.key === 'Backspace' && value.length === 0) {
       this.props.onKeyDown(event);
+      this.setState({
+        selectedUsers: selectedUsers.slice(0, selectedUsers.length - 1),
+      });
     }
   }
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, selectedUsers } = this.state;
+    const placeholder = selectedUsers.length === 0 ? 'Type the name of a person' : '';
 
     const inputProps = {
-      placeholder: 'Type the name of a person',
+      placeholder,
       value,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
@@ -66,6 +84,7 @@ class UserSuggestionInput extends Component {
       containerOpen: 'user-suggestion-input__root-open',
       input: 'user-suggestion-input__input',
       suggestionsContainer: 'user-suggestion-input__suggestions-container',
+      suggestionsContainerOpen: 'user-suggestion-input__suggestions-container--open',
       suggestionsList: 'user-suggestion-input__suggestions-list',
       suggestionHighlighted: 'user-suggestion-input__suggestion-highlighted',
     }
