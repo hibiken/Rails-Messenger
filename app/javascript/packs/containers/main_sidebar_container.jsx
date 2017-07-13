@@ -12,6 +12,7 @@ import {
   getAllMessageThreads,
   getMostRecentMessageThreadId,
   getActiveMessageThreadId,
+  getNewMessageThreadActive,
 } from '../selectors';
 
 class MainSidebarContainer extends Component {
@@ -44,7 +45,7 @@ class MainSidebarContainer extends Component {
 };
 
 const mapStateToProps = (state) => ({
-  isAddingNewThread: state.messageThreads.isAddingNew,
+  isAddingNewThread: getNewMessageThreadActive(state),
   messageThreads: getAllMessageThreads(state),
   activeThreadId: getActiveMessageThreadId(state),
   mostRecentThreadId: getMostRecentMessageThreadId(state),

@@ -5,6 +5,7 @@ import MessageDetailView from '../components/message_detail_view';
 import {
   getActiveMessageThread,
   getCurrentUserId,
+  getNewMessageThreadActive,
 } from '../selectors';
 import { createMessage } from '../actions/messages';
 import { fetchMessagesFor } from '../actions/message_threads';
@@ -12,7 +13,7 @@ import { fetchMessagesFor } from '../actions/message_threads';
 const mapStateToProps = (state) => {
   const activeThread = getActiveMessageThread(state);
   const currentUserId = getCurrentUserId(state);
-  const isAddingNewMessageThread = state.messageThreads.isAddingNew;
+  const isAddingNewMessageThread = getNewMessageThreadActive(state);
 
   if (activeThread === false) {
     return {

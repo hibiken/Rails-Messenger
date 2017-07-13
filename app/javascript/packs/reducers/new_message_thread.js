@@ -9,6 +9,8 @@ const initialState = {
 
 const active = (state = initialState.active, action) => {
   switch (action.type) {
+    case types.START_ADDING_NEW_MESSAGE_THREAD:
+      return true;
     default:
       return state;
   }
