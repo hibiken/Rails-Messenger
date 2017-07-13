@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux'; // TODO: Move this logic to container!
+import { getNewMessageThreadUsers } from '../selectors';
+import {
+  addUserToNewMessageThread,
+  removeLastUserFromNewMessageThread,
+} from '../actions/new_message_thread';
 import AutoSuggest from 'react-autosuggest';
 import { searchUsers } from '../api/users_search';
 
@@ -25,7 +31,6 @@ class UserSuggestionInput extends Component {
     super();
     this.state = {
       value: '',
-      selectedUsers: [],
       suggestions: [],
     };
   }
@@ -35,7 +40,7 @@ class UserSuggestionInput extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    const selectedUserIds = this.state.selectedUsers.map(u => u.id);
+    const selectedUserIds = this.props.selectedUsers.map(u => u.id);
     searchUsers(value).then((users) => {
       const newSuggestions = users.filter(u => selectedUserIds.indexOf(u.id) === -1);
       this.setState({
@@ -51,25 +56,23 @@ class UserSuggestionInput extends Component {
   }
 
   onSuggestionSelected = (e, { suggestion }) => {
-    this.props.addTag(suggestion.username)
+    this.props.addUserToNewMessageThread(suggestion);
     this.setState({
       value: '',
-      selectedUsers: this.state.selectedUsers.concat(suggestion),
     });
   }
 
   onKeyDown = (event) => {
-    const { value, selectedUsers } = this.state;
+    const { value } = this.state;
     if (event.key === 'Backspace' && value.length === 0) {
-      this.props.onKeyDown(event);
-      this.setState({
-        selectedUsers: selectedUsers.slice(0, selectedUsers.length - 1),
-      });
+      this.props.removeLastUserFromNewMessageThread();
     }
   }
 
   render() {
-    const { value, suggestions, selectedUsers } = this.state;
+    console.log('Props', this.props);
+    const { value, suggestions } = this.state;
+    const { selectedUsers } = this.props;
     const placeholder = selectedUsers.length === 0 ? 'Type the name of a person' : '';
 
     const inputProps = {
@@ -106,7 +109,14 @@ class UserSuggestionInput extends Component {
 }
 
 UserSuggestionInput.propTypes = {
-  addTag: PropTypes.func.isRequired,
 }
 
-export default UserSuggestionInput;
+const mapStateToProps = (state) => ({
+  selectedUsers: getNewMessageThreadUsers(state),
+});
+
+export default connect(
+  mapStateToProps,
+  { addUserToNewMessageThread, removeLastUserFromNewMessageThread }
+)(UserSuggestionInput);
+

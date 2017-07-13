@@ -140,3 +140,10 @@ export const getActiveMessageThread = createSelector(
 /* NewMessageThread */
 export const getNewMessageThreadActive = state => state.newMessageThread.active;
 
+export const getNewMessageThreadUsers = state => state.newMessageThread.users;
+
+export const getNewMessageThreadUsernames = createSelector(
+  getNewMessageThreadUsers,
+  (users) => users.map(u => u.username)
+);
+

@@ -10,7 +10,7 @@ import Loader from './loader';
 import MessageGroup from './message_group';
 import { markAsSeen } from '../api/message_threads';
 import ReactTooltip from 'react-tooltip';
-import SearchHeader from './search_header';
+import SearchHeaderContainer from '../containers/search_header_container';
 
 class MessageDetailView extends Component {
   componentDidMount() {
@@ -99,7 +99,7 @@ class MessageDetailView extends Component {
     return (
       <div className="message-detail-view__root">
         {isAddingNewMessageThread ? (
-          <SearchHeader />
+          <SearchHeaderContainer />
         ) : (
           <header className="message-detail-view__header">
             <div className="message-detail-view__header-title-box">

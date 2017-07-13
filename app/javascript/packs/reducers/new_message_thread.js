@@ -18,6 +18,10 @@ const active = (state = initialState.active, action) => {
 
 const users = (state = initialState.users, action) => {
   switch (action.type) {
+    case types.ADD_USER_TO_NEW_MESSAGE_THREAD:
+      return state.concat(action.user);
+    case types.REMOVE_LAST_USER_FROM_NEW_MESSAGE_THREAD:
+      return state.slice(0, state.length - 1);
     default:
       return state;
   }
