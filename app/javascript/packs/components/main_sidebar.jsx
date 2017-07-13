@@ -8,7 +8,7 @@ import NewMessageThreadlistRow from './new_message_threadlist_row';
 
 class MainSidebar extends Component {
   render() {
-    const { messageThreads, activeThreadId, isAddingNewThread } = this.props;
+    const { messageThreads, activeThreadId, isAddingNewThread, newMessageThreadUsers } = this.props;
 
     return (
       <div className="main-sidebar__root">
@@ -24,7 +24,7 @@ class MainSidebar extends Component {
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
             {isAddingNewThread && (
-              <NewMessageThreadlistRow />
+              <NewMessageThreadlistRow users={newMessageThreadUsers} />
             )}
             {messageThreads.map(mt => {
               const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
@@ -51,6 +51,7 @@ class MainSidebar extends Component {
 
 MainSidebar.propTypes = {
   isAddingNewThread: PropTypes.bool.isRequired,
+  newMessageThreadUsers: PropTypes.array.isRequired,
   messageThreads: PropTypes.array.isRequired,
   activeThreadId: PropTypes.string,
 };
