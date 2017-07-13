@@ -5,7 +5,7 @@ class UsersController < ApiController
   end
 
   def search
-    users = User.search_by_username(params[:q])
+    users = User.where.not(id: current_user.id).search_by_username(params[:q])
     render json: users, each_serializer: UserSerializer, status: :ok
   end
 end
