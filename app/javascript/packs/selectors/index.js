@@ -137,3 +137,6 @@ export const getActiveMessageThread = createSelector(
   }
 );
 
+/* NewMessageThread */
+export const getNewMessageThreadActive = state => state.newMessageThread.active;
+

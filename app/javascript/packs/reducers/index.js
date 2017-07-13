@@ -3,13 +3,15 @@ import { routerReducer as router } from 'react-router-redux';
 import currentUser, * as fromCurrentUser from './current_user';
 import users, * as fromUsers from './users';
 import messageThreads, * as fromMessageThreads from './message_threads';
-import messages, * as fromMessages from './messages';
+import messages from './messages';
+import newMessageThread from './new_message_thread';
 
 export default combineReducers({
   currentUser,
   users,
   messageThreads,
   messages,
+  newMessageThread,
   router,
 });
 
