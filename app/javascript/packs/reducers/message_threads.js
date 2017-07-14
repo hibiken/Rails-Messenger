@@ -207,34 +207,38 @@ const baseReducer = combineReducers({
 const messageThreadsReducer = (state, action) => {
   switch (action.type) {
     case types.MESSAGE_SAVE_START:
-      const newMessageThread = state.newMessageThread.messageThread;
-      const { messageIds, userIds, ...attributes } = newMessageThread;
-      const allIds = state.allIds.indexOf(newMessageThread.id) === -1 ?
-        state.allIds.concat(newMessageThread.id) : state.allIds;
-      const byId = {
-        ...state.byId,
-        [newMessageThread.id]: {
-          ...state.byId[newMessageThread.id],
-          ...attributes,
-        }
-      };
-      const usersById = {
-        ...state.usersById,
-        [newMessageThread.id]: userIds,
-      };
-      const messagesById = {
-        ...state.messagesById,
-        [newMessageThread.id]: messageIds,
-      };
+      if (state.newMessageThread.active) {
+        const newMessageThread = state.newMessageThread.messageThread;
+        const { messageIds, userIds, ...attributes } = newMessageThread;
+        const allIds = state.allIds.indexOf(newMessageThread.id) === -1 ?
+          state.allIds.concat(newMessageThread.id) : state.allIds;
+        const byId = {
+          ...state.byId,
+          [newMessageThread.id]: {
+            ...state.byId[newMessageThread.id],
+            ...attributes,
+          }
+        };
+        const usersById = {
+          ...state.usersById,
+          [newMessageThread.id]: userIds,
+        };
+        const messagesById = {
+          ...state.messagesById,
+          [newMessageThread.id]: messageIds,
+        };
 
-      return {
-        ...state,
-        allIds,
-        byId,
-        usersById,
-        messagesById,
-        newMessageThread: newMessageThreadReducer(state.newMessageThread, action)
-      };
+        return {
+          ...state,
+          allIds,
+          byId,
+          usersById,
+          messagesById,
+          newMessageThread: newMessageThreadReducer(state.newMessageThread, action)
+        };
+      }
+
+      return baseReducer(state, action);
 
     default:
       return baseReducer(state, action);
