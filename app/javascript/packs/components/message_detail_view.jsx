@@ -80,9 +80,6 @@ class MessageDetailView extends Component {
       isAddingNewMessageThread,
     } = this.props;
 
-    // header height 54px, footer height 50px
-    const mainContentHeight = window.innerHeight - (54 + 50);
-
     const DateBreak = (props) => (
       <div className="message-detail-view__date-break">
         <h4 className="message-detail-view__date-break-text">
@@ -114,8 +111,7 @@ class MessageDetailView extends Component {
           <div
             onScroll={this.handleScroll}
             ref="messagesContainer"
-            className="message-detail-view__messages-window"
-            style={{ height: mainContentHeight}}>
+            className="message-detail-view__messages-window">
             {isFetchingMessages && (
               <div className={loaderContainerClass}>
                 <Loader />

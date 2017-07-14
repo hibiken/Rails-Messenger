@@ -23,10 +23,13 @@
 .message-detail-view__main-content {
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .message-detail-view__messages-window {
   overflow-y: scroll;
+  flex-grow: 1;
 }
 
 .message-detail-view__messages-container {
