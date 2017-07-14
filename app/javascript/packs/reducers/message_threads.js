@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../actions/types';
+import newMessageThreadReducer from './new_message_thread';
 
 const initialState = {
   allIds: [],
@@ -7,7 +8,6 @@ const initialState = {
   usersById: {},
   messagesById: {},
   isFetching: false,
-  isAddingNew: false,
   linksById: {},
 };
 
@@ -193,26 +193,55 @@ const isFetching = (state = initialState.isFetching, action) => {
   }
 };
 
-const isAddingNew = (state = initialState.isAddingNew, action) => {
-  switch (action.type) {
-    case types.START_ADDING_NEW_MESSAGE_THREAD:
-      return true;
-    case types.CANCEL_ADDING_NEW_MESSAGE_THREAD:
-      return false;
-    default:
-      return state;
-  }
-};
 
-export default combineReducers({
+const baseReducer = combineReducers({
   allIds,
   byId,
   usersById,
   messagesById,
   linksById,
   isFetching,
-  isAddingNew,
+  newMessageThread: newMessageThreadReducer,
 });
+
+const messageThreadsReducer = (state, action) => {
+  switch (action.type) {
+    case types.MESSAGE_SAVE_START:
+      const newMessageThread = state.newMessageThread.messageThread;
+      const { messageIds, userIds, ...attributes } = newMessageThread;
+      const allIds = state.allIds.indexOf(newMessageThread.id) === -1 ?
+        state.allIds.concat(newMessageThread.id) : state.allIds;
+      const byId = {
+        ...state.byId,
+        [newMessageThread.id]: {
+          ...state.byId[newMessageThread.id],
+          ...attributes,
+        }
+      };
+      const usersById = {
+        ...state.usersById,
+        [newMessageThread.id]: userIds,
+      };
+      const messagesById = {
+        ...state.messagesById,
+        [newMessageThread.id]: messageIds,
+      };
+
+      return {
+        ...state,
+        allIds,
+        byId,
+        usersById,
+        messagesById,
+        newMessageThread: newMessageThreadReducer(state.newMessageThread, action)
+      };
+
+    default:
+      return baseReducer(state, action);
+  }
+}
+
+export default messageThreadsReducer;
 
 /*** Non momoized selectors ***/
 export const getMessageThreadById = (state, messageThreadId) => {

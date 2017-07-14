@@ -138,18 +138,18 @@ export const getActiveMessageThread = createSelector(
 );
 
 /* NewMessageThread */
-export const getNewMessageThreadActive = state => state.newMessageThread.active;
+export const getNewMessageThreadActive = state => state.messageThreads.newMessageThread.active;
 
-export const getNewMessageThreadUsers = state => state.newMessageThread.users;
+export const getNewMessageThreadUsers = state => state.messageThreads.newMessageThread.users;
 
 export const getNewMessageThreadUsernames = createSelector(
   getNewMessageThreadUsers,
   (users) => users.map(u => u.username)
 );
 
-export const getIsFetchingNewMessageThread = state => state.newMessageThread.isFetching;
+export const getIsFetchingNewMessageThread = state => state.messageThreads.newMessageThread.isFetching;
 
-export const getNewMessageThread = state => state.newMessageThread.messageThread;
+export const getNewMessageThread = state => state.messageThreads.newMessageThread.messageThread;
 
 
 export const getActiveNewMessageThread = createSelector(

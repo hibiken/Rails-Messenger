@@ -12,6 +12,8 @@ const active = (state = initialState.active, action) => {
   switch (action.type) {
     case types.START_ADDING_NEW_MESSAGE_THREAD:
       return true;
+    case types.MESSAGE_SAVE_START:
+      return false;
     default:
       return state;
   }
@@ -23,6 +25,8 @@ const users = (state = initialState.users, action) => {
       return state.concat(action.user);
     case types.REMOVE_LAST_USER_FROM_NEW_MESSAGE_THREAD:
       return state.slice(0, state.length - 1);
+    case types.MESSAGE_SAVE_START:
+      return [];
     default:
       return state;
   }
@@ -42,6 +46,8 @@ const messageThread = (state = initialState.messageThread, action) => {
         allMessagesFetched: false,
       };
 
+    case types.MESSAGE_SAVE_START:
+      return null;
     default:
       return state;
   }
@@ -52,6 +58,8 @@ const isFetching = (state = initialState.isFetching, action) => {
     case types.FETCH_MESSAGE_THREAD_START:
       return true;
     case types.FETCH_MESSAGE_THREAD_RESULT:
+      return false;
+    case types.MESSAGE_SAVE_START:
       return false;
     default:
       return state;

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import axios from '../initializers/axios';
+import { push } from 'react-router-redux';
 import * as types from './types';
 import { getCurrentUser } from '../selectors';
 import { uniqueId } from '../utils';
@@ -20,6 +21,7 @@ export const createMessage = (messageThreadId, message) => (dispatch, getState) 
       persisted: false,
     },
   });
+  dispatch(push(`/t/${messageThreadId}`));
 
   return axios({
     method: 'post',
