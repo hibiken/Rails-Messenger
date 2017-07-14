@@ -1,0 +1,19 @@
+@import 'helpers/variables';
+
+.new-message-button__root,
+.main-sidebar__signout-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.new-message-button__icon,
+.signout-link__icon {
+  font-size: 22px !important;
+  color: $blue;
+
+  &:active {
+    color: whitesmoke;
+  }
+}

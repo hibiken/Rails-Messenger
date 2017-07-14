@@ -6,7 +6,7 @@ const NewMessageButton = (props) => {
     <button
       className="new-message-button__root"
       onClick={props.onClick}>
-      New Message
+      <i className="fa fa-pencil-square-o new-message-button__icon" aria-hidden="true" />
     </button>
   );
 };

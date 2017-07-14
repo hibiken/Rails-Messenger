@@ -6,7 +6,7 @@ const SignoutLink = (props) => (
     rel="nofollow"
     data-method="delete"
     href="/users/sign_out">
-    Sign Out
+    <i className="fa fa-sign-out signout-link__icon" aria-hidden="true" />
   </a>
 );
 

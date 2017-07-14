@@ -13,7 +13,7 @@ class MainSidebar extends Component {
     return (
       <div className="main-sidebar__root">
         <header className="main-sidebar__header">
-          <button>
+          <button className="main-sidebar__signout-button">
             <SignoutLink />
           </button>
           <div>
