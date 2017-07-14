@@ -5,6 +5,7 @@ const initialState = {
   active: false,
   users: [],
   messageThread: {},
+  isFetching: false,
 };
 
 const active = (state = initialState.active, action) => {
@@ -29,6 +30,26 @@ const users = (state = initialState.users, action) => {
 
 const messageThread = (state = initialState.messageThread, action) => {
   switch (action.type) {
+    case types.FETCH_MESSAGE_THREAD_RESULT:
+      const { data: { id, attributes, relationships } } = action.payload;
+      return {
+        id,
+        ...attributes,
+        messageIds: relationships.messages.data.map(m => m.id),
+        userIds: relationships.users.data.map(u => u.id),
+      };
+
+    default:
+      return state;
+  }
+};
+
+const isFetching = (state = initialState.isFetching, action) => {
+  switch (action.type) {
+    case types.FETCH_MESSAGE_THREAD_START:
+      return true;
+    case types.FETCH_MESSAGE_THREAD_RESULT:
+      return false;
     default:
       return state;
   }
@@ -38,5 +59,6 @@ export default combineReducers({
   active,
   users,
   messageThread,
+  isFetching,
 });
 

@@ -5,6 +5,7 @@ import { getNewMessageThreadUsers } from '../selectors';
 import {
   addUserToNewMessageThread,
   removeLastUserFromNewMessageThread,
+  fetchMessageThread,
 } from '../actions/new_message_thread';
 import AutoSuggest from 'react-autosuggest';
 import { searchUsers } from '../api/users_search';
@@ -56,7 +57,10 @@ class UserSuggestionInput extends Component {
   }
 
   onSuggestionSelected = (e, { suggestion }) => {
+    const selectedUserIds = this.props.selectedUsers.map(u => u.id);
+    const newSelectedUserIds = selectedUserIds.concat(suggestion.id);
     this.props.addUserToNewMessageThread(suggestion);
+    this.props.fetchMessageThread(newSelectedUserIds);
     this.setState({
       value: '',
     });
@@ -117,6 +121,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { addUserToNewMessageThread, removeLastUserFromNewMessageThread }
+  { addUserToNewMessageThread, removeLastUserFromNewMessageThread, fetchMessageThread }
 )(UserSuggestionInput);
 

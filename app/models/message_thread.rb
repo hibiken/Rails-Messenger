@@ -14,4 +14,6 @@ class MessageThread < ApplicationRecord
       last_seen_message_id: last_message.id,
       last_seen_at: Time.zone.now)
   end
+
+  scope :with_messages, -> { joins(:messages).distinct }
 end
