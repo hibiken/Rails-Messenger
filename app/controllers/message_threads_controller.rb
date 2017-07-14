@@ -8,7 +8,7 @@ class MessageThreadsController < ApiController
 
   def create
     if message_thread = MessageThreads::FindOrCreate.call(user_ids)
-      render json: message_thread, status: :ok
+      render json: message_thread, include: ['users', 'messages'], status: :ok
     else
       # TODO: Render error json
     end

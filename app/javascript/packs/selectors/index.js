@@ -147,3 +147,41 @@ export const getNewMessageThreadUsernames = createSelector(
   (users) => users.map(u => u.username)
 );
 
+export const getIsFetchingNewMessageThread = state => state.newMessageThread.isFetching;
+
+export const getNewMessageThread = state => state.newMessageThread.messageThread;
+
+
+export const getActiveNewMessageThread = createSelector(
+  getNewMessageThread,
+  fromUsers.byId,
+  fromMessages.byId,
+  (newMessageThread, usersById, messagesById) => {
+    if (newMessageThread === null) {
+      return false;
+    }
+
+    const receivers = newMessageThread.receiverIds.map(id => ({
+      ...usersById[id],
+      id,
+    }));
+
+    const typingUsers = newMessageThread.typingUserIds.map(id => ({
+      ...usersById[id],
+      id,
+    }));
+
+    const messages = newMessageThread.messageIds.map(id => ({
+      ...messagesById[id],
+      id,
+    }));
+
+    return {
+      ...newMessageThread,
+      messageCount: newMessageThread.messageIds.length,
+      messageGroups: groupedMessagesByCreatedAt(sortMessages(messages)),
+      receivers,
+      typingUsers,
+    };
+  }
+);

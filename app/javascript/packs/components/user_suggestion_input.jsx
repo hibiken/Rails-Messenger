@@ -67,14 +67,16 @@ class UserSuggestionInput extends Component {
   }
 
   onKeyDown = (event) => {
-    const { value } = this.state;
+    const { value  } = this.state;
+    const selectedUserIds = this.props.selectedUsers.map(u => u.id);
+    const newSelectedUserIds = selectedUserIds.slice(0, selectedUserIds.length - 1);
     if (event.key === 'Backspace' && value.length === 0) {
       this.props.removeLastUserFromNewMessageThread();
+      this.props.fetchMessageThread(newSelectedUserIds);
     }
   }
 
   render() {
-    console.log('Props', this.props);
     const { value, suggestions } = this.state;
     const { selectedUsers } = this.props;
     const placeholder = selectedUsers.length === 0 ? 'Type the name of a person' : '';

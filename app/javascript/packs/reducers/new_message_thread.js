@@ -4,7 +4,7 @@ import * as types from '../actions/types';
 const initialState = {
   active: false,
   users: [],
-  messageThread: {},
+  messageThread: null,
   isFetching: false,
 };
 
@@ -37,6 +37,9 @@ const messageThread = (state = initialState.messageThread, action) => {
         ...attributes,
         messageIds: relationships.messages.data.map(m => m.id),
         userIds: relationships.users.data.map(u => u.id),
+        typingUserIds: [],
+        isFetching: false,
+        allMessagesFetched: false,
       };
 
     default:

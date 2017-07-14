@@ -17,6 +17,16 @@ const allIds = (state = initialState.allIds, action) => {
         return nextState;
       }, [...state]);
 
+    case types.FETCH_MESSAGE_THREAD_RESULT:
+      const { included } = action.payload;
+      const messages = included.filter(data => data.type === 'messages');
+      return messages.reduce((nextState, m) => {
+        if (nextState.indexOf(m.id) === -1) {
+          nextState.push(m.id);
+        }
+        return nextState;
+      }, [...state]);
+
     case types.MESSAGE_SAVE_START:
       return [ ...state, action.tempId ];
 
@@ -42,6 +52,13 @@ const byId = (state = initialState.byId, action) => {
         ...state,
         [action.tempId]: action.message,
       };
+
+    case types.FETCH_MESSAGE_THREAD_RESULT:
+      const messages = action.payload.included.filter(data => data.type === 'messages');
+      return messages.reduce((nextState, m) => {
+        nextState[m.id] = m.attributes;
+        return nextState;
+      }, { ...state })
 
     case types.MESSAGE_SAVE_FAILURE:
       return {
