@@ -32,6 +32,12 @@ const allIds = (state = initialState.allIds, action) => {
       }, [...state]);
     }
 
+    case types.ADD_USER_TO_NEW_MESSAGE_THREAD:
+      if (state.indexOf(action.user.id) === -1) {
+        return state.concat(action.user.id);
+      }
+      return state;
+
     default:
       return state;
   }
@@ -65,6 +71,13 @@ const byId = (state = initialState.byId, action) => {
         return nextState;
       }, { ...state });
     }
+
+    case types.ADD_USER_TO_NEW_MESSAGE_THREAD:
+      const { id, ...attributes } = action.user;
+      return {
+        ...state,
+        [id]: attributes,
+      };
 
     default:
       return state;
