@@ -1,0 +1,8 @@
+Description:
+    Generate a React functional component with given props
+
+Example:
+    rails generate react_component Datepicker
+
+    This will create:
+        app/javascript/packs/components/datepicker.js
