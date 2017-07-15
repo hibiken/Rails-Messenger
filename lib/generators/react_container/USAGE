@@ -1,0 +1,8 @@
+Description:
+    Generate a smart React component connected to Redux store.
+
+Example:
+    rails generate react_container TodoList
+
+    This will create:
+        app/javascript/packs/containers/todo_list_container.jsx
