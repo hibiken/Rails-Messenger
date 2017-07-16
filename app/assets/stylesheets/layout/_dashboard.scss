@@ -10,6 +10,9 @@
 .main-sidebar__root {
   width: 25%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .message-detail-view__root {
@@ -29,4 +32,8 @@
   align-items: center;
   box-sizing: border-box;
   height: 54px;
+}
+
+.message-threadlist__root {
+  overflow-y: scroll;
 }
