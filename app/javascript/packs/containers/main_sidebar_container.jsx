@@ -12,7 +12,8 @@ import {
   getAllMessageThreads,
   getMostRecentMessageThreadId,
   getActiveMessageThreadId,
-  getNewMessageThreadActive,
+  getIsAddingNewThread,
+  getIsNewThreadActive,
   getNewMessageThreadUsers,
 } from '../selectors';
 
@@ -38,6 +39,7 @@ class MainSidebarContainer extends Component {
     return (
       <MainSidebar
         isAddingNewThread={this.props.isAddingNewThread}
+        isNewThreadActive={this.props.isNewThreadActive}
         newMessageThreadUsers={this.props.newMessageThreadUsers}
         messageThreads={this.props.messageThreads}
         activeThreadId={this.props.activeThreadId}
@@ -47,7 +49,8 @@ class MainSidebarContainer extends Component {
 };
 
 const mapStateToProps = (state) => ({
-  isAddingNewThread: getNewMessageThreadActive(state),
+  isAddingNewThread: getIsAddingNewThread(state),
+  isNewThreadActive: getIsNewThreadActive(state),
   newMessageThreadUsers: getNewMessageThreadUsers(state),
   messageThreads: getAllMessageThreads(state),
   activeThreadId: getActiveMessageThreadId(state),

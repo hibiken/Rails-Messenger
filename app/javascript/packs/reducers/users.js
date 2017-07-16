@@ -59,7 +59,6 @@ const byId = (state = initialState.byId, action) => {
 
     case types.FETCH_USERS_RESULT:
       return action.payload.data.reduce((nextState, u) => {
-        console.log('u', u);
         nextState[u.id] = u.attributes;
         return nextState;
       }, { ...state });

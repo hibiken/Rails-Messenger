@@ -2,21 +2,9 @@ import { combineReducers } from 'redux';
 import * as types from '../actions/types';
 
 const initialState = {
-  active: false,
   users: [],
   messageThread: null,
   isFetching: false,
-};
-
-const active = (state = initialState.active, action) => {
-  switch (action.type) {
-    case types.START_ADDING_NEW_MESSAGE_THREAD:
-      return true;
-    case types.MESSAGE_SAVE_START:
-      return false;
-    default:
-      return state;
-  }
 };
 
 const users = (state = initialState.users, action) => {
@@ -67,7 +55,6 @@ const isFetching = (state = initialState.isFetching, action) => {
 };
 
 export default combineReducers({
-  active,
   users,
   messageThread,
   isFetching,

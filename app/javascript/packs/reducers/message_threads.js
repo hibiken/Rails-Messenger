@@ -8,6 +8,7 @@ const initialState = {
   usersById: {},
   messagesById: {},
   isFetching: false,
+  isAddingNewThread: false,
   linksById: {},
 };
 
@@ -193,6 +194,19 @@ const isFetching = (state = initialState.isFetching, action) => {
   }
 };
 
+const isAddingNewThread = (state = initialState.isAddingNewThread, action) => {
+  if (action.type === types.MESSAGE_SAVE_START) {
+    debugger;
+  }
+  switch (action.type) {
+    case types.START_ADDING_NEW_MESSAGE_THREAD:
+      return true;
+
+    default:
+      return state;
+  }
+};
+
 
 const baseReducer = combineReducers({
   allIds,
@@ -201,13 +215,14 @@ const baseReducer = combineReducers({
   messagesById,
   linksById,
   isFetching,
+  isAddingNewThread,
   newMessageThread: newMessageThreadReducer,
 });
 
 const messageThreadsReducer = (state, action) => {
   switch (action.type) {
     case types.MESSAGE_SAVE_START:
-      if (state.newMessageThread.active) {
+      if (window.location.pathname === '/new') {
         const newMessageThread = state.newMessageThread.messageThread;
         const { messageIds, userIds, ...attributes } = newMessageThread;
         const allIds = state.allIds.indexOf(newMessageThread.id) === -1 ?
@@ -227,6 +242,7 @@ const messageThreadsReducer = (state, action) => {
           ...state.messagesById,
           [newMessageThread.id]: messageIds,
         };
+        const isAddingNewThread = false;
 
         return {
           ...state,
@@ -234,6 +250,7 @@ const messageThreadsReducer = (state, action) => {
           byId,
           usersById,
           messagesById,
+          isAddingNewThread,
           newMessageThread: newMessageThreadReducer(state.newMessageThread, action)
         };
       }

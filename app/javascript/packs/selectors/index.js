@@ -138,7 +138,12 @@ export const getActiveMessageThread = createSelector(
 );
 
 /* NewMessageThread */
-export const getNewMessageThreadActive = state => state.messageThreads.newMessageThread.active;
+export const getIsAddingNewThread = state => state.messageThreads.isAddingNewThread;
+
+export const getIsNewThreadActive = createSelector(
+  pathname,
+  (pathname) => pathname === '/new'
+);
 
 export const getNewMessageThreadUsers = state => state.messageThreads.newMessageThread.users;
 

@@ -5,7 +5,7 @@ import MessageDetailView from '../components/message_detail_view';
 import {
   getActiveMessageThread,
   getCurrentUserId,
-  getNewMessageThreadActive,
+  getIsNewThreadActive,
   getActiveNewMessageThread,
   getIsFetchingNewMessageThread,
 } from '../selectors';
@@ -14,13 +14,13 @@ import { fetchMessagesFor } from '../actions/message_threads';
 
 const mapStateToProps = (state) => {
   const currentUserId = getCurrentUserId(state);
-  const isAddingNewMessageThread = getNewMessageThreadActive(state);
+  const isNewThreadActive = getIsNewThreadActive(state);
   const isFetchingNewThread = getIsFetchingNewMessageThread(state);
 
-  const activeThread = isAddingNewMessageThread ?
+  const activeThread = isNewThreadActive ?
     getActiveNewMessageThread(state) : getActiveMessageThread(state);
 
-  const isFetchingMessages = isAddingNewMessageThread ?
+  const isFetchingMessages = isNewThreadActive ?
     isFetchingNewThread : activeThread.isFetching;
 
   if (activeThread === false) {
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
       allMessagesFetched: false,
       isFetchingMessages: false,
       lastSeenMessageIdsByUserId: [],
-      isAddingNewMessageThread,
+      isNewThreadActive,
     };
   }
 
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
     allMessagesFetched: activeThread.allMessagesFetched,
     isFetchingMessages,
     lastSeenMessageIdsByUserId: activeThread.lastSeenMessageIdsByUserId,
-    isAddingNewMessageThread,
+    isNewThreadActive,
   };
 };
 

@@ -77,7 +77,7 @@ class MessageDetailView extends Component {
     const {
       usernames, messageCount, messageGroups, currentUserId, messageable,
       messageThreadId, typingUsers, isFetchingMessages, lastSeenMessageIdsByUserId,
-      isAddingNewMessageThread,
+      isNewThreadActive,
     } = this.props;
 
     const DateBreak = (props) => (
@@ -95,7 +95,7 @@ class MessageDetailView extends Component {
 
     return (
       <div className="message-detail-view__root">
-        {isAddingNewMessageThread ? (
+        {isNewThreadActive ? (
           <SearchHeaderContainer />
         ) : (
           <header className="message-detail-view__header">
@@ -181,7 +181,7 @@ MessageDetailView.propTypes = {
   allMessagesFetched: PropTypes.bool.isRequired,
   isFetchingMessages: PropTypes.bool.isRequired,
   lastSeenMessageIdsByUserId: PropTypes.array.isRequired,
-  isAddingNewMessageThread: PropTypes.bool.isRequired,
+  isNewThreadActive: PropTypes.bool.isRequired,
 };
 
 export default MessageDetailView;

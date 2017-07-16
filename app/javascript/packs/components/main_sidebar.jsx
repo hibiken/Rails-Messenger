@@ -4,11 +4,14 @@ import _ from 'lodash';
 import SignoutLink from './signout_link';
 import NewMessageButtonContainer from '../containers/new_message_button_container';
 import MessageThreadlistRowContainer from '../containers/message_threadlist_row_container';
-import NewMessageThreadlistRow from './new_message_threadlist_row';
+import NewMessageThreadlistRowContainer from '../containers/new_message_threadlist_row_container';
 
 class MainSidebar extends Component {
   render() {
-    const { messageThreads, activeThreadId, isAddingNewThread, newMessageThreadUsers } = this.props;
+    const {
+      messageThreads, activeThreadId, isAddingNewThread, newMessageThreadUsers,
+      isNewThreadActive,
+    } = this.props;
 
     return (
       <div className="main-sidebar__root">
@@ -24,7 +27,10 @@ class MainSidebar extends Component {
         <div className="message-threadlist__root">
           <ul className="message-threadlist__rows-container">
             {isAddingNewThread && (
-              <NewMessageThreadlistRow users={newMessageThreadUsers} />
+              <NewMessageThreadlistRowContainer
+                users={newMessageThreadUsers}
+                isActive={isNewThreadActive}
+              />
             )}
             {messageThreads.map(mt => {
               const lastMessageSeenUserIds = mt.lastSeenMessageIdsByUserId.filter(item => {
@@ -51,6 +57,7 @@ class MainSidebar extends Component {
 
 MainSidebar.propTypes = {
   isAddingNewThread: PropTypes.bool.isRequired,
+  isNewThreadActive: PropTypes.bool.isRequired,
   newMessageThreadUsers: PropTypes.array.isRequired,
   messageThreads: PropTypes.array.isRequired,
   activeThreadId: PropTypes.string,

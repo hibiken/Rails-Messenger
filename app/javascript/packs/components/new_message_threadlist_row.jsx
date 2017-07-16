@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import defaultAvatarImage from '../images/default-avatar.jpg';
 
 const NewMessageThreadlistRow = (props) => {
@@ -11,10 +12,15 @@ const NewMessageThreadlistRow = (props) => {
   const avatarUrl = props.users.length > 0 ?
     props.users[0].avatarUrl : defaultAvatarImage;
 
+  const rowClass = classNames({
+    'message-threadlist-row__root': true,
+    'message-threadlist-row__root--active': props.isActive,
+  });
+
   // NOTE: Reuse classNames from MessageThreadlistRow.
   return (
-    <li>
-      <div className="message-threadlist-row__root message-threadlist-row__root--active">
+    <li onClick={props.onClick}>
+      <div className={rowClass}>
         <div className="message-threadlist-row__avatar-container">
           <img
             src={avatarUrl}
@@ -37,6 +43,8 @@ const NewMessageThreadlistRow = (props) => {
 };
 
 NewMessageThreadlistRow.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired,
 };
 

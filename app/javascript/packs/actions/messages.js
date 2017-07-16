@@ -8,6 +8,7 @@ import { uniqueId } from '../utils';
 export const createMessage = (messageThreadId, message) => (dispatch, getState) => {
   const currentUser = getCurrentUser(getState());
   const tempId = `temp_${currentUser.id}_${uniqueId()}`;
+
   dispatch({
     type: types.MESSAGE_SAVE_START,
     messageThreadId,
