@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
 import ProfilePicture from '../containers/profile_picture_container';
+import UserPicture from './user_picture';
 
 const MessageThreadlistRow = (props) => {
   const { lastMessage, lastMessageSeenUserIds, currentUserId } = props;
@@ -28,10 +29,11 @@ const MessageThreadlistRow = (props) => {
       <Link to={`/t/${props.messageThreadId}`} className="message-threadlist-row__link">
         <div className={rowClass} onClick={props.onClick}>
           <div className="message-threadlist-row__avatar-container">
-            <img
-              src={props.avatarUrl}
+            <UserPicture
+              avatarUrl={props.avatarUrl}
+              type="square"
               className="message-threadlist-row__avatar-image"
-              width="50"
+              width={50}
             />
           </div>
           <div className="message-threadlist-row__main-content">
