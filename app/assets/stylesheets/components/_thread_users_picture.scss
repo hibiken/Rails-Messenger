@@ -1,0 +1,78 @@
+@import 'helpers/variables';
+
+.thread-users-picture__root {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  background-color: rgba(0, 0, 0, .05);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.thread-user-picture__image-container--primary {
+  width: 33px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+  border-right: 1px solid $white;
+}
+
+.thread-user-picture__image--primary {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-left: -8px;
+}
+
+.thread-users-picture__image-contaiiner--secondary-top {
+  width: 17px;
+  height: 25px;
+  border-bottom: 1px solid #fff;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+
+.thread-users-picture__image--secondary-top {
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin-left: -4px;
+}
+
+.thread-users-picture__image-container--secondary-bottom {
+  width: 17px;
+  height: 25px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+
+.thread-users-picture__image--secondary-bottom {
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin-left: -4px;
+}
+
+.thread-users-picture__image-container--half-left {
+  width: 25px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+
+.thread-users-picture__image-container--half-right {
+  border-left: 1px solid $white;
+  width: 25px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+
+.thread-users-picture-image--half {
+  display: block;
+  margin-left: -12px;
+  width: 50px;
+  height: 50px;
+}

@@ -42,9 +42,9 @@ class MainSidebar extends Component {
                   isActive={mt.id === activeThreadId}
                   messageThreadId={mt.id}
                   usernames={mt.receivers.map(r => r.username)}
-                  avatarUrl={mt.receivers[0].avatarUrl}
                   lastMessage={mt.lastMessage}
                   lastMessageSeenUserIds={lastMessageSeenUserIds}
+                  receivers={mt.receivers}
                 />
               );
             })}

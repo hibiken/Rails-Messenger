@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import UserPicture from './user_picture';
+import ThreadUsersPicutre from './thread_users_picture';
 import defaultAvatarImage from '../images/default-avatar.jpg';
 
 const NewMessageThreadlistRow = (props) => {
@@ -22,11 +24,18 @@ const NewMessageThreadlistRow = (props) => {
     <li onClick={props.onClick}>
       <div className={rowClass}>
         <div className="message-threadlist-row__avatar-container">
-          <img
-            src={avatarUrl}
-            className="message-threadlist-row__avatar-image"
-            width="50"
-          />
+          {props.users.length < 2 ? (
+            <UserPicture
+              avatarUrl={avatarUrl}
+              className="message-threadlist-row__avatar-image"
+              type="square"
+              width={50}
+            />
+          ) : (
+            <ThreadUsersPicutre
+              avatarUrls={props.users.map(u => u.avatarUrl)}
+            />
+          )}
         </div>
         <div className="message-threadlist-row__main-content">
           <div>

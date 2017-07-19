@@ -6,11 +6,12 @@ import _ from 'lodash';
 import moment from 'moment';
 import ProfilePicture from '../containers/profile_picture_container';
 import UserPicture from './user_picture';
+import ThreadUsersPicture from './thread_users_picture';
 
 const MessageThreadlistRow = (props) => {
-  const { lastMessage, lastMessageSeenUserIds, currentUserId } = props;
-  const isLastMessageSentByCurrentUser = lastMessage && lastMessage.userId === currentUserId;
-  const lastMessageSeenOtherUserIds = lastMessageSeenUserIds.filter(id => id !== currentUserId);
+  const { lastMessage, lastMessageSeenUserIds, currentUser } = props;
+  const isLastMessageSentByCurrentUser = lastMessage && lastMessage.userId === currentUser.id;
+  const lastMessageSeenOtherUserIds = lastMessageSeenUserIds.filter(id => id !== currentUser.id);
 
   const rowClass = classNames({
     'message-threadlist-row__root': true,
@@ -18,7 +19,7 @@ const MessageThreadlistRow = (props) => {
     "message-threadlist-row__root--unread": (
       _.isObject(lastMessage) &&
       !isLastMessageSentByCurrentUser &&
-      lastMessageSeenUserIds.indexOf(currentUserId) === -1
+      lastMessageSeenUserIds.indexOf(currentUser.id) === -1
     )
   });
 
@@ -29,12 +30,19 @@ const MessageThreadlistRow = (props) => {
       <Link to={`/t/${props.messageThreadId}`} className="message-threadlist-row__link">
         <div className={rowClass} onClick={props.onClick}>
           <div className="message-threadlist-row__avatar-container">
-            <UserPicture
-              avatarUrl={props.avatarUrl}
-              type="square"
-              className="message-threadlist-row__avatar-image"
-              width={50}
-            />
+            {props.receivers.length === 1 ? (
+              <UserPicture
+                avatarUrl={props.receivers[0].avatarUrl}
+                type="square"
+                className="message-threadlist-row__avatar-image"
+                width={50}
+              />
+            ) : (
+              <ThreadUsersPicture
+                avatarUrls={props.receivers.map(u => u.avatarUrl).concat(props.currentUser.avatarUrl)}
+              />
+            )}
+
           </div>
           <div className="message-threadlist-row__main-content">
             <div>
@@ -46,7 +54,7 @@ const MessageThreadlistRow = (props) => {
               <div>
                 {_.isObject(lastMessage) && (
                   <span className="message-threadlist-row__message">
-                    {currentUserId === lastMessage.userId && (<span>You:&nbsp;</span>)}
+                    {currentUser.id === lastMessage.userId && (<span>You:&nbsp;</span>)}
                     {_.truncate(props.lastMessage.body, { length: 40, 'separator': /,? +/})}
                   </span>
                 )}
@@ -86,14 +94,14 @@ const MessageThreadlistRow = (props) => {
 }
 
 MessageThreadlistRow.propTypes = {
-  currentUserId: PropTypes.number.isRequired,
-  avatarUrl: PropTypes.string.isRequired,
+  currentUser: PropTypes.object.isRequired,
   usernames: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   lastMessage: PropTypes.object,
   lastMessageSeenUserIds: PropTypes.array.isRequired,
   messageThreadId: PropTypes.string.isRequired,
+  receivers: PropTypes.array.isRequired,
 };
 
 export default MessageThreadlistRow;
