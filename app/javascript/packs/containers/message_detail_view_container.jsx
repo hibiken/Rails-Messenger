@@ -59,6 +59,3 @@ export default connect(mapStateToProps, {
   createMessage,
 })(MessageDetailView);
 
-
-
-

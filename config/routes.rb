@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # Delegate routing to react-router in the frontend.
   get '/t/:message_thread_id', to: 'dashboard#index'
   get '/new', to: 'dashboard#index'
-
   root to: 'dashboard#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
