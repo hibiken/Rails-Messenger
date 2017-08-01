@@ -195,12 +195,12 @@ const isFetching = (state = initialState.isFetching, action) => {
 };
 
 const isAddingNewThread = (state = initialState.isAddingNewThread, action) => {
-  if (action.type === types.MESSAGE_SAVE_START) {
-    debugger;
-  }
   switch (action.type) {
     case types.START_ADDING_NEW_MESSAGE_THREAD:
       return true;
+
+    case types.CANCEL_ADDING_NEW_MESSAGE_THREAD:
+      return false;
 
     default:
       return state;

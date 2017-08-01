@@ -45,6 +45,12 @@ const NewMessageThreadlistRow = (props) => {
               </span>
             </div>
           </div>
+          <div>
+            <span
+              className="fa fa-times"
+              onClick={props.onCancel}
+            />
+          </div>
         </div>
       </div>
     </li>
@@ -53,6 +59,7 @@ const NewMessageThreadlistRow = (props) => {
 
 NewMessageThreadlistRow.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired,
 };

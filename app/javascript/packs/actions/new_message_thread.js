@@ -1,10 +1,17 @@
 import axios from '../initializers/axios';
 import { push } from 'react-router-redux';
 import * as types from './types';
+import { getMostRecentMessageThreadId } from '../selectors';
 
 export const addNewMessageThread = () => (dispatch) => {
   dispatch(push('/new'));
   dispatch({ type: types.START_ADDING_NEW_MESSAGE_THREAD });
+};
+
+export const cancelNewMessageThread = () => (dispatch, getState) =>  {
+  const mostRecentMessageThreadId = getMostRecentMessageThreadId(getState());
+  dispatch({ type: types.CANCEL_ADDING_NEW_MESSAGE_THREAD });
+  dispatch(push(`/t/${mostRecentMessageThreadId}`));
 };
 
 export const addUserToNewMessageThread = (user) => ({

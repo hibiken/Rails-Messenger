@@ -15,6 +15,8 @@ const users = (state = initialState.users, action) => {
       return state.slice(0, state.length - 1);
     case types.MESSAGE_SAVE_START:
       return [];
+    case types.CANCEL_ADDING_NEW_MESSAGE_THREAD:
+      return [];
     default:
       return state;
   }
@@ -35,6 +37,8 @@ const messageThread = (state = initialState.messageThread, action) => {
       };
 
     case types.MESSAGE_SAVE_START:
+      return null;
+    case types.CANCEL_ADDING_NEW_MESSAGE_THREAD:
       return null;
     default:
       return state;
