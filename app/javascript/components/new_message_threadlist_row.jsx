@@ -47,7 +47,7 @@ const NewMessageThreadlistRow = (props) => {
           </div>
           <div>
             <span
-              className="fa fa-times"
+              className="message-threadlist-row__close fa fa-times"
               onClick={props.onCancel}
             />
           </div>
