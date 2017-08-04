@@ -9,9 +9,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory'
-import configureStore from './store/configure-store';
-import Root from './containers/root';
-import configureChannels from './channels/configure_channels';
+import configureStore from '../store/configure-store';
+import Root from '../containers/root';
+import configureChannels from '../channels/configure_channels';
 
 const history = createHistory();
 const store = configureStore(window.__INITIAL_STATE__, history);
@@ -25,4 +25,3 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('app'),
   );
 });
-
